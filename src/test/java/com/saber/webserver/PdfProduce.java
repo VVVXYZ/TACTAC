@@ -4,7 +4,7 @@ package com.saber.webserver;
 //import java.io.FileOutputStream;
 //import java.util.Calendar;
 //import java.util.Date;
-//import com.trio.vmalogo.model.*;
+//import com.trio.breakFast.model.*;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
 //import java.io.IOException;
@@ -31,7 +31,7 @@ package com.saber.webserver;
 //import com.itextpdf.text.Paragraph;
 //import com.itextpdf.text.pdf.BaseFont;
 //import com.itextpdf.text.pdf.PdfWriter;
-//import com.trio.vmalogo.service.impl.KjyLeaseContractServiceImpl;
+//import com.trio.breakFast.service.impl.KjyLeaseContractServiceImpl;
 
 /**
  * Created by lzw on 2015/8/19.
@@ -45,21 +45,21 @@ public class PdfProduce {
 //        pdf.produce_1();*/
 //        PdfProduce pdf=new PdfProduce();
 //
-//        KjyLeaseContract vmalogo=new KjyLeaseContract();
-//        vmalogo.setBillingArea(111f);
-//        vmalogo.setLeaseContractNo(vmalogo.getLeaseContractNo());
-//        vmalogo.setManageFee(110f);
-//        vmalogo.setBillingPrice(239f);
-//        vmalogo.setLeaseContractNo(vmalogo.getLeaseContractNo());
-//        vmalogo.setPartyAAgent("甲方代理");
-//        vmalogo.setPartyACompany("甲方公司");
-//        vmalogo.setPartyARepresent("甲方代表");
-//        vmalogo.setPartyBAgent("乙方代理");
-//        vmalogo.setPartyBCompany("乙方公司");
-//        vmalogo.setPartyBRepresent("乙方代表");
-//        vmalogo.setSigningDate(new Date());
-//        vmalogo.setStartDate(new Date());
-//        vmalogo.setExpirationDate(new Date());
+//        KjyLeaseContract breakFast=new KjyLeaseContract();
+//        breakFast.setBillingArea(111f);
+//        breakFast.setLeaseContractNo(breakFast.getLeaseContractNo());
+//        breakFast.setManageFee(110f);
+//        breakFast.setBillingPrice(239f);
+//        breakFast.setLeaseContractNo(breakFast.getLeaseContractNo());
+//        breakFast.setPartyAAgent("甲方代理");
+//        breakFast.setPartyACompany("甲方公司");
+//        breakFast.setPartyARepresent("甲方代表");
+//        breakFast.setPartyBAgent("乙方代理");
+//        breakFast.setPartyBCompany("乙方公司");
+//        breakFast.setPartyBRepresent("乙方代表");
+//        breakFast.setSigningDate(new Date());
+//        breakFast.setStartDate(new Date());
+//        breakFast.setExpirationDate(new Date());
 //
 //        KjyHatchingAgreement kjy2=new KjyHatchingAgreement();
 //        kjy2.setPartyACompany("甲方公司");
@@ -70,18 +70,18 @@ public class PdfProduce {
 //        kjy2.setPartyARepresent("甲方代表");
 //
 //
-//        pdf.produce2(vmalogo);
+//        pdf.produce2(breakFast);
 //        pdf.produce_1(kjy2);
 //    }
 //    /**
 //     * 用来创建孵化器企业孵化协议书.pdf 其中孵化主要项目为，盖章，和签约时间没有
 //     * */
-//    public void produce_1(KjyHatchingAgreement vmalogo)throws DocumentException, IOException
+//    public void produce_1(KjyHatchingAgreement breakFast)throws DocumentException, IOException
 //    {    //Date-->Calendar
 //        Calendar StartHatchTime = Calendar.getInstance();
-//        StartHatchTime.setTime(vmalogo.getStartHatchTime());
+//        StartHatchTime.setTime(breakFast.getStartHatchTime());
 //        Calendar EndHatchTime = Calendar.getInstance();
-//        StartHatchTime.setTime(vmalogo.getEndHatchTime());
+//        StartHatchTime.setTime(breakFast.getEndHatchTime());
 //
 //        //开始创建pdf
 //        Document document=new Document();
@@ -102,11 +102,11 @@ public class PdfProduce {
 //        document.add(p1);
 //        //--->说明：一个paragraph 可以包含chunk,phrase;-->用add()来添加，用来段落排版
 //        Paragraph  p2=new Paragraph("甲方：",font1);
-//        Chunk ph1=new Chunk(vmalogo.getPartyACompany(),font1);
+//        Chunk ph1=new Chunk(breakFast.getPartyACompany(),font1);
 //        p2.add(ph1);
 //        document.add(p2);
 //        Paragraph p3=new Paragraph("乙方：",font1);
-//        Phrase ph2=new Phrase(vmalogo.getPartyBCompany(),font1);
+//        Phrase ph2=new Phrase(breakFast.getPartyBCompany(),font1);
 //        p3.add(ph2);
 //        document.add(p3);
 //        Paragraph p4=new Paragraph("为了促进高科技产业发展，扶持物联网相关科技型中小企业迅速成长，加快科技成果转化，更好地为科技创业企业提供孵化服务，甲方全面负责科技企业孵化器的建设工作，全权负责孵化企业的管理。乙方自筹资金，开办科技企业，实行独立核算，自主经营，自负盈亏，为使所拥有的科技成果尽快转化，自愿接受甲方孵化管理，并进入甲方孵化器内创业。双方经充分协商，达成如下协议，共同遵守。",font1);
@@ -266,13 +266,13 @@ public class PdfProduce {
 //        p44.setFirstLineIndent(30f);
 //        document.add(p44);
 //        Paragraph p45=new Paragraph("甲方:",font1);
-//        Phrase ph8=new Phrase(vmalogo.getPartyACompany(),font1);
+//        Phrase ph8=new Phrase(breakFast.getPartyACompany(),font1);
 //        p45.add(ph8);
 //        Phrase ph8x=new Phrase("                         ");
 //        p45.add(ph8x);
 //        Phrase ph9=new Phrase("乙方:",font1);
 //        p45.add(ph9);
-//        Phrase ph10=new Phrase(vmalogo.getPartyBCompany(),font1);
+//        Phrase ph10=new Phrase(breakFast.getPartyBCompany(),font1);
 //        p45.add(ph10);
 //        p45.setFirstLineIndent(30f);
 //        document.add(p45);
@@ -288,13 +288,13 @@ public class PdfProduce {
 //        p47.setFirstLineIndent(30f);
 //        Phrase ph4=new Phrase("代表:");
 //        p47.add(ph4);
-//        Phrase ph5=new Phrase(vmalogo.getPartyARepresent());
+//        Phrase ph5=new Phrase(breakFast.getPartyARepresent());
 //        p47.add(ph5);
 //        Phrase ph5x=new Phrase("                          ");
 //        p47.add(ph5x);
 //        Phrase ph6=new Phrase("代表:");
 //        p47.add(ph6);
-//        Phrase ph7=new Phrase(vmalogo.getPartyBRepresent());
+//        Phrase ph7=new Phrase(breakFast.getPartyBRepresent());
 //        p47.add(ph7);
 //        document.add(p47);
 //        Paragraph p48=new Paragraph("年"+"月"+"日                                                "+"年"+"月"+"日",font1);
@@ -312,14 +312,14 @@ public class PdfProduce {
 //     * 签约日期我是用SigningDate来当做
 //     */
 //
-//    public void  produce2(KjyLeaseContract vmalogo)throws DocumentException, IOException{
+//    public void  produce2(KjyLeaseContract breakFast)throws DocumentException, IOException{
 //        //Date ==>Calendar
 //        Calendar StartDate = Calendar.getInstance();
-//        StartDate.setTime(vmalogo.getSigningDate());
+//        StartDate.setTime(breakFast.getSigningDate());
 //        Calendar ExpirationDate = Calendar.getInstance();
-//        ExpirationDate.setTime(vmalogo.getExpirationDate());
+//        ExpirationDate.setTime(breakFast.getExpirationDate());
 //        Calendar SigningDate = Calendar.getInstance();
-//        SigningDate.setTime(vmalogo.getSigningDate());
+//        SigningDate.setTime(breakFast.getSigningDate());
 //        //开始创建pdf
 //        Document document=new Document();
 //        FileOutputStream out=new FileOutputStream("孵化场地租赁合同.pdf");
@@ -347,20 +347,20 @@ public class PdfProduce {
 //        Paragraph p1=new Paragraph("孵化场地租赁合同",fontx);
 //        p1.setAlignment(Element.ALIGN_CENTER);
 //        document.add(p1);
-//        Paragraph px=new Paragraph("编号："+vmalogo.getLeaseContractNo(),font1x);
+//        Paragraph px=new Paragraph("编号："+breakFast.getLeaseContractNo(),font1x);
 //        document.add(new Paragraph("\n"));
 //        px.setAlignment(Element.ALIGN_RIGHT);
 //        document.add(px);
 //        Chunk c1 = new Chunk("出租方: ", font1x);
 //        document.add(c1);
-//        Chunk c2=new Chunk(vmalogo.getPartyACompany(),font1);
+//        Chunk c2=new Chunk(breakFast.getPartyACompany(),font1);
 //        document.add(c2);
 //        Chunk c2x=new Chunk("（以下简称甲方）",font1);
 //        document.add(c2x);
 //        document.add(Chunk.NEWLINE);
 //        Chunk c3=new Chunk("承租方：",font1x);
 //        document.add(c3);
-//        Chunk c4=new Chunk(vmalogo.getPartyBCompany(),font1);
+//        Chunk c4=new Chunk(breakFast.getPartyBCompany(),font1);
 //        document.add(c4);
 //        Chunk c5=new Chunk("（以下简称乙方）",font1);
 //        document.add(c5);
@@ -385,7 +385,7 @@ public class PdfProduce {
 //        pp1.add(ccx1);
 //         Phrase cc3=new Phrase("平方米，建筑面积为",font1);
 //        pp1.add(cc3);
-//        Chunk cc4=new Chunk(vmalogo.getBillingArea()+"",font1);//建筑面积
+//        Chunk cc4=new Chunk(breakFast.getBillingArea()+"",font1);//建筑面积
 //        cc4.setUnderline(0.2f,-2f);
 //        pp1.add(cc4);
 //        Phrase cc5=new Phrase("平方米（场地租金和管理费按建筑面积收费）。",font1);
@@ -444,7 +444,7 @@ public class PdfProduce {
 //        Paragraph p11=new Paragraph("乙方应于本合同期间向甲方缴纳合同保证金",font1);
 //        p11.setFirstLineIndent(30f);
 //        document.add(p11); //        元(第一年一个月的租金及管理费)，该保证金于本合同签订之日起3日内由乙方一次性缴纳给甲方。"
-//        Chunk cc20=new Chunk(vmalogo.getBillingPrice()+vmalogo.getManageFee()+"");//
+//        Chunk cc20=new Chunk(breakFast.getBillingPrice()+breakFast.getManageFee()+"");//
 //        Phrase cc21=new Phrase("元(第一年一个月的租金及管理费)，该保证金于本合同签订之日起3日内由乙方一次性缴纳给甲方。");
 //        Paragraph p12=new Paragraph("合同保证金在乙方依约履行完本合同，并经甲方对房屋验收合格，办完退房手续后7日内由甲方一次性退还乙方。本合同期间，乙方所缴的合同保证金不计息。",font1);
 //        p12.setFirstLineIndent(30f);
@@ -565,32 +565,32 @@ public class PdfProduce {
 //        Paragraph p48=new Paragraph("");
 //        Chunk c51 = new Chunk("甲方：", font1x);
 //        p48.add(c51);
-//        Phrase c6=new Phrase(vmalogo.getPartyACompany(),font1);
+//        Phrase c6=new Phrase(breakFast.getPartyACompany(),font1);
 //        p48.add(c6);
 //        Chunk c52 = new Chunk("                                    乙方：", font1x);
 //        p48.add(c52);
-//        Phrase c62=new Phrase(vmalogo.getPartyBCompany(),font1);
+//        Phrase c62=new Phrase(breakFast.getPartyBCompany(),font1);
 //        p48.add(c62);
 //        document.add(p48);
 //
 //        Paragraph p49=new Paragraph("");
 //        Chunk c53 = new Chunk("法定代表人：", font1x);
 //        p49.add(c53);
-//        Phrase c63=new Phrase(vmalogo.getPartyARepresent(),font1);
+//        Phrase c63=new Phrase(breakFast.getPartyARepresent(),font1);
 //        p49.add(c63);
 //        Chunk c54 = new Chunk("                              法定代表人：", font1x);
 //        p49.add(c54);
-//        Phrase c64=new Phrase(vmalogo.getPartyBRepresent(),font1);
+//        Phrase c64=new Phrase(breakFast.getPartyBRepresent(),font1);
 //        p49.add(c64);
 //        document.add(p49);
 //       Paragraph p50=new Paragraph("");
 //        Chunk c55 = new Chunk("经 办 人：", font1x);
 //        p50.add(c55);
-//        Phrase c65=new Phrase(vmalogo.getPartyAAgent(),font1);
+//        Phrase c65=new Phrase(breakFast.getPartyAAgent(),font1);
 //        p50.add(c65);
 //        Chunk c57 = new Chunk("                                经 办 人：", font1x);
 //        p50.add(c57);
-//        Phrase c67=new Phrase(vmalogo.getPartyBAgent(),font1);
+//        Phrase c67=new Phrase(breakFast.getPartyBAgent(),font1);
 //        p50.add(c67);
 //        document.add(p50);
 //        Paragraph p51=new Paragraph(SigningDate.get(Calendar.YEAR)+"年"+(SigningDate.get(Calendar.MONTH)+1)+"月"+SigningDate.get(Calendar.DAY_OF_MONTH)+"日                                                "+SigningDate.get(Calendar.YEAR)+"年"+(SigningDate.get(Calendar.MONTH)+1)+"月"+SigningDate.get(Calendar.DAY_OF_MONTH)+"日",font1x);

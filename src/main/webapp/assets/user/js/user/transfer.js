@@ -23,7 +23,7 @@
             "bProcessing": true,
             "bServerSide": true,
             //"sAjaxSource": url,//获取服务端数据配置URL
-            "sAjaxSource": "/vmalogo/assets/js/user/transferable_project.json",
+            "sAjaxSource": "/breakFast/assets/js/user/transferable_project.json",
             "sDom": "t<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "sPaginationType": "full_numbers",
             //"aaSorting": [[ 1, "asc" ]],
@@ -79,7 +79,7 @@
             "bProcessing": true,
             "bServerSide": true,
             //"sAjaxSource": url,//获取服务端数据配置URL
-            "sAjaxSource": "/vmalogo/assets/js/user/transferring_project.json",
+            "sAjaxSource": "/breakFast/assets/js/user/transferring_project.json",
             "sDom": "t<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "sPaginationType": "full_numbers",
             //"aaSorting": [[ 1, "asc" ]],
@@ -135,7 +135,7 @@
             "bProcessing": true,
             "bServerSide": true,
             //"sAjaxSource": url,//获取服务端数据配置URL
-            "sAjaxSource": "/vmalogo/assets/js/user/transferring_project.json",
+            "sAjaxSource": "/breakFast/assets/js/user/transferring_project.json",
             "sDom": "t<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "sPaginationType": "full_numbers",
             //"aaSorting": [[ 1, "asc" ]],

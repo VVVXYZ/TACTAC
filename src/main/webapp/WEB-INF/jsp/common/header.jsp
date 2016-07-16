@@ -1,4 +1,4 @@
-<%@ page import="com.trio.vmalogo.enums.Role" %>
+<%@ page import="com.trio.breakFast.enums.Role" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page language="java" %>
 <%@ page language="java" %>

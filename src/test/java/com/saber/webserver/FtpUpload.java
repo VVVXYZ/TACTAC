@@ -1,7 +1,7 @@
 package com.saber.webserver;
 
-import com.trio.vmalogo.model.BusinessOrder;
-import com.trio.vmalogo.sys.entity.Account;
+import com.trio.breakFast.model.BusinessOrder;
+import com.trio.breakFast.sys.entity.Account;
 import org.junit.Test;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

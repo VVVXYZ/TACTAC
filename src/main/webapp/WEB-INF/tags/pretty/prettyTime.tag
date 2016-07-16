@@ -1,4 +1,4 @@
-<%@ tag import="com.trio.vmalogo.util.PrettyTimeUtil" %>
+<%@ tag import="com.trio.breakFast.util.PrettyTimeUtil" %>
 <%@ tag pageEncoding="UTF-8"%>
 <%@ attribute name="date" type="java.util.Date" required="true" description="时间" %>
 <%--

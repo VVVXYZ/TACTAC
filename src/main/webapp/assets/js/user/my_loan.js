@@ -23,7 +23,7 @@
             "bProcessing": true,
             "bServerSide": true,
             //"sAjaxSource": url,//获取服务端数据配置URL
-            "sAjaxSource": "/vmalogo/assets/js/user/all_loan.json",
+            "sAjaxSource": "/breakFast/assets/js/user/all_loan.json",
             "sDom": "t<'row'<'col-sm-5'i><'col-sm-7'p>>",
             "sPaginationType": "full_numbers",
             //"aaSorting": [[ 1, "asc" ]],
@@ -65,7 +65,7 @@
                 {
                     "mData": function (row, type, val) {
 
-                        return '<a href="/vmalogo/user/contract.html" title="查看合同" class="text-link m-l-sm" target=“_blank” >[查看合同]</a>';
+                        return '<a href="/breakFast/user/contract.html" title="查看合同" class="text-link m-l-sm" target=“_blank” >[查看合同]</a>';
                     },
                     "bSortable": false
                 },

@@ -20,12 +20,12 @@
         <property name="cacheManager" ref="ehcacheManager"/>
     </bean>
     <!-- 缓存管理器 -->
-    <bean id="cacheManager" class="com.trio.vmalogo.sys.utils.SpringCacheManagerWrapper">
+    <bean id="cacheManager" class="com.trio.breakFast.sys.utils.SpringCacheManagerWrapper">
         <property name="cacheManager" ref="springCacheManager"/>
     </bean>
 
     <!-- 凭证匹配器 -->
-    <bean id="credentialsMatcher" class="com.trio.vmalogo.sys.credentials.RetryLimitHashedCredentialsMatcher">
+    <bean id="credentialsMatcher" class="com.trio.breakFast.sys.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
@@ -33,7 +33,7 @@
     </bean>
 
     <!-- Realm实现 -->
-    <bean id="accountRealm" class="com.trio.vmalogo.sys.realm.AccountRealm">
+    <bean id="accountRealm" class="com.trio.breakFast.sys.realm.AccountRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="false"/>
@@ -106,7 +106,7 @@
     </bean>
 
      <!--基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="com.trio.vmalogo.sys.filter.FormAuthenticationFilter">
+    <bean id="formAuthenticationFilter" class="com.trio.breakFast.sys.filter.FormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
@@ -114,7 +114,7 @@
     </bean>
 
     <!-- 当前用户设置过滤器 -->
-    <bean id="currentUserFilter" class="com.trio.vmalogo.sys.filter.CurrentUserFilter"/>
+    <bean id="currentUserFilter" class="com.trio.breakFast.sys.filter.CurrentUserFilter"/>
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

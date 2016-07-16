@@ -37,7 +37,7 @@
           "bProcessing": true,
           "bServerSide": true,
           //"sAjaxSource": url,//获取服务端数据配置URL
-          "sAjaxSource": "/vmalogo/assets/js/invest/refund_details.json",
+          "sAjaxSource": "/breakFast/assets/js/invest/refund_details.json",
           "sDom": "t<'row'<'col-sm-4'i><'col-sm-4'l><'col-sm-4'p>>",
           "sPaginationType": "full_numbers",
           //"aaSorting": [[ 1, "asc" ]],
@@ -94,7 +94,7 @@
           "bProcessing": true,
           "bServerSide": true,
           //"sAjaxSource": url,//获取服务端数据配置URL
-          "sAjaxSource": "/vmalogo/assets/js/invest/invest_record.json",
+          "sAjaxSource": "/breakFast/assets/js/invest/invest_record.json",
           "sDom": "t<'row'<'col-sm-4'i><'col-sm-4'l><'col-sm-4'p>>",
           "sPaginationType": "full_numbers",
           //"aaSorting": [[ 1, "asc" ]],
@@ -135,7 +135,7 @@
                   "bProcessing": true,
                   "bServerSide": true,
                   //"sAjaxSource": url,//获取服务端数据配置URL
-                  "sAjaxSource": "/vmalogo/assets/js/invest/refund_details.json",
+                  "sAjaxSource": "/breakFast/assets/js/invest/refund_details.json",
                   "sDom": "t",
                   "sPaginationType": "full_numbers",
                   //"aaSorting": [[ 1, "asc" ]],

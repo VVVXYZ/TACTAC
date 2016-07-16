@@ -19,7 +19,7 @@
      <context:property-placeholder location="classpath:config.properties" />
 
     <!-- 扫描注解Bean -->
-    <context:component-scan base-package="com.trio.vmalogo">
+    <context:component-scan base-package="com.trio.breakFast">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -93,9 +93,10 @@
         <!-- 自动扫描注解方式配置的hibernate类文件 -->
         <property name="packagesToScan">
             <list>
-                <value>com.trio.vmalogo.model</value>
-                <value>com.trio.vmalogo.sys.entity</value>
-                <value>com.trio.vmalogo.pageModel</value><!--by limer2 on 2016/06/01 -->
+                <value>com.trio.breakFast.model</value>
+                <value>com.trio.breakFast.sys.entity</value>
+                <value>com.trio.breakFast.pageModel</value>
+                <!--by limer2 on 2016/06/01 -->
             </list>
         </property>
         <!-- 自动扫描hbm方式配置的hibernate文件和.hbm文件 -->
@@ -110,8 +111,8 @@
 
     <aop:config expose-proxy="true" proxy-target-class="true">
         <!-- 只对业务逻辑层实施事务 -->
-        <aop:pointcut id="txPointcut" expression="execution(* com.trio.vmalogo.service..*Impl.*(..))"/>
-        <aop:pointcut id="txPointcut2" expression="execution(* com.trio.vmalogo.sys.service..*Impl.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* com.trio.breakFast.service..*Impl.*(..))"/>
+        <aop:pointcut id="txPointcut2" expression="execution(* com.trio.breakFast.sys.service..*Impl.*(..))"/>
 
         <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
         <aop:advisor id="txAdvisor2" advice-ref="txAdvice" pointcut-ref="txPointcut2"/>
@@ -126,7 +127,7 @@
     </tx:advice>
 
     <!-- spring工具类 方便在非spring管理环境中获取bean -->
-    <bean id="springUtils" class="com.trio.vmalogo.util.SpringUtil"/>
+    <bean id="springUtils" class="com.trio.breakFast.util.SpringUtil"/>
 
     <!--&lt;!&ndash; 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） &ndash;&gt;-->
     <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->

@@ -30,7 +30,7 @@
 			(action.equals("listfile") || action.equals("listimage") ) ){
 		rootPath = rootPath.replace("\\", "/");
 		result = result.replaceAll(rootPath, "/");//把返回路径中的物理路径替换为 '/'
-//		result = "http://vmalogo.xiaozhilin.com/kjy_upload/richText/";
+//		result = "http://breakFast.xiaozhilin.com/kjy_upload/richText/";
 	}
 	out.write( result );
 %>

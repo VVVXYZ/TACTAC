@@ -1,7 +1,7 @@
-﻿<%@ page import="com.trio.vmalogo.enums.LogoComponent" %>
-<%@ page import="com.trio.vmalogo.enums.LogoStyle" %>
-<%@ page import="com.trio.vmalogo.enums.LogoColor" %>
-<%@ page import="com.trio.vmalogo.enums.LogoStartpoint" %>
+﻿<%@ page import="com.trio.breakFast.enums.LogoComponent" %>
+<%@ page import="com.trio.breakFast.enums.LogoStyle" %>
+<%@ page import="com.trio.breakFast.enums.LogoColor" %>
+<%@ page import="com.trio.breakFast.enums.LogoStartpoint" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
