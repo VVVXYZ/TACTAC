@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+
+
+
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 引入项目配置文件 -->
+     <context:property-placeholder location="classpath:config.properties" />
+
+    <!-- 扫描注解Bean -->
+    <context:component-scan base-package="com.trio.vmalogo">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--开启这个配置，spring才能识别@Scheduled注解   -->
+    <task:annotation-driven />
+    <!-- 开启AOP监听 只对当前配置文件有效 -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+
+    <!-- 配置数据源 -->
+    <!--see https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${connection.url}"/>
+        <property name="username" value="${connection.username}"/>
+        <property name="password" value="${connection.password}"/>
+        <property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${publickey}" />
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${druid.minIdle}"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${druid.maxActive}"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${druid.maxWait}"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}"/>
+
+        <property name="validationQuery" value="${druid.validationQuery}"/>
+        <property name="testOnBorrow" value="${druid.testOnBorrow}"/>
+        <property name="testOnReturn" value="${druid.testOnReturn}"/>
+        <property name="testWhileIdle" value="${druid.testWhileIdle}"/>
+
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+
+        <!-- 监控数据库 -->
+        <!-- <property name="filters" value="mergeStat" /> -->
+        <property name="filters" value="${druid.filters}"/>
+    </bean>
+
+    <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置hibernate session工厂 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceProxy"/>
+        <property name="hibernateProperties">
+            <props>
+                <!--<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>-->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.connection.url">${connection.url}</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <!--<prop key="hibernate.connection.username">${connection.username}</prop>-->
+                <!--<prop key="hibernate.connection.password">${connection.password}</prop>-->
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+            </props>
+        </property>
+        <!-- 自动扫描注解方式配置的hibernate类文件 -->
+        <property name="packagesToScan">
+            <list>
+                <value>com.trio.vmalogo.model</value>
+                <value>com.trio.vmalogo.sys.entity</value>
+                <value>com.trio.vmalogo.pageModel</value><!--by limer2 on 2016/06/01 -->
+            </list>
+        </property>
+        <!-- 自动扫描hbm方式配置的hibernate文件和.hbm文件 -->
+        <!-- <property name="mappingDirectoryLocations"> <list> <value>classpath:com/hbm</value> </list> </property> -->
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <!-- 只对业务逻辑层实施事务 -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.trio.vmalogo.service..*Impl.*(..))"/>
+        <aop:pointcut id="txPointcut2" expression="execution(* com.trio.vmalogo.sys.service..*Impl.*(..))"/>
+
+        <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+        <aop:advisor id="txAdvisor2" advice-ref="txAdvice" pointcut-ref="txPointcut2"/>
+    </aop:config>
+
+    <!-- 注解方式配置事物 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- spring工具类 方便在非spring管理环境中获取bean -->
+    <bean id="springUtils" class="com.trio.vmalogo.util.SpringUtil"/>
+
+    <!--&lt;!&ndash; 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） &ndash;&gt;-->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+        <!--<property name="basenames" value="classpath:messages" />-->
+        <!--<property name="useCodeAsDefaultMessage" value="false"/>-->
+        <!--<property name="defaultEncoding" value="UTF-8"/>-->
+        <!--<property name="cacheSeconds" value="-1"/>-->
+    <!--</bean>-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+
+    <import resource="classpath:spring-cache.xml"/>
+    <import resource="classpath:spring-shiro.xml"/>
+
+</beans>

@@ -1,0 +1,51 @@
+{
+  "recordsTotal": 12,
+  "recordsFiltered": 12,
+  "aaData": [
+    {
+      "project_name": "福建xx医院应收账款转让",
+      "refund_way": "付息还本",
+      "invest_amount": "500",
+      "principal_amount": "500",
+      "earnings_amount": "2.55",
+      "begin_time": "2016-1-23",
+      "end_time": "2016-1-23"
+    },
+    {
+      "project_name": "福建xx医院应收账款转让",
+      "refund_way": "付息还本",
+      "invest_amount": "500",
+      "principal_amount": "500",
+      "earnings_amount": "2.55",
+      "begin_time": "2016-1-23",
+      "end_time": "2016-1-23"
+    },
+    {
+      "project_name": "福建xx医院应收账款转让",
+      "refund_way": "付息还本",
+      "invest_amount": "500",
+      "principal_amount": "500",
+      "earnings_amount": "2.55",
+      "begin_time": "2016-1-23",
+      "end_time": "2016-1-23"
+    },
+    {
+      "project_name": "福建xx医院应收账款转让",
+      "refund_way": "付息还本",
+      "invest_amount": "500",
+      "principal_amount": "500",
+      "earnings_amount": "2.55",
+      "begin_time": "2016-1-23",
+      "end_time": "2016-1-23"
+    },
+    {
+      "project_name": "福建xx医院应收账款转让",
+      "refund_way": "付息还本",
+      "invest_amount": "500",
+      "principal_amount": "500",
+      "earnings_amount": "2.55",
+      "begin_time": "2016-1-23",
+      "end_time": "2016-1-23"
+    }
+  ]
+}

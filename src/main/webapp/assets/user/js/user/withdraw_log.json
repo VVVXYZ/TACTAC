@@ -1,0 +1,102 @@
+{
+  "recordsTotal":12,
+  "recordsFiltered":12,
+  "aaData": [
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    },
+    {
+      "amount":"￥11111",
+      "factorage":"￥1",
+      "bank":"中国银行",
+      "bank_info":"网点：121 卡号：*** 11 1 账户：林***群",
+      "result":"提现成功",
+      "fail_reason":"账号异常"
+    }
+  ]
+}

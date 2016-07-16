@@ -1,0 +1,43 @@
+#resourceTable th, #resourceTable td {
+    font-size: 14px;
+    padding: 8px;
+}
+
+body {
+    margin: 0px;
+}
+
+#BgDiv {
+    background-color: #4d4d4d;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 1000px;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+}
+
+#appendResourceDiv {
+    position: absolute;
+    left: 8%;
+    z-index: 10000;
+    background-color: #fff;
+}
+
+#modifyResourceDiv {
+    position: absolute;
+    left: 8%;
+    z-index: 10000;
+    background-color: #fff;
+}
+
+#deleteResourceDiv {
+    position: absolute;
+    left: 8%;
+    z-index: 10000;
+    background-color: #fff;
+}

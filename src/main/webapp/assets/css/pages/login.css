@@ -1,0 +1,37 @@
+/***
+Login page
+***/
+.form-control {
+    border-left: 2px solid #35aa47 !important;
+}
+
+.display-none,
+.display-hide {
+    display: none;
+}
+.close {
+    display: inline-block;
+    margin-top: 0px;
+    margin-right: 0px;
+    width: 9px;
+    height: 9px;
+    text-indent: -10000px;
+    outline: none;
+    background: url("../../img/remove-icon-small.png") no-repeat !important;
+}
+.help-block {
+    color: #b94a48;
+}
+.has-error {
+    border-color: #b94a48;
+}
+.login-box .toolbar {
+    background: #f7f7f7;
+    border-top: 1px solid #f0f0f0 !important;
+}
+.forget-password {
+    margin-left: 25px;
+}
+.login-box .toolbar > div {
+    width: 100%;
+}
