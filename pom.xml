@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.trio.vmalogo</groupId>
-    <artifactId>vmalogo</artifactId>
+    <groupId>com.trio.breakFast</groupId>
+    <artifactId>breakFast</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>vmalogo project</name>
-    <url>https://git.oschina.net/xiaozhitaba/vmalogo.git</url>
+    <name>breakFast project</name>
+    <url>https://git.oschina.net/xiaozhitaba/breakFast.git</url>
 
     <properties>
         <mysql.version>5.1.25</mysql.version>
@@ -393,7 +393,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>vmalogo</finalName>
+        <finalName>breakFast</finalName>
         <plugins>
             <!-- 编译的时候使用JDK6和UTF8编码 -->
             <plugin>

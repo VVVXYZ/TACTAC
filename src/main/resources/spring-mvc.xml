@@ -59,7 +59,7 @@
         <!--<property name="messageConverters">-->
             <!--<list>-->
                 <!--&lt;!&ndash; <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> &ndash;&gt;-->
-                <!--<bean id="fastJsonHttpMessageConverter" class="com.trio.vmalogostJsonHttpMessageConverter">-->
+    <!--<bean id="fastJsonHttpMessageConverter" class="com.trio.breakFaststJsonHttpMessageConverter">-->
                     <!--<property name="supportedMediaTypes">-->
                         <!--<list>-->
                             <!--<value>text/html;charset=UTF-8</value>-->

@@ -5,7 +5,7 @@
         <div class="footer-content">
             <strong class="bigger-120">
                 <span class="blue bolder">logo后台管理系统</span>
-                <a href="#">vmalogo.com</a>
+                <a href="#">breakFast.com</a>
                 <%--<small>系统版本:v1.0 </small>&copy; 2013-2014--%>
             </strong>
         </div>

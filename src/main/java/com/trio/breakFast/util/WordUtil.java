@@ -187,7 +187,7 @@ public class WordUtil {
 //        dataMap.put("image", getImageStr());
 ////        String templePath = "";
 //////        templePath=System.getProperty("user.dir");
-//////        templePath = templePath+"\\src\\main\\resources"+"\\VMALOGO_QUA.ftl";
+//////        templePath = templePath+"\\src\\main\\resources"+"\\breakFast_QUA.ftl";
 ////        templePath = "D:\\logs\\";
 ////        System.out.println("templePath="+this.getClass().getResource("/").getPath());
 ////        if (System.getProperties().getProperty("os.name").startsWith("Windows"))

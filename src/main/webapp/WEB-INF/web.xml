@@ -4,7 +4,7 @@
          id="WebApp_ID" version="2.5">
 
     <!-- 项目名称 -->
-    <display-name>vmalogo</display-name>
+    <display-name>breakFast</display-name>
 
     <!-- 指定spring相关文件的位置 -->
     <context-param>
