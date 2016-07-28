@@ -62,6 +62,8 @@ public class OrderController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public PageHelper<OrderVO> list(@CurrentUser Account account, String filters, Integer page, Integer rows, String sort,@RequestParam(defaultValue = HqlUtil.DESC) String order) {
         FilterGroup filterGroup = FilterGroup.newFilterGroup(filters);
+//        FilterGroup filterGroup1=new FilterGroup();
+//        filterGroup1.addRules(new FilterRule("asd",HqlUtil.EQUAL,1));
         Subject subject = SecurityUtils.getSubject();
         if (subject.hasRole(Role.saleman.name())) {
             filterGroup.addRules(new FilterRule("saleman.accountId", HqlUtil.EQUAL, account.getAccountId()));
