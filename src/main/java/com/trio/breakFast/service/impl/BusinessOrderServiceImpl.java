@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class BusinessOrderServiceImpl implements BusinessOrderService {
@@ -58,6 +60,7 @@ public class BusinessOrderServiceImpl implements BusinessOrderService {
         if(status==OrderStatus.cancel){
             if(Strings.isNullOrEmpty(businessOrder.getQuestionnaire().getQq()) == false){
                 blackService.put(businessOrder.getQuestionnaire().getQq());
+
             }
             if(Strings.isNullOrEmpty(businessOrder.getQuestionnaire().getCellphone()) == false){
                 blackService.put(businessOrder.getQuestionnaire().getCellphone());
@@ -98,6 +101,7 @@ public class BusinessOrderServiceImpl implements BusinessOrderService {
         businessOrder.setAttachmentUrl(url);
         businessOrder.setOperateTime(Calendar.getInstance().getTime());
         ServiceHelper.update(businessOrderDao, BusinessOrder.class, businessOrder);
+
     }
 
     @Override

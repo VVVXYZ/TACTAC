@@ -7,4 +7,5 @@ package com.trio.breakFast.dao;
 import com.trio.breakFast.model.Commodity;
 
 public interface CommodityDao extends BaseDao<Commodity> {
+
 }
