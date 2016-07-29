@@ -44,21 +44,21 @@ public class UserServiceImpl implements UserService {
         user.setSecuritypsw(securitypsw);
         user.setSecurityquestionid(securityquestionid);
 
-        Integer flag=ServiceHelper.create(userDao, User.class, user);
-//        ServiceHelper.create(userDao, User.class, user);
+//        Integer flag=ServiceHelper.create(userDao, User.class, user);
+       ServiceHelper.create(userDao, User.class, user);
 
 
-
-       if(flag == null)
-           throw new ServiceException("注册失败");
-        else
-           throw new ServiceException("注册成功" );
+//
+//       if(flag == null)
+//           throw new ServiceException("注册失败");
+//        else
+//           throw new ServiceException("注册成功" );
 
     }
 
     //密码与确认密码匹配
     public void passwordCheck(String password,String confirmpsw) {
-        if (password.equals(confirmpsw)) {
+        if (!password.equals(confirmpsw)) {
             throw new ServiceException( "两次输入密码不同" );
         }
     }
@@ -73,20 +73,18 @@ public class UserServiceImpl implements UserService {
         String hql = "from User u where u.username=:name";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        System.out.print("judgelogin1");
 
         User user = userDao.get(hql, params);
-        System.out.print(user.getUsername());
-        System.out.print("judgelogin2");
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+
 
         if (user.getPassword().equals(psw)) {
-            System.out.print("judgelogin3");
 
-            return user;
         } else {
             throw new ServiceException("登录失败" );
-
         }
+        return user;
     }
 
     //验证密保

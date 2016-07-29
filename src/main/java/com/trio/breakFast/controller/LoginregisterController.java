@@ -42,26 +42,26 @@ public class LoginregisterController extends BaseController {
     }
 
     //登录接口
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public DataHelper userLogin(String name, String psw) {
-        DataHelper<User> dataHelper=new DataHelper<User>();
-        System.out.print("denglu1");
+        DataHelper dataHelper=new DataHelper();
         try{
-            userService.judgeLogin(name, psw);
+            User user=userService.judgeLogin(name, psw);
+            dataHelper.setData(user);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("登录成功");
-            System.out.print("denglu2");
 
         }catch (ServiceException e){
             dataHelper.setSuccess(false);
             dataHelper.setMessage(e.getMessage());
-            System.out.print("denglu3");
 
         }
         return dataHelper;
     }
 
     //忘记密码密保验证接口
+    @ResponseBody
     @RequestMapping(value = "/security", method = RequestMethod.POST)
     public MessageHelper userCheckSecurtiy(String username,Security securityquestionid,String securitypsw){
         MessageHelper messageHelper = new MessageHelper();
@@ -77,6 +77,7 @@ public class LoginregisterController extends BaseController {
     }
 
     //忘记密码修改密码接口
+    @ResponseBody
     @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
     public MessageHelper changePsw (String username,String password,String confirmPsw){
         MessageHelper messageHelper = new MessageHelper();
