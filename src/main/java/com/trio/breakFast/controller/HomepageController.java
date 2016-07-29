@@ -9,4 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/homepage")
 public class HomepageController extends BaseController {
+
 }
