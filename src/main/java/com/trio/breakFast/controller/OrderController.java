@@ -7,6 +7,7 @@ import com.trio.breakFast.model.BusinessOrder;
 import com.trio.breakFast.model.Questionnaire;
 import com.trio.breakFast.pageModel.*;
 import com.trio.breakFast.service.BusinessOrderService;
+import com.trio.breakFast.service.OrderService;
 import com.trio.breakFast.service.QuestionnaireService;
 import com.trio.breakFast.sys.bind.annotation.CurrentUser;
 import com.trio.breakFast.sys.entity.Account;
@@ -42,6 +43,8 @@ public class OrderController extends BaseController {
     private AccountService accountService;
     @Autowired
     private QuestionnaireService questionnaireService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping
     public String index(Model model) {
@@ -231,4 +234,12 @@ public class OrderController extends BaseController {
 
         return messageHelper;
     }
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public MessageHelper login(String id,String psw){
+        MessageHelper messageHelper= new MessageHelper();
+
+        return messageHelper;
+    }
+
 }
