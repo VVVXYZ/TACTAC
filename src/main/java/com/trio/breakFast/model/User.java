@@ -21,9 +21,9 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
-    private String user_id;//用户编号
+    private Integer user_id;//用户编号
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "securityquestionid")
     private Security securityquestionid;//密保问题编号
 
@@ -32,5 +32,8 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;//密码
+
+    @Column(name = "securitypsw")
+    private String securitypsw;//密保问题答案
 
 }
