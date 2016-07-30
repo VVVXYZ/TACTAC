@@ -6,6 +6,7 @@ import com.trio.breakFast.model.User;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.CommodityService;
+import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,10 @@ public class HomepageController extends BaseController {
 
     @Autowired
     private CommodityService commodityService;
+
+
+    @Autowired
+    private OrderlistService orderlistService;
 
     //搜索早餐接口
     @ResponseBody
@@ -61,10 +66,12 @@ public class HomepageController extends BaseController {
     //购物车接口
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
-    public MessageHelper shopingCar(User userid,Integer amount,Date datetime,Integer orderstatus,Orderdetail orderdetail[]){
+    public MessageHelper shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
+                                    String paymentmethod,Integer orderstatus,String remark,Orderdetail orderdetail[]){
         MessageHelper messageHelper = new MessageHelper();
         try{
-            commodityService.shopingCar(userid, amount, datetime, orderstatus, orderdetail);
+            orderlistService.shopingCar( userid, amount, datetime,  deliverymethod,
+                     paymentmethod, orderstatus, remark, orderdetail);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("订单提交成功");
         }catch (ServiceException e){

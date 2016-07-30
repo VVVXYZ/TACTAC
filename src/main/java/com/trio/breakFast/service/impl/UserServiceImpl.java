@@ -21,6 +21,21 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
+
+
+    //根据用户名查询用户
+    @Override
+    public User getUser(String username)
+    {
+        User user=get(username);
+        if(user==null)
+        {
+            throw new ServiceException("显示接口用户查询失败");
+        }
+
+        return user;
+    }
+
     @Override
     //根据用户名查询该用户
     public User get(String username) {
@@ -102,7 +117,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    //忘记密码修改密码
+    //忘记密码(要验证密保后在修改) /记得密码直接修改  修改密码
     @Override
     public void changePassword(String username,String password,String confirmPsw){
         passwordCheck(password,confirmPsw);
@@ -110,5 +125,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         ServiceHelper.update(userDao, User.class, user);
     }
+
 
 }

@@ -76,7 +76,7 @@ public class LoginregisterController extends BaseController {
         return messageHelper;
     }
 
-    //忘记密码修改密码接口
+    //忘记密码(要验证密保后在修改)/记得密码 修改密码接口
     @ResponseBody
     @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
     public MessageHelper changePsw (String username,String password,String confirmPsw){

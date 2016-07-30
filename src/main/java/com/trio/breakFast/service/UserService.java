@@ -12,4 +12,5 @@ public interface UserService {
     public User judgeLogin(String name, String psw);
     public void checkSecurity (String username,Security securityquestionid,String securitypsw);
     public void changePassword(String username,String password,String confirmPsw);
+    public User getUser(String username);
 }
