@@ -36,8 +36,6 @@ public class CommodityServiceImpl implements CommodityService {
 
         List<Commodity> commodities=commodityDao.find(hql,params);
 
-
-
         if(commodities.size()==0){
             throw new ServiceException("未搜索到结果" );
         }
@@ -64,16 +62,22 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getCommodityByCommodityamount(Integer page,Integer rows)
     {
-        String hql="from Commodity c order by c.commodityamount ";
-        return commodityDao.find(hql,page,rows);
+        String hql="from Commodity c order by c.commodityamount asc";
+        List<Commodity> commodities=commodityDao.find(hql,page,rows);
+        if(commodities.size()==0)
+            throw new ServiceException("根据价格返回商品列表失败" );
+        return commodities;
     }
 
     //根据销量商品列表
     @Override
     public List<Commodity> getCommodityBySales(Integer page,Integer rows)
     {
-        String hql="from Commodity c order by c.sales";
-        return commodityDao.find(hql,page,rows);
+        String hql="from Commodity c order by c.sales desc";
+        List<Commodity> commodities=commodityDao.find(hql,page,rows);
+        if(commodities.size()==0)
+            throw new ServiceException("根据销量返回商品列表失败" );
+        return commodities;
     }
 
     //根据包子商品列表
@@ -81,7 +85,10 @@ public class CommodityServiceImpl implements CommodityService {
     public List<Commodity> getCommodityByBaozi(Integer page,Integer rows)
     {
         String hql="from Commodity c where c.commodityname like %包子% ";
-        return commodityDao.find(hql,page,rows);
+        List<Commodity> commodities=commodityDao.find(hql,page,rows);
+        if(commodities.size()==0)
+            throw new ServiceException("根据包子返回商品列表失败" );
+        return commodities;
     }
 
 

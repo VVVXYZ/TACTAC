@@ -1,11 +1,12 @@
 package com.trio.breakFast.controller;
 
 import com.trio.breakFast.model.Commodity;
-import com.trio.breakFast.model.Orderdetail;
+import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.CommodityService;
+import com.trio.breakFast.service.OrderdetailService;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ public class HomepageController extends BaseController {
 
     @Autowired
     private CommodityService commodityService;
-
-
     @Autowired
     private OrderlistService orderlistService;
+    @Autowired
+    private OrderdetailService orderdetailService;
 
     //搜索早餐接口
     @ResponseBody
@@ -64,15 +65,16 @@ public class HomepageController extends BaseController {
         return messageHelper;
     }
 
+
     //购物车接口
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
     public MessageHelper shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
-                                    String paymentmethod,Integer orderstatus,String remark,Orderdetail orderdetail[]){
+                                    String paymentmethod,Integer orderstatus,String remark){
         MessageHelper messageHelper = new MessageHelper();
         try{
             orderlistService.shopingCar( userid, amount, datetime,  deliverymethod,
-                     paymentmethod, orderstatus, remark, orderdetail);
+                     paymentmethod, orderstatus, remark);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("订单提交成功");
         }catch (ServiceException e){
@@ -82,26 +84,71 @@ public class HomepageController extends BaseController {
         return messageHelper;
     }
 
+    //购物车订单明细接口，一条订单对应多条明细，要多次调用这个接口添加明细
+    @ResponseBody
+    @RequestMapping(value = "/addorderDetail", method = RequestMethod.POST)
+    public MessageHelper addorderDetail(Orderlist orderid,String commodityname,Integer commodityquantity){
+        MessageHelper messageHelper = new MessageHelper();
+        try{
+            orderdetailService.addorderDetail(orderid, commodityname, commodityquantity);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("添加订单明细提交成功");
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+        return messageHelper;
+    }
+
     //商品列表，根据销量返回商品
-//    @ResponseBody
-//    @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
-//    public DataHelper userRegister(String foodname) {
-//        DataHelper dataHelper = new DataHelper();
-//        try{
-//            List<Commodity> commodities= commodityService.getFood(foodname);
-//            dataHelper.setData(commodities);
-//            dataHelper.setSuccess(true);
-//            dataHelper.setMessage("找到早餐");
-//        }catch (ServiceException e){
-//            dataHelper.setSuccess(false);
-//            dataHelper.setMessage(e.getMessage());
-//        }
-//        return dataHelper;
-//    }
+    @ResponseBody
+    @RequestMapping(value = "/getCommodityBySales", method = RequestMethod.POST)
+    public DataHelper getCommodityBySales(Integer page,Integer rows) {
+        DataHelper dataHelper = new DataHelper();
+        try{
+            List<Commodity> commodities= commodityService.getCommodityBySales(page,rows);
+            dataHelper.setData(commodities);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("根据销量返回商品列表成功");
+        }catch (ServiceException e){
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+        }
+        return dataHelper;
+    }
 
 
     //商品列表，根据价格返回商品
-
+    @ResponseBody
+    @RequestMapping(value = "/getCommodityByCommodityamount", method = RequestMethod.POST)
+    public DataHelper getCommodityByCommodityamount(Integer page,Integer rows) {
+        DataHelper dataHelper = new DataHelper();
+        try{
+            List<Commodity> commodities= commodityService.getCommodityByCommodityamount(page, rows);
+            dataHelper.setData(commodities);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("根据价格返回商品列表成功");
+        }catch (ServiceException e){
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+        }
+        return dataHelper;
+    }
     //商品列表，根据包子返回商品
+    @ResponseBody
+    @RequestMapping(value = "/getCommodityByBaozi", method = RequestMethod.POST)
+    public DataHelper getCommodityByBaozi(Integer page,Integer rows) {
+        DataHelper dataHelper = new DataHelper();
+        try{
+            List<Commodity> commodities= commodityService.getCommodityByBaozi(page, rows);
+            dataHelper.setData(commodities);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("根据包子返回商品列表成功");
+        }catch (ServiceException e){
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+        }
+        return dataHelper;
+    }
 
 }
