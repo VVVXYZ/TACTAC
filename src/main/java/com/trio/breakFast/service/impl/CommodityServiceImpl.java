@@ -24,6 +24,21 @@ public class CommodityServiceImpl implements CommodityService {
     CommodityDao commodityDao;
 
 
+    //根据准确的商品名返回商品信息，商品名是唯一的
+    @Override
+    public Commodity getFoodByRightname(String commodityname)
+    {
+        String hql="from Commodity c where c.commodityname=:commodityname";
+        Map<String,Object> params=new HashMap<String,Object>();
+        params.put("commodityname",commodityname);
+        Commodity commodity=commodityDao.get(hql,params);
+        if(commodity!=null){
+            throw new ServiceException("没有" );
+        }
+
+        return commodity;
+    }
+
     //搜索早餐，
     @Override
     public List<Commodity> getFood(String commodityname)

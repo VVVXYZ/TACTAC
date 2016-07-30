@@ -6,10 +6,13 @@ import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by asus on 2016/7/26.
@@ -18,7 +21,9 @@ import java.util.Date;
 public class OrderlistServiceImpl implements OrderlistService {
 
 
+    @Autowired
     OrderlistDao orderlistDao;
+    @Autowired
     OrderdetailDao orderdetailDao;
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
@@ -47,4 +52,23 @@ public class OrderlistServiceImpl implements OrderlistService {
         return orderid;
 
     }
+
+    //根据orderid返回订单记录
+    @Override
+    public Orderlist getOrderlistByOrderid(Integer orderid)
+    {
+        String hql="from Orderlist c where c.orderid=:orderid";
+        Map<String,Object> params=new HashMap<String,Object>();
+        String orderID=orderid+"";
+        params.put("orderid",orderID);
+
+        Orderlist orderlists=orderlistDao.get(hql, params);
+
+        if(orderlists==null){
+            throw new ServiceException("未搜索到订单记录" );
+        }
+
+        return orderlists;
+    }
+
 }

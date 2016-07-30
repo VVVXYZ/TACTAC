@@ -9,6 +9,6 @@ import java.util.List;
  * Created by asus on 2016/7/26.
  */
 public interface OrderdetailService {
-    public List<Orderdetail> showOrder(Orderlist orderid);
+    public List<Orderdetail> showOrder(Integer orderid);
     public void addorderDetail(Orderlist orderid,String commodityname,Integer commodityquantity);
 }

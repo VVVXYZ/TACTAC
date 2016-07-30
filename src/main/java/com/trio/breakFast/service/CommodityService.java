@@ -14,5 +14,6 @@ public interface CommodityService {
     public List<Commodity> getCommodityByCommodityamount(Integer page,Integer rows);
     public List<Commodity> getCommodityBySales(Integer page,Integer rows);
     public List<Commodity> getCommodityByBaozi(Integer page,Integer rows);
+    public Commodity getFoodByRightname(String commodityname);
 
 }

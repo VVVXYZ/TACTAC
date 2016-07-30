@@ -69,19 +69,20 @@ public class HomepageController extends BaseController {
     //购物车接口
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
-    public MessageHelper shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
+    public DataHelper shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
                                     String paymentmethod,Integer orderstatus,String remark){
-        MessageHelper messageHelper = new MessageHelper();
+        DataHelper dataHelper =new DataHelper();
         try{
-            orderlistService.shopingCar( userid, amount, datetime,  deliverymethod,
-                     paymentmethod, orderstatus, remark);
-            messageHelper.setSuccess(true);
-            messageHelper.setMessage("订单提交成功");
+            Integer orderid=orderlistService.shopingCar(userid, amount, datetime, deliverymethod,
+                    paymentmethod, orderstatus, remark);
+            dataHelper.setData(orderid);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("订单提交成功");
         }catch (ServiceException e){
-            messageHelper.setSuccess(false);
-            messageHelper.setMessage(e.getMessage());
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
         }
-        return messageHelper;
+        return dataHelper;
     }
 
     //购物车订单明细接口，一条订单对应多条明细，要多次调用这个接口添加明细

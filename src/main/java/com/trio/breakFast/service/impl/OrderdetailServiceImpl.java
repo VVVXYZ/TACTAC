@@ -21,17 +21,18 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Autowired
     OrderdetailDao orderdetailDao;
 
-    //显示某条订单详情
+    //显示某条订单的订单明细列表  详情
     @Override
-    public List<Orderdetail> showOrder(Orderlist orderid)
+    public List<Orderdetail> showOrder(Integer orderid)
     {
         String hql="from Orderdetail o where o,orderid=orderid";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("orderid",orderid);
+        String orderID=orderid+"";
+        params.put("orderid",orderID);
         List<Orderdetail> orderdetails=orderdetailDao.find(hql,params);
 
         if(orderdetails.size()==0){
-            throw new ServiceException("未找到该用户的订单详情" );
+            throw new ServiceException("未找到该用户的订单明细" );
         }
         return orderdetails;
     }
