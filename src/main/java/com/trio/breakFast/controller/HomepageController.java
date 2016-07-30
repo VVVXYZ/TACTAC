@@ -42,7 +42,7 @@ public class HomepageController extends BaseController {
         return dataHelper;
     }
 
-    //搜索早餐接口
+    //点赞早餐接口
     @ResponseBody
     @RequestMapping(value = "/addNumberOfpoints", method = RequestMethod.POST)
     public MessageHelper addNumberofpoints(Integer commodity_id) {
