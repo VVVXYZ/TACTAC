@@ -27,6 +27,7 @@ public class CommodityServiceImpl implements CommodityService {
     CommodityDao commodityDao;
     OrderlistDao orderlistDao;
     OrderdetailDao orderdetailDao;
+
     //搜索早餐，
     @Override
     public Commodity getFood(Integer commid)
