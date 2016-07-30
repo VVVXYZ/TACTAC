@@ -82,5 +82,26 @@ public class HomepageController extends BaseController {
         return messageHelper;
     }
 
+    //商品列表，根据销量返回商品
+//    @ResponseBody
+//    @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
+//    public DataHelper userRegister(String foodname) {
+//        DataHelper dataHelper = new DataHelper();
+//        try{
+//            List<Commodity> commodities= commodityService.getFood(foodname);
+//            dataHelper.setData(commodities);
+//            dataHelper.setSuccess(true);
+//            dataHelper.setMessage("找到早餐");
+//        }catch (ServiceException e){
+//            dataHelper.setSuccess(false);
+//            dataHelper.setMessage(e.getMessage());
+//        }
+//        return dataHelper;
+//    }
+
+
+    //商品列表，根据价格返回商品
+
+    //商品列表，根据包子返回商品
 
 }

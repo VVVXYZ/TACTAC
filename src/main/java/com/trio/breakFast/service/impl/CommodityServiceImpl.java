@@ -60,6 +60,29 @@ public class CommodityServiceImpl implements CommodityService {
 
     }
 
+    //根据价格商品列表
+    @Override
+    public List<Commodity> getCommodityByCommodityamount(Integer page,Integer rows)
+    {
+        String hql="from Commodity c order by c.commodityamount ";
+        return commodityDao.find(hql,page,rows);
+    }
+
+    //根据销量商品列表
+    @Override
+    public List<Commodity> getCommodityBySales(Integer page,Integer rows)
+    {
+        String hql="from Commodity c order by c.sales";
+        return commodityDao.find(hql,page,rows);
+    }
+
+    //根据包子商品列表
+    @Override
+    public List<Commodity> getCommodityByBaozi(Integer page,Integer rows)
+    {
+        String hql="from Commodity c where c.commodityname like %包子% ";
+        return commodityDao.find(hql,page,rows);
+    }
 
 
 }
