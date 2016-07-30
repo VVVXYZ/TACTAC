@@ -25,7 +25,7 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
     {
-        String hql="from Orderdetail o where o,orderid=orderid";
+        String hql="from Orderdetail o where o,orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
         String orderID=orderid+"";
         params.put("orderid",orderID);
