@@ -31,6 +31,8 @@ public class OrderlistController extends BaseController{
     @Autowired
     private CommodityService commodityService;
 
+    String str;
+
 //    //订单接口
 //    @ResponseBody
 //    @RequestMapping(value = "/order", method = RequestMethod.POST)

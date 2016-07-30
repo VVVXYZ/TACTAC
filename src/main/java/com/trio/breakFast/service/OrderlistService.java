@@ -14,4 +14,6 @@ public interface OrderlistService {
                               String paymentmethod,Integer orderstatus,String remark);
     public void cancelOrder(Integer orderid,String remark,Integer orderstatus);
     public Orderlist getOrderlistByOrderid(Integer orderid);
+
+
 }

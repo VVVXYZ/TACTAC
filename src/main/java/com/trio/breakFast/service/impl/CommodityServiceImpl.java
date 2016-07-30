@@ -23,6 +23,8 @@ public class CommodityServiceImpl implements CommodityService {
     @Autowired
     CommodityDao commodityDao;
 
+    String str;
+
 
     //根据准确的商品名返回商品信息，商品名是唯一的
     @Override

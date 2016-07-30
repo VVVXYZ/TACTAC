@@ -26,6 +26,7 @@ public class OrderlistServiceImpl implements OrderlistService {
     @Autowired
     OrderdetailDao orderdetailDao;
 
+    String str;
 
     //购物车   ****千万不要设置id ，id是自增长的
     @Override

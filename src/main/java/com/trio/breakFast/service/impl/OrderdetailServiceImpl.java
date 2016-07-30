@@ -21,6 +21,8 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Autowired
     OrderdetailDao orderdetailDao;
 
+    String str;
+
     //显示某条订单的订单明细列表  详情
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
