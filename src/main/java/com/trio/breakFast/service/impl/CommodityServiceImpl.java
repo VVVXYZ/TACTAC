@@ -8,6 +8,10 @@ import com.trio.breakFast.util.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * Created by asus on 2016/7/26.
@@ -22,22 +26,23 @@ public class CommodityServiceImpl implements CommodityService {
 
     //搜索早餐，
     @Override
-    public Commodity getFood(Integer commid)
+    public List<Commodity> getFood(String commodityname)
     {
-//        String commodityid=commid+"";
-//        String hql="from Commodity c where c.commodityid=:commid";
-//        Map<String,Object> params=new HashMap<String,Object>();
-//        params.put("commodityid",commid);
-//        commodity=commodityDao.get(hql,params);
+
+        String hql="from Commodity c where c.commodityname like :commodityname";
+        Map<String,Object> params=new HashMap<String,Object>();
+        String foodname="%"+commodityname+"%";
+        params.put("commodityname",foodname);
+
+        List<Commodity> commodities=commodityDao.find(hql,params);
 
 
-        Commodity commodity= ServiceHelper.get(commodityDao,Commodity.class,commid);
 
-        if(commodity==null){
-            throw new ServiceException("该商品不存在" );
+        if(commodities.size()==0){
+            throw new ServiceException("未搜索到结果" );
         }
 
-        return commodity;
+        return commodities;
     }
 
     //点赞

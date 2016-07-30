@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by asus on 2016/7/29.
@@ -33,11 +34,11 @@ public class HomepageController extends BaseController {
     //搜索早餐接口
     @ResponseBody
     @RequestMapping(value = "/searchFood", method = RequestMethod.POST)
-    public DataHelper userRegister(Integer commodity_id) {
+    public DataHelper userRegister(String foodname) {
         DataHelper dataHelper = new DataHelper();
         try{
-           Commodity commodity= commodityService.getFood(commodity_id);
-            dataHelper.setData(commodity);
+              List<Commodity> commodities= commodityService.getFood(foodname);
+            dataHelper.setData(commodities);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("找到早餐");
         }catch (ServiceException e){
