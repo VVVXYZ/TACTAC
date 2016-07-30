@@ -6,6 +6,8 @@ import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
+import com.trio.breakFast.util.ServiceHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -16,10 +18,12 @@ import java.util.Date;
  */
 @Service
 public class OrderlistServiceImpl implements OrderlistService {
-
-
+    @Autowired
     OrderlistDao orderlistDao;
+    @Autowired
     OrderdetailDao orderdetailDao;
+
+
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
     public Integer shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
@@ -46,5 +50,23 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderid=(Integer)flag;
         return orderid;
 
+    }
+
+    //取消订单
+    @Override
+    public void cancelOrder(Integer orderid,String remark,Integer orderstatus){
+        if(orderstatus != 1)
+            throw new ServiceException("该订单不能取消");
+
+        Orderlist orderlist=ServiceHelper.get(orderlistDao,Orderlist.class,orderid);
+
+        if(orderlist==null){
+            throw new ServiceException("该订单不存在" );
+        }
+
+        orderlist.setOrderstatus(0);
+        orderlist.setRemark(remark);
+
+        ServiceHelper.update(orderlistDao,Orderlist.class,orderlist);
     }
 }
