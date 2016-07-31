@@ -15,8 +15,8 @@ public interface AddressdetailService {
 //    void remove(String code);
 
     public List<Addressdetail> showAddress(User user_id);
-    public  void changeAddress(Integer userid,String address_content,String newaddress);
-    public  void deleteAddress(Integer userid,String address_content);
-    public void  addAddress(User userid,String newAddress);
+    public  void changeAddress(Integer user_id,String address_content,String newaddress);
+    public  void deleteAddress(Integer user_id,String address_content);
+    public void  addAddress(User user_id,String newAddress);
 
 }

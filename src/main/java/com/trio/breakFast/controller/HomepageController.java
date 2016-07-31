@@ -69,7 +69,7 @@ public class HomepageController extends BaseController {
     //购物车接口
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
-    public DataHelper shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
+    public DataHelper shopingCar(User userid,Double amount,Date datetime,String  deliverymethod,
                                     String paymentmethod,Integer orderstatus,String remark){
         DataHelper dataHelper =new DataHelper();
         try{

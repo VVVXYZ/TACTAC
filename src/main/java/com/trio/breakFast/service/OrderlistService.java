@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public interface OrderlistService {
 
-    public Integer shopingCar(User userid,Integer amount,Date datetime,String  deliverymethod,
+    public Integer shopingCar(User userid,Double amount,Date datetime,String  deliverymethod,
                               String paymentmethod,Integer orderstatus,String remark);
     public void cancelOrder(Integer orderid,String remark,Integer orderstatus);
     public Orderlist getOrderlistByOrderid(Integer orderid);

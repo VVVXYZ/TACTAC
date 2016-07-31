@@ -33,22 +33,6 @@ public class OrderlistController extends BaseController{
 
     String str;
 
-//    //订单接口
-//    @ResponseBody
-//    @RequestMapping(value = "/order", method = RequestMethod.POST)
-//    public DataHelper getOrdermessage(Orderlist orderid)
-//    {
-//        DataHelper dataHelper=new DataHelper();
-//        try{
-//
-//            dataHelper.setSuccess(true);
-//            dataHelper.setMessage("查找到该订单信息");
-//        }catch (ServiceException e){
-//            dataHelper.setSuccess(false);
-//            dataHelper.setMessage(e.getMessage());
-//        }
-//        return dataHelper;
-//    }
 
     //取消订单接口
     @ResponseBody

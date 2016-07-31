@@ -47,11 +47,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //修改某条地址
     @Override
-    public  void changeAddress(Integer userid,String address_content,String newaddress)
+    public  void changeAddress(Integer user_id,String address_content,String newaddress)
     {
-        String hql="from Addressdetail a where a.userid=:userid and a.address=:address";
+        String hql="from Addressdetail a where a.user_id=:user_id and a.address=:address";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("userid",userid);
+        params.put("user_id",user_id);
         params.put("address",address_content);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
@@ -67,11 +67,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //删除收货地址
     @Override
-    public  void deleteAddress(Integer userid,String address_content)
+    public  void deleteAddress(Integer user_id,String address_content)
     {
-        String hql="from Addressdetail a where a.userid=:userid and a.address=:address";
+        String hql="from Addressdetail a where a.user_id=:user_id and a.address=:address";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("userid",userid);
+        params.put("user_id",user_id);
         params.put("address",address_content);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
