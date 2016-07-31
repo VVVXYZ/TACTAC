@@ -132,10 +132,10 @@
                 /questionnaire/** = anon
                 /assets/** = anon
                 /logout = logout
+                /personal/** = anon
+                /orderlist/** = anon
                 /user/** = anon
                 /homepage/** = anon
-                /orderlist/** = anon
-                /personal/** = anon
                 /settings/** = anon
                 /** = authc,currentUser
             </value>
