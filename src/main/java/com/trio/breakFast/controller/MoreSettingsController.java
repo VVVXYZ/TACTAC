@@ -24,7 +24,7 @@ public class MoreSettingsController {
 
     //显示用户信息接口，查询用户信息
     @ResponseBody
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     public DataHelper getUser(String username)
     {
         DataHelper dataHelper=new DataHelper();

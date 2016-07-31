@@ -29,7 +29,7 @@ public class Orderlist implements Serializable {
     private User user_id;//用户编号
 
     @Column(name = "amount")
-    private Integer amount;//订单金额
+    private Double amount;//订单金额
 
     @Column(name = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
