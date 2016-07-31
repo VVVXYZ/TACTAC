@@ -132,6 +132,11 @@
                 /questionnaire/** = anon
                 /assets/** = anon
                 /logout = logout
+                /personal/** = anon
+                /orderlist/** = anon
+                /user/** = anon
+                /homepage/** = anon
+                /settings/** = anon
                 /** = authc,currentUser
             </value>
         </property>

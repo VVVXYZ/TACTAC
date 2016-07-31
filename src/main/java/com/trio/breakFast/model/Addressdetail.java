@@ -8,7 +8,6 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -26,7 +25,7 @@ public class Addressdetail implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;//用户编号
+    private User user_id;//用户编号
 
     @Column(name = "address_content")
     private String address;//地址

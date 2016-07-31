@@ -4,8 +4,6 @@ package com.trio.breakFast.model;
  * Created by asus on 2016/7/26.
  */
 
-import com.trio.breakFast.enums.OrderStatus;
-import com.trio.breakFast.sys.entity.Account;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -28,7 +26,7 @@ public class Orderlist implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userid;//用户编号
+    private User user_id;//用户编号
 
     @Column(name = "amount")
     private Integer amount;//订单金额
