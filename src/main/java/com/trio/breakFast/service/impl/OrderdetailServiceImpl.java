@@ -28,10 +28,10 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
     {
-        String hql = "from Orderdetail o where o.orderid=:orderid";
+        String hql = "from Orderdetail o where o.order.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
-        String orderID=orderid+"";
-        params.put("orderid",orderID);
+
+        params.put("orderid", orderid);
         List<Orderdetail> orderdetails=orderdetailDao.find(hql,params);
 
         if(orderdetails.size()==0){

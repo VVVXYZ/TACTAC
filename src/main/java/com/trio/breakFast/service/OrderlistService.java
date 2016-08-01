@@ -22,5 +22,6 @@ public interface OrderlistService {
 
     public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows);
 
+    public void confirmOrder(Integer orderid);
 
 }

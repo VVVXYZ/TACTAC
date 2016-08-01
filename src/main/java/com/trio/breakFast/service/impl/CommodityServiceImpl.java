@@ -35,7 +35,7 @@ public class CommodityServiceImpl implements CommodityService {
         params.put("commodityname",commodityname);
         Commodity commodity=commodityDao.get(hql,params);
         if (commodity == null) {
-            throw new ServiceException("没有" );
+            throw new ServiceException("没有该商品");
         }
 
         return commodity;

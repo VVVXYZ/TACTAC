@@ -107,7 +107,7 @@ public class OrderlistController extends BaseController{
 
     //根据用户名返回进行中订单
     @ResponseBody
-    @RequestMapping(value = "/ getOrderAndDetail", method = RequestMethod.POST)
+    @RequestMapping(value = "/getOrderAndDetail", method = RequestMethod.POST)
     public MyDataHelper getOrderAndDetail(String username, Integer page, Integer rows) {
         MyDataHelper myDataHelper = new MyDataHelper();
 
@@ -125,6 +125,23 @@ public class OrderlistController extends BaseController{
 
 
         return myDataHelper;
+    }
+
+
+    //确认收货
+    @ResponseBody
+    @RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
+    public MessageHelper confirmOrder(Integer orderid) {
+        MessageHelper messageHelper = new MessageHelper();
+        try {
+            orderlistService.confirmOrder(orderid);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("确认订单成功");
+        } catch (ServiceException e) {
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+        return messageHelper;
     }
 
 }

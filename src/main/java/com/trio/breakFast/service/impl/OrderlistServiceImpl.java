@@ -1,11 +1,14 @@
 package com.trio.breakFast.service.impl;
 
+import com.trio.breakFast.dao.CommodityDao;
 import com.trio.breakFast.dao.OrderdetailDao;
 import com.trio.breakFast.dao.OrderlistDao;
 import com.trio.breakFast.dao.UserDao;
+import com.trio.breakFast.model.Commodity;
 import com.trio.breakFast.model.Orderdetail;
 import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.User;
+import com.trio.breakFast.service.CommodityService;
 import com.trio.breakFast.service.OrderdetailService;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.service.UserService;
@@ -36,6 +39,10 @@ public class OrderlistServiceImpl implements OrderlistService {
     @Autowired
     OrderdetailService orderdetailService;
 
+    @Autowired
+    CommodityService commodityService;
+    @Autowired
+    CommodityDao commodityDao;
 
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
@@ -172,4 +179,29 @@ public class OrderlistServiceImpl implements OrderlistService {
     }
 
 
+    //确认收货  改变 状态 商品销售量
+    public void confirmOrder(Integer orderid) {
+        Orderlist orderlist = ServiceHelper.get(orderlistDao, Orderlist.class, orderid);
+        Integer orderstatus = orderlist.getOrderstatus();
+
+        if (orderlist == null) {
+            throw new ServiceException("该订单不存在");
+        }
+        if (orderstatus == 0)
+            throw new ServiceException("该订单已取消不能确认收货");
+        if (orderstatus == 2)
+            throw new ServiceException("该订单已完成");
+        orderlist.setOrderstatus(2);
+        ServiceHelper.update(orderlistDao, Orderlist.class, orderlist);
+        List<Orderdetail> orderdetails = orderdetailService.showOrder(orderid);
+        for (int i = 0; i < orderdetails.size(); i++) {
+            Orderdetail orderdetail = orderdetails.get(i);
+            String name = orderdetail.getCommodityname();
+            Commodity commodity = commodityService.getFoodByRightname(name);
+            commodity.setSales(commodity.getSales() + orderdetail.getCommodityquantity());
+
+            ServiceHelper.update(commodityDao, Commodity.class, commodity);
+        }
+
+    }
 }
