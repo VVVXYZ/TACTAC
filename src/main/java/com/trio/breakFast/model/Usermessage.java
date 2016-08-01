@@ -26,11 +26,15 @@ public class Usermessage implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;//用户编号
+    private User user;//用户
+
+
+    @Column(name = "username")
+    private String username;//用户名
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Orderlist orderid;//订单编号
+    private Orderlist order;//订单
 
     @Column(name = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

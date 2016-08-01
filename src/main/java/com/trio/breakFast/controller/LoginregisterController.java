@@ -1,10 +1,8 @@
 package com.trio.breakFast.controller;
 
-import com.trio.breakFast.model.Security;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
-import com.trio.breakFast.service.SecurityService;
 import com.trio.breakFast.service.UserService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginregisterController extends BaseController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private SecurityService securityService;
+//    @Autowired
+//    private SecurityService securityService;
 
     //注册用户接口
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public MessageHelper userRegister(Security securityquestionid,String username,String password,String securitypsw,String confirmpsw,Boolean yes_or_no) {
+    public MessageHelper userRegister(String username,String password,Integer securityquestionid,String securitypsw) {
         MessageHelper messageHelper = new MessageHelper();
         try{
-            userService.put(securityquestionid,username,password,securitypsw,confirmpsw, yes_or_no);
+            userService.put(username,password,securityquestionid,securitypsw);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("注册成功");
         }catch (ServiceException e){
@@ -60,10 +58,27 @@ public class LoginregisterController extends BaseController {
         return dataHelper;
     }
 
+    //验证用户是否存在
+    @ResponseBody
+    @RequestMapping(value = "/checkUser", method = RequestMethod.POST)
+    public MessageHelper checkUser(String username){
+        MessageHelper messageHelper = new MessageHelper();
+        try{
+            userService.getUser(username);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("用户存在");
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+        return messageHelper;
+    }
+
+
     //忘记密码密保验证接口
     @ResponseBody
     @RequestMapping(value = "/security", method = RequestMethod.POST)
-    public MessageHelper userCheckSecurtiy(String username,Security securityquestionid,String securitypsw){
+    public MessageHelper userCheckSecurtiy(String username,Integer securityquestionid,String securitypsw){
         MessageHelper messageHelper = new MessageHelper();
         try{
             userService.checkSecurity(username, securityquestionid, securitypsw);
@@ -79,10 +94,10 @@ public class LoginregisterController extends BaseController {
     //忘记密码(要验证密保后在修改)/记得密码 修改密码接口
     @ResponseBody
     @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
-    public MessageHelper changePsw (String username,String password,String confirmPsw){
+    public MessageHelper changePsw (String username,String password){
         MessageHelper messageHelper = new MessageHelper();
         try{
-            userService.changePassword(username, password, confirmPsw);
+            userService.changePassword(username, password);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("修改密码成功");
         }catch (ServiceException e){

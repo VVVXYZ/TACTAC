@@ -30,13 +30,13 @@ public class OrderlistServiceImpl implements OrderlistService {
 
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
-    public Integer shopingCar(User user_id,Double amount,Date datetime,String  deliverymethod,
+    public Integer shopingCar(User user,Double amount,Date datetime,String  deliverymethod,
                               String paymentmethod,Integer orderstatus,String remark)
     {
 
         Integer orderid=0;
         Orderlist orderlist=new Orderlist();
-        orderlist.setUser_id(user_id);
+        orderlist.setUser(user);
         orderlist.setAmount(amount);
         orderlist.setDatetime(datetime);
         orderlist.setDistributionmethod(deliverymethod);

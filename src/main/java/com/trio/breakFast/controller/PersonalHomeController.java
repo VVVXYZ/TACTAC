@@ -54,7 +54,7 @@ public class PersonalHomeController {
     ////显示地址接口,得到某个人的收货地址集合
     @ResponseBody
     @RequestMapping(value = "/showAddress", method = RequestMethod.POST)
-    public DataHelper showAddress(User user_id) {
+    public DataHelper showAddress(Integer user_id) {
         DataHelper dataHelper=new DataHelper();
         try{
             List<Addressdetail> addressdetails=addressdetailService.showAddress(user_id);

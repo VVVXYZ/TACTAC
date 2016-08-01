@@ -24,17 +24,21 @@ public class UsermessageServiceImpl implements UsermessageService {
     @Override
     public Usermessage getUsermessage(Integer userid,Integer orderid)
     {
+        System.out.println(userid+" "+orderid);
+        System.out.println("显示消息接口 + service  1");
         String hql="from Usermessage um where um.userid=:userid and um.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("userid",userid+"");
         params.put("orderid",orderid+"");
         Usermessage usermessage=usermessageDao.get(hql,params);
 
+        System.out.println("显示消息接口 + service   2");
         if(usermessage==null)
         {
             throw new ServiceException("未找到该信息" );
         }
 
+        System.out.println("显示消息接口 + service  3");
         return usermessage;
     }
 }

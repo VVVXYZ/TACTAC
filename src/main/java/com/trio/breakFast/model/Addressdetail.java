@@ -25,9 +25,15 @@ public class Addressdetail implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;//用户编号
+    private User user;//用户
+
+
+    @Column(name = "username")
+    private String username;//用户名
 
     @Column(name = "address_content")
     private String address;//地址
+
+
 
 }

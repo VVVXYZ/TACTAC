@@ -1,7 +1,6 @@
 package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.UserDao;
-import com.trio.breakFast.model.Security;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.pageModel.FilterGroup;
 import com.trio.breakFast.pageModel.FilterRule;
@@ -22,6 +21,8 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
 
+    @Autowired
+    UserDao userDao;
 
     //根据用户名查询用户
     @Override
@@ -30,10 +31,23 @@ public class UserServiceImpl implements UserService {
         User user=get(username);
         if(user==null)
         {
-            throw new ServiceException("显示接口用户查询失败");
+            throw new ServiceException("用户不存在");
         }
 
         return user;
+    }
+
+    //根据用户名验证用户是否存在
+    @Override
+    public void checkUser(String username)
+    {
+        User user=get(username);
+        if(user==null)
+        {
+            throw new ServiceException("用户不存在");
+        }
+
+
     }
 
     @Override
@@ -46,10 +60,8 @@ public class UserServiceImpl implements UserService {
 
     //注册
     @Override
-    public void put(Security securityquestionid,String username,String password,String securitypsw,String confirmpsw,Boolean yes_or_no) {
-        if(yes_or_no == false)
-            throw new ServiceException("请同意协议");
-       //passwordCheck(password,confirmpsw);
+    public void put(String username,String password,Integer securityquestionid,String securitypsw) {
+
         if (get(username) != null) {
             throw new ServiceException("该用户已存在" + username);
         }
@@ -61,7 +73,6 @@ public class UserServiceImpl implements UserService {
 
 //        Integer flag=ServiceHelper.create(userDao, User.class, user);
        ServiceHelper.create(userDao, User.class, user);
-
 
 //
 //       if(flag == null)
@@ -78,18 +89,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Autowired
-    UserDao userDao;
+
 
     //验证登录
     @Override
     public User judgeLogin(String name, String psw) {
 
+        System.out.println(name);
+        System.out.println(psw);
+
+        //String hql = "from User u where u.username="+name;
         String hql = "from User u where u.username=:name";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
 
         User user = userDao.get(hql, params);
+
+        //User user = userDao.get(hql);
+
+        if(user==null)
+        {
+            throw new ServiceException("用户不存在！" );
+        }
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
 
@@ -104,11 +125,15 @@ public class UserServiceImpl implements UserService {
 
     //验证密保
     @Override
-    public void checkSecurity (String username,Security securityquestionid,String securitypsw) {
+    public void checkSecurity (String username,Integer securityquestionid,String securitypsw) {
        User user= get(username);
         if(user==null)
         {
             throw new ServiceException("用户不存在" );
+        }
+        if(user.getSecurityquestionid()!=securityquestionid)
+        {
+            throw new ServiceException("你的密保问题不是这个" );
         }
         if(!user.getSecuritypsw().equals(securitypsw))
         {
@@ -119,8 +144,8 @@ public class UserServiceImpl implements UserService {
 
     //忘记密码(要验证密保后在修改) /记得密码直接修改  修改密码
     @Override
-    public void changePassword(String username,String password,String confirmPsw){
-        passwordCheck(password,confirmPsw);
+    public void changePassword(String username,String password){
+
         User user =get(username);
         user.setPassword(password);
         ServiceHelper.update(userDao, User.class, user);

@@ -43,7 +43,7 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Override
     public void addorderDetail(Orderlist orderid,String commodityname,Integer commodityquantity){
         Orderdetail orderdetail=new Orderdetail();
-        orderdetail.setOrderid(orderid);
+        orderdetail.setOrder(orderid);
         orderdetail.setCommodityname(commodityname);
         orderdetail.setCommodityquantity(commodityquantity);
         Integer flag=ServiceHelper.create(orderdetailDao, Orderdetail.class, orderdetail);

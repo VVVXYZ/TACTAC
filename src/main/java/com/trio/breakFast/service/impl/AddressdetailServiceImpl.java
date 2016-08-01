@@ -29,13 +29,17 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //显示地址,得到某个人的收货地址集合
     @Override
-    public List<Addressdetail> showAddress(User user_id)
+    public List<Addressdetail> showAddress(Integer user_id)
     {
-        String hql="from Addressdetail a where a.user_id=:user_id";
+        String hql="from Addressdetail a where a.user_id.user_id=:user_id";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("user_id",user_id+"");
+        //String str=user_id+"";
+        params.put("user_id",user_id);
+
         List<Addressdetail> addressdetails=addressdetailDao.find(hql,params);
 
+
+        Addressdetail addressdetail =new Addressdetail();
 
         if(addressdetails.size()==0){
             throw new ServiceException("未找到该用户的地址" );
@@ -86,11 +90,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //添加一条新的收货地址
     @Override
-    public void  addAddress(User user_id,String newAddress)
+    public void  addAddress(User user,String newAddress)
     {
         Addressdetail addressdetail=new Addressdetail();
         addressdetail.setAddress(newAddress);
-        addressdetail.setUser_id(user_id);
+        addressdetail.setUser(user);
 
         Integer flag=ServiceHelper.create(addressdetailDao, Addressdetail.class, addressdetail);
 

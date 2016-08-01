@@ -23,9 +23,8 @@ public class User implements Serializable {
     @Column(name = "user_id")
     private Integer user_id;//用户编号
 
-    @OneToOne
-    @JoinColumn(name = "securityquestionid")
-    private Security securityquestionid;//密保问题编号
+    @Column(name = "securityquestionid")
+    private Integer securityquestionid;//密保问题编号
 
     @Column(name = "username")
     private String username;//用户名

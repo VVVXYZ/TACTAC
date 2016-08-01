@@ -49,7 +49,7 @@ public class MoreSettingsController {
     public MessageHelper changePsw (String username,String password,String confirmPsw){
         MessageHelper messageHelper = new MessageHelper();
         try{
-            userService.changePassword(username, password, confirmPsw);
+            userService.changePassword(username, password);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("修改密码成功");
         }catch (ServiceException e){

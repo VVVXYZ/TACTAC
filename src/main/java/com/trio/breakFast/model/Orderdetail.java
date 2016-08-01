@@ -4,16 +4,12 @@ package com.trio.breakFast.model;
  * Created by asus on 2016/7/26.
  */
 
-import com.trio.breakFast.enums.OrderStatus;
-import com.trio.breakFast.sys.entity.Account;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Data
@@ -28,12 +24,15 @@ public class Orderdetail implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private Orderlist orderid;//订单编号
+    private Orderlist order;//订单
 
     @Column(name = "commodityname")
     private String commodityname;//商品名称
 
     @Column(name = "commodityquantity")
     private Integer commodityquantity;//商品数量
+
+    @Column(name = "price")
+    private Double price;//商品价格
 
 }
