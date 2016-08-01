@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
         System.out.println(name);
         System.out.println(psw);
 
+
         //String hql = "from User u where u.username="+name;
         String hql = "from User u where u.username=:name";
         Map<String, Object> params = new HashMap<>();

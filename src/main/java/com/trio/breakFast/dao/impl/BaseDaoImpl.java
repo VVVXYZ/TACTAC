@@ -295,6 +295,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return q.list();
     }
 
+
     @Override
     public List<Object[]> findBySql(String sql, int page, int rows) {
         SQLQuery q = this.getCurrentSession().createSQLQuery(sql);

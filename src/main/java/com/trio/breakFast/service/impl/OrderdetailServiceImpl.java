@@ -59,5 +59,21 @@ public class OrderdetailServiceImpl implements OrderdetailService {
 
     }
 
+    //根据订单编号查询进行中的订单明细  订单状态 1
+    @Override
+    public List<Orderdetail> getOrderdetailOn(Integer orderid) {
+
+        Integer status = 1;
+        String hql = "from Orderdetail o where o.order.orderid=:orderid and o.order.orderstatus=:status";
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        params.put("orderid", orderid);
+        params.put("status", status);
+        List<Orderdetail> orderdetails = orderdetailDao.find(hql, params);
+
+        return orderdetails;
+
+    }
+
 
 }

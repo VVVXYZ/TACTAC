@@ -5,6 +5,7 @@ import com.trio.breakFast.model.Orderdetail;
 import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
+import com.trio.breakFast.pageModel.MyDataHelper;
 import com.trio.breakFast.service.CommodityService;
 import com.trio.breakFast.service.OrderdetailService;
 import com.trio.breakFast.service.OrderlistService;
@@ -104,5 +105,26 @@ public class OrderlistController extends BaseController{
         return dataHelper;
     }
 
+    //根据用户名返回进行中订单
+    @ResponseBody
+    @RequestMapping(value = "/ getOrderAndDetail", method = RequestMethod.POST)
+    public MyDataHelper getOrderAndDetail(String username, Integer page, Integer rows) {
+        MyDataHelper myDataHelper = new MyDataHelper();
+
+        try {
+            List<Orderlist> orderlists = orderlistService.getOrderlistByUsername(username, page, rows);
+            List<Orderdetail> orderdetails = orderlistService.getDetailByList(username, page, rows);
+            myDataHelper.setData(orderlists);
+            myDataHelper.setMydata(orderdetails);
+            myDataHelper.setSuccess(true);
+            myDataHelper.setMessage("查找到该商品信息");
+        } catch (ServiceException e) {
+            myDataHelper.setSuccess(false);
+            myDataHelper.setMessage(e.getMessage());
+        }
+
+
+        return myDataHelper;
+    }
 
 }

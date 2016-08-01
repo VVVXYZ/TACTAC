@@ -3,8 +3,10 @@ package com.trio.breakFast.service.impl;
 import com.trio.breakFast.dao.OrderdetailDao;
 import com.trio.breakFast.dao.OrderlistDao;
 import com.trio.breakFast.dao.UserDao;
+import com.trio.breakFast.model.Orderdetail;
 import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.User;
+import com.trio.breakFast.service.OrderdetailService;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.service.UserService;
 import com.trio.breakFast.sys.exception.ServiceException;
@@ -14,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by asus on 2016/7/26.
@@ -33,6 +33,9 @@ public class OrderlistServiceImpl implements OrderlistService {
     UserDao userDao;
     @Autowired
     UserService userService;
+    @Autowired
+    OrderdetailService orderdetailService;
+
 
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
@@ -98,6 +101,54 @@ public class OrderlistServiceImpl implements OrderlistService {
     }
 
 
+    //根据username返回订单记录  状态  为1
+    @Override
+    public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows) {
+        String hql = "from Orderlist c where c.username=:username";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("username", username);
+
+        List<Orderlist> orderlists = orderlistDao.find(hql, params, page, rows);
+
+
+        if (orderlists == null) {
+            throw new ServiceException("未搜索到订单列表记录");
+        }
+
+        return orderlists;
+    }
+
+
+    //根据username返回订单明细记录  状态为 1
+    @Override
+    public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows) {
+
+        List<Orderdetail> ods = new ArrayList<Orderdetail>();
+        List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows);
+
+        System.out.println("orderlists  size=" + orderlists.size());
+        for (Integer i = 0; i < orderlists.size(); i++) {
+            Orderlist orderlist = orderlists.get(i);
+            Integer orderid = orderlist.getOrderid();
+            List<Orderdetail> orderdetails = orderdetailService.getOrderdetailOn(orderid);
+            System.out.println("****************orderdetails size=" + orderdetails.size());
+            for (Integer j = 0; j < orderdetails.size(); j++) {
+                // orderdetails.
+                Orderdetail orderdetail = orderdetails.get(j);
+                System.out.println("###############" + orderdetail.getCommodityname());
+                ods.add(orderdetail);
+            }
+        }
+
+        System.out.println("ods.size=" + ods.size());
+        if (ods.size() == 0) {
+            throw new ServiceException("订单明细列表获取失败");
+        }
+
+        return ods;
+    }
+
+
     //取消订单
     @Override
     public void cancelOrder(Integer orderid, String remark) {
@@ -119,4 +170,6 @@ public class OrderlistServiceImpl implements OrderlistService {
 
         ServiceHelper.update(orderlistDao,Orderlist.class,orderlist);
     }
+
+
 }
