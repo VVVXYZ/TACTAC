@@ -43,7 +43,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     //搜索早餐，
     @Override
-    public List<Commodity> getFood(String commodityname)
+    public List<Commodity> getFood(String commodityname,Integer page,Integer rows)
     {
 
         String hql="from Commodity c where c.commodityname like :commodityname";
@@ -51,7 +51,7 @@ public class CommodityServiceImpl implements CommodityService {
         String foodname="%"+commodityname+"%";
         params.put("commodityname",foodname);
 
-        List<Commodity> commodities=commodityDao.find(hql,params);
+        List<Commodity> commodities=commodityDao.find(hql,params,page,rows);
 
         if(commodities.size()==0){
             throw new ServiceException("未搜索到结果" );
@@ -67,7 +67,7 @@ public class CommodityServiceImpl implements CommodityService {
         Commodity commodity= ServiceHelper.get(commodityDao,Commodity.class,commodity_id);
 
         if(commodity==null){
-            throw new ServiceException("该商品不存在" );
+            throw new ServiceException("该商品不存在，点赞失败" );
         }
 
         commodity.setNumberofpoints(commodity.getNumberofpoints()+1);
@@ -97,12 +97,26 @@ public class CommodityServiceImpl implements CommodityService {
         return commodities;
     }
 
+
+
     //根据包子商品列表
     @Override
     public List<Commodity> getCommodityByBaozi(Integer page,Integer rows)
     {
-        String hql="from Commodity c where c.commodityname like %包子% ";
+        String commodityname="包";
+        String food="'%"+commodityname+"%'";
+
+//        String hql="from Commodity c where c.commodityname like :commodityname";
+//        Map<String,Object> params=new HashMap<String,Object>();
+//        params.put("commodityname",foodname);
+//        if(params.size()>0)
+//        System.out.println("params ok");
+//       List<Commodity> commodities=commodityDao.find(hql,params,page,rows);
+
+        String hql="from Commodity c where c.commodityname like  "+food;
         List<Commodity> commodities=commodityDao.find(hql,page,rows);
+
+        System.out.println("有返回");
         if(commodities.size()==0)
             throw new ServiceException("根据包子返回商品列表失败" );
         return commodities;

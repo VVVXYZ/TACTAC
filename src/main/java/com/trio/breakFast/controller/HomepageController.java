@@ -35,10 +35,10 @@ public class HomepageController extends BaseController {
     //搜索早餐接口
     @ResponseBody
     @RequestMapping(value = "/searchFood", method = RequestMethod.POST)
-    public DataHelper userRegister(String foodname) {
+    public DataHelper userRegister(String foodname,Integer page,Integer rows) {
         DataHelper dataHelper = new DataHelper();
         try{
-              List<Commodity> commodities= commodityService.getFood(foodname);
+              List<Commodity> commodities= commodityService.getFood(foodname,page,rows);
             dataHelper.setData(commodities);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("找到早餐");
@@ -57,7 +57,7 @@ public class HomepageController extends BaseController {
         try{
             commodityService.addNumberofpoints(commodity_id);
             messageHelper.setSuccess(true);
-            messageHelper.setMessage("找到早餐");
+            messageHelper.setMessage("点赞成功");
         }catch (ServiceException e){
             messageHelper.setSuccess(false);
             messageHelper.setMessage(e.getMessage());
@@ -66,6 +66,7 @@ public class HomepageController extends BaseController {
     }
 
 
+    //订单完成后要改销售量
 
     //购物车接口
     @ResponseBody
