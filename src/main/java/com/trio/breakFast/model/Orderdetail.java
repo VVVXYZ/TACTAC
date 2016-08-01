@@ -22,6 +22,7 @@ public class Orderdetail implements Serializable {
     @Column(name = "orderdetailid")
     private Integer orderdetailid;//订单明细编号
 
+
     @OneToOne
     @JoinColumn(name = "order_id")
     private Orderlist order;//订单

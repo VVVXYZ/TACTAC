@@ -105,5 +105,7 @@ public class LoginregisterController extends BaseController {
             messageHelper.setMessage(e.getMessage());
         }
         return messageHelper;
+
+
     }
 }

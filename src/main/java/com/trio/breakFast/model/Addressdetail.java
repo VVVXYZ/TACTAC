@@ -27,7 +27,6 @@ public class Addressdetail implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;//用户
 
-
     @Column(name = "username")
     private String username;//用户名
 

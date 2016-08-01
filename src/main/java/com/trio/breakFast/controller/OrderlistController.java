@@ -33,7 +33,6 @@ public class OrderlistController extends BaseController{
 
     String str;
 
-
     //取消订单接口
     @ResponseBody
     @RequestMapping(value = "/cancelorder", method = RequestMethod.POST)

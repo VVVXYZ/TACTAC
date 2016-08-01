@@ -13,4 +13,5 @@ public interface UserService {
     public void changePassword(String username,String password);
     public User getUser(String username);
     public void checkUser(String username);
+
 }

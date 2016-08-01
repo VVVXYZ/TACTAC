@@ -36,6 +36,7 @@ public class Orderlist implements Serializable {
     @Column(name = "amount")
     private Double amount;//订单金额
 
+
     @Column(name = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)

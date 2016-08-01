@@ -4,11 +4,9 @@ package com.trio.breakFast.model;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by asus on 2016/7/26.
@@ -23,6 +21,7 @@ public class Commodity implements Serializable {
     @GeneratedValue
     @Column(name = "commodityid")
     private Integer commodityid;//商品编号
+
 
     @Column(name = "commodityname")
     private String commodityname;//商品名称

@@ -125,7 +125,6 @@ public class PersonalHomeController {
 
         }
 
-
         return messageHelper;
     }
 

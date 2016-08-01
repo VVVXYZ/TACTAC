@@ -25,4 +25,5 @@ public class Security implements Serializable {
     @Column(name = "securityquestion")
     private String securityquestion;//密保问题内容
 
+
 }

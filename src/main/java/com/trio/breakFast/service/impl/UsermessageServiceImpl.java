@@ -17,6 +17,7 @@ import java.util.Map;
 public class UsermessageServiceImpl implements UsermessageService {
 
 
+
     @Autowired
     UsermessageDao usermessageDao;
 
