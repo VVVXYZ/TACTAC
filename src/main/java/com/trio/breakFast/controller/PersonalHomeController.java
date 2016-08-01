@@ -40,6 +40,7 @@ public class PersonalHomeController {
             List<Usermessage> usermessages = usermessageService.getUsermessageList(username, page, rows);
             dataHelper.setData(usermessages);
             dataHelper.setSuccess(true);
+
             dataHelper.setMessage("刷新系统信息成功");
 
         }catch (ServiceException e){
