@@ -4,6 +4,7 @@ import com.trio.breakFast.dao.AddressdetailDao;
 import com.trio.breakFast.model.Addressdetail;
 import com.trio.breakFast.model.User;
 import com.trio.breakFast.service.AddressdetailService;
+import com.trio.breakFast.service.UserService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,18 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Autowired
     AddressdetailDao addressdetailDao;
 
+    @Autowired
+    UserService userService;
 
 
     //显示地址,得到某个人的收货地址集合
     @Override
-    public List<Addressdetail> showAddress(Integer user_id)
+    public List<Addressdetail> showAddress(String username)
     {
-        String hql="from Addressdetail a where a.user_id.user_id=:user_id";
+        String hql = "from Addressdetail a where a.user.username=:username";
         Map<String,Object> params=new HashMap<String,Object>();
         //String str=user_id+"";
-        params.put("user_id",user_id);
+        params.put("username", username);
 
         List<Addressdetail> addressdetails=addressdetailDao.find(hql,params);
 
@@ -51,11 +54,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //修改某条地址
     @Override
-    public  void changeAddress(Integer user_id,String address_content,String newaddress)
+    public void changeAddress(String username, String address_content, String newaddress)
     {
-        String hql="from Addressdetail a where a.user_id=:user_id and a.address=:address";
+        String hql = "from Addressdetail a where a.username=:username and a.address=:address";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("user_id",user_id);
+        params.put("username", username);
         params.put("address",address_content);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
@@ -71,11 +74,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //删除收货地址
     @Override
-    public  void deleteAddress(Integer user_id,String address_content)
+    public void deleteAddress(String username, String address_content)
     {
-        String hql="from Addressdetail a where a.user_id=:user_id and a.address=:address";
+        String hql = "from Addressdetail a where a.username=:username and a.address=:address";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("user_id",user_id);
+        params.put("username", username);
         params.put("address",address_content);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
@@ -90,11 +93,19 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //添加一条新的收货地址
     @Override
-    public void  addAddress(User user,String newAddress)
+    public void addAddress(String username, String newAddress)
     {
+        System.out.println(newAddress);
+        System.out.println("*************");
+        User user = userService.getUser(username);
+        if (user == null) {
+            throw new ServiceException("用户不存在");
+        }
         Addressdetail addressdetail=new Addressdetail();
+        addressdetail.setUsername(username);
         addressdetail.setAddress(newAddress);
         addressdetail.setUser(user);
+
 
         Integer flag=ServiceHelper.create(addressdetailDao, Addressdetail.class, addressdetail);
 

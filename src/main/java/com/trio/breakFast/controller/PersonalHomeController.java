@@ -51,13 +51,13 @@ public class PersonalHomeController {
         return dataHelper;
     }
 
-    ////显示地址接口,得到某个人的收货地址集合
+    //显示地址接口,得到某个人的收货地址集合
     @ResponseBody
     @RequestMapping(value = "/showAddress", method = RequestMethod.POST)
-    public DataHelper showAddress(Integer user_id) {
+    public DataHelper showAddress(String username) {
         DataHelper dataHelper=new DataHelper();
         try{
-            List<Addressdetail> addressdetails=addressdetailService.showAddress(user_id);
+            List<Addressdetail> addressdetails = addressdetailService.showAddress(username);
             dataHelper.setData(addressdetails);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("查找到地址");
@@ -74,10 +74,10 @@ public class PersonalHomeController {
     //修改地址接口
     @ResponseBody
     @RequestMapping(value = "/changeAddress", method = RequestMethod.POST)
-    public MessageHelper changeAddress(Integer user_id,String address_content,String newaddress) {
+    public MessageHelper changeAddress(String username, String address_content, String newaddress) {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            addressdetailService.changeAddress(user_id,address_content,newaddress);
+            addressdetailService.changeAddress(username, address_content, newaddress);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("地址修改成功");
 
@@ -93,10 +93,10 @@ public class PersonalHomeController {
     //删除地址接口
     @ResponseBody
     @RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
-    public MessageHelper deleteAddress(Integer user_id,String address_content) {
+    public MessageHelper deleteAddress(String username, String address_content) {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            addressdetailService.deleteAddress(user_id, address_content);
+            addressdetailService.deleteAddress(username, address_content);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("地址删除成功");
 
@@ -112,10 +112,10 @@ public class PersonalHomeController {
     //新增收货地址
     @ResponseBody
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-    public MessageHelper addAddress(User user_id,String newAddress) {
+    public MessageHelper addAddress(String username, String newAddress) {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            addressdetailService.addAddress(user_id, newAddress);
+            addressdetailService.addAddress(username, newAddress);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("添加新地址成功");
 

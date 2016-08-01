@@ -14,9 +14,12 @@ public interface AddressdetailService {
 //    void search(String code);
 //    void remove(String code);
 
-    public List<Addressdetail> showAddress(Integer user_id);
-    public  void changeAddress(Integer user_id,String address_content,String newaddress);
-    public  void deleteAddress(Integer user_id,String address_content);
-    public void  addAddress(User user_id,String newAddress);
+    public List<Addressdetail> showAddress(String username);
+
+    public void changeAddress(String username, String address_content, String newaddress);
+
+    public void deleteAddress(String username, String address_content);
+
+    public void addAddress(String username, String newAddress);
 
 }
