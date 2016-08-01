@@ -42,8 +42,8 @@ public class Orderlist implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;//时间
 
-    @Column(name = "distributionmethod")
-    private String distributionmethod;//配送方式
+    @Column(name = "deliverymethod")
+    private String deliverymethod;//配送方式
 
     @Column(name = "paymentmethod")
     private String paymentmethod;//支付方式
