@@ -90,6 +90,39 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    //验证登录
+    @Override
+    public void judgeUser(String name, String psw) {
+
+        System.out.println(name);
+        System.out.println(psw);
+
+        //String hql = "from User u where u.username="+name;
+        String hql = "from User u where u.username=:name";
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+
+        User user = userDao.get(hql, params);
+
+        //User user = userDao.get(hql);
+
+        if (user == null) {
+            throw new ServiceException("用户不存在！");
+        }
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+
+
+        if (user.getPassword().equals(psw)) {
+
+        } else {
+            throw new ServiceException("密码输入错误！");
+        }
+
+    }
+
+
+
 
     //验证登录
     @Override

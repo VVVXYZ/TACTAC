@@ -42,9 +42,24 @@ public class MoreSettingsController {
         return dataHelper;
     }
 
+    //验证用户名和旧密码是否正确
+    @ResponseBody
+    @RequestMapping(value = "/judgeUser", method = RequestMethod.POST)
+    public MessageHelper judgeUser(String username, String password) {
+        MessageHelper messageHelper = new MessageHelper();
+        try {
+            userService.judgeUser(username, password);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("密码正确");
+        } catch (ServiceException e) {
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+        return messageHelper;
+    }
 
 
-    //忘记密码(要验证密保后在修改)/记得密码 修改密码接口
+    //忘记密码(要验证密保后在修改)/记得密码 登录注册接口修改密码接口
     @ResponseBody
     @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
     public MessageHelper changePsw (String username,String password,String confirmPsw){
