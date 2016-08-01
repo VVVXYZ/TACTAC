@@ -106,13 +106,6 @@ public class CommodityServiceImpl implements CommodityService {
         String commodityname="包";
         String food="'%"+commodityname+"%'";
 
-//        String hql="from Commodity c where c.commodityname like :commodityname";
-//        Map<String,Object> params=new HashMap<String,Object>();
-//        params.put("commodityname",foodname);
-//        if(params.size()>0)
-//        System.out.println("params ok");
-//       List<Commodity> commodities=commodityDao.find(hql,params,page,rows);
-
         String hql="from Commodity c where c.commodityname like  "+food;
         List<Commodity> commodities=commodityDao.find(hql,page,rows);
 

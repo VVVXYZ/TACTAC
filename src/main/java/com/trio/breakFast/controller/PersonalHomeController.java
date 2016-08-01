@@ -30,18 +30,17 @@ public class PersonalHomeController {
     @Autowired
     UsermessageService usermessageService;
 
-    //显示消息接口
+    //显示系统消息列表接口
     @ResponseBody
-    @RequestMapping(value = "/getUsermessage", method = RequestMethod.POST)
-    public DataHelper getUsermessage(Integer userid,Integer orderid)
+    @RequestMapping(value = "/getUsermessageList", method = RequestMethod.POST)
+    public DataHelper getUsermessageList(String username, Integer page, Integer rows)
     {
         DataHelper dataHelper=new DataHelper();
-        String string="";
         try{
-            Usermessage usermessage=usermessageService.getUsermessage(userid,orderid);
-            dataHelper.setData(usermessage);
+            List<Usermessage> usermessages = usermessageService.getUsermessageList(username, page, rows);
+            dataHelper.setData(usermessages);
             dataHelper.setSuccess(true);
-            dataHelper.setMessage("查找到该信息");
+            dataHelper.setMessage("刷新系统信息成功");
 
         }catch (ServiceException e){
             dataHelper.setSuccess(false);
