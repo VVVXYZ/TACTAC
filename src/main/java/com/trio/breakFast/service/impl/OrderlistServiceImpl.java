@@ -37,7 +37,7 @@ public class OrderlistServiceImpl implements OrderlistService {
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
     public Integer shopingCar(String username, Double amount, String datetime, String deliverymethod,
-                              String paymentmethod,Integer orderstatus,String remark)
+                              String paymentmethod, Integer orderstatus, String remark, String adress)
     {
 
         User user = userService.getUser(username);
@@ -62,7 +62,7 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderlist.setPaymentmethod(paymentmethod);
         orderlist.setOrderstatus(orderstatus);
         orderlist.setRemark(remark);
-
+        orderlist.setAdress(adress);
 
         System.out.println("****************");
         Serializable flag=orderlistDao.save(orderlist);
@@ -86,8 +86,7 @@ public class OrderlistServiceImpl implements OrderlistService {
     {
         String hql="from Orderlist c where c.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
-        String orderID=orderid+"";
-        params.put("orderid",orderID);
+        params.put("orderid", orderid);
 
         Orderlist orderlists=orderlistDao.get(hql, params);
 

@@ -11,7 +11,7 @@ import java.util.Date;
 public interface OrderlistService {
 
     public Integer shopingCar(String username, Double amount, String datetime, String deliverymethod,
-                              String paymentmethod,Integer orderstatus,String remark);
+                              String paymentmethod, Integer orderstatus, String remark, String adress);
     public void cancelOrder(Integer orderid,String remark,Integer orderstatus);
     public Orderlist getOrderlistByOrderid(Integer orderid);
 

@@ -72,11 +72,11 @@ public class HomepageController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
     public DataHelper shopingCar(String username, Double amount, String datetime, String deliverymethod,
-                                    String paymentmethod,Integer orderstatus,String remark){
+                                 String paymentmethod, Integer orderstatus, String remark, String adress) {
         DataHelper dataHelper =new DataHelper();
         try{
             Integer orderid = orderlistService.shopingCar(username, amount, datetime, deliverymethod,
-                    paymentmethod, orderstatus, remark);
+                    paymentmethod, orderstatus, remark, adress);
             dataHelper.setData(orderid);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("订单提交成功");
@@ -90,10 +90,10 @@ public class HomepageController extends BaseController {
     //购物车订单明细接口，一条订单对应多条明细，要多次调用这个接口添加明细
     @ResponseBody
     @RequestMapping(value = "/addorderDetail", method = RequestMethod.POST)
-    public MessageHelper addorderDetail(Orderlist orderid,String commodityname,Integer commodityquantity){
+    public MessageHelper addorderDetail(Integer orderid, String commodityname, Integer commodityquantity, Double price) {
         MessageHelper messageHelper = new MessageHelper();
         try{
-            orderdetailService.addorderDetail(orderid, commodityname, commodityquantity);
+            orderdetailService.addorderDetail(orderid, commodityname, commodityquantity, price);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("添加订单明细提交成功");
         }catch (ServiceException e){

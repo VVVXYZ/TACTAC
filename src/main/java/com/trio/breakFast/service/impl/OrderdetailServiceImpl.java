@@ -4,6 +4,7 @@ import com.trio.breakFast.dao.OrderdetailDao;
 import com.trio.breakFast.model.Orderdetail;
 import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.service.OrderdetailService;
+import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Autowired
     OrderdetailDao orderdetailDao;
 
-    String str;
-
+    @Autowired
+    OrderlistService orderlistService;
     //显示某条订单的订单明细列表  详情
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
     {
-        String hql="from Orderdetail o where o,orderid=:orderid";
+        String hql = "from Orderdetail o where o.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
         String orderID=orderid+"";
         params.put("orderid",orderID);
@@ -41,11 +42,16 @@ public class OrderdetailServiceImpl implements OrderdetailService {
 
     //添加订单明细
     @Override
-    public void addorderDetail(Orderlist orderid,String commodityname,Integer commodityquantity){
+    public void addorderDetail(Integer orderid, String commodityname, Integer commodityquantity, Double price) {
+
+        Orderlist orderlist = new Orderlist();
+        orderlist = orderlistService.getOrderlistByOrderid(orderid);
         Orderdetail orderdetail=new Orderdetail();
-        orderdetail.setOrder(orderid);
+
+        orderdetail.setOrder(orderlist);
         orderdetail.setCommodityname(commodityname);
         orderdetail.setCommodityquantity(commodityquantity);
+        orderdetail.setPrice(price);
         Integer flag=ServiceHelper.create(orderdetailDao, Orderdetail.class, orderdetail);
         if(flag==-1)
             throw new ServiceException("添加订单明细失败");
