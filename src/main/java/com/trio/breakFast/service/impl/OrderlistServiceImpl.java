@@ -100,16 +100,20 @@ public class OrderlistServiceImpl implements OrderlistService {
 
     //取消订单
     @Override
-    public void cancelOrder(Integer orderid,String remark,Integer orderstatus){
-        if(orderstatus != 1)
-            throw new ServiceException("该订单不能取消");
+    public void cancelOrder(Integer orderid, String remark) {
+
+
 
         Orderlist orderlist=ServiceHelper.get(orderlistDao,Orderlist.class,orderid);
+        Integer orderstatus = orderlist.getOrderstatus();
 
         if(orderlist==null){
             throw new ServiceException("该订单不存在" );
         }
-
+        if (orderstatus == 0)
+            throw new ServiceException("该订单已取消");
+        if (orderstatus == 2)
+            throw new ServiceException("该订单已完成，不能取消");
         orderlist.setOrderstatus(0);
         orderlist.setRemark(remark);
 

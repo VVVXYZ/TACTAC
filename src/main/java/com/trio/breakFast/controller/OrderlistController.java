@@ -36,11 +36,11 @@ public class OrderlistController extends BaseController{
     //取消订单接口
     @ResponseBody
     @RequestMapping(value = "/cancelorder", method = RequestMethod.POST)
-    public MessageHelper cancelOrder(Integer orderid,String remark,Integer orderstatus)
+    public MessageHelper cancelOrder(Integer orderid, String remark)
     {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            orderlistService.cancelOrder(orderid,remark,orderstatus);
+            orderlistService.cancelOrder(orderid, remark);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("取消订单成功");
         }catch (ServiceException e){
@@ -94,7 +94,7 @@ public class OrderlistController extends BaseController{
         DataHelper dataHelper=new DataHelper();
         try{
             Commodity commodity=commodityService.getFoodByRightname(commodityname);
-            dataHelper.setData(commodityname);
+            dataHelper.setData(commodity);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("查找到该商品信息");
         }catch (ServiceException e){

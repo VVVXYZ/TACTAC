@@ -34,7 +34,7 @@ public class CommodityServiceImpl implements CommodityService {
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("commodityname",commodityname);
         Commodity commodity=commodityDao.get(hql,params);
-        if(commodity!=null){
+        if (commodity == null) {
             throw new ServiceException("没有" );
         }
 
