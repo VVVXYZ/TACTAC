@@ -33,6 +33,10 @@ public class Addressdetail implements Serializable {
     @Column(name = "address_content")
     private String address;//地址
 
+    @Column(name = "receivername")
+    private String receivername;//收货人姓名
 
+    @Column(name ="phone")
+    private String phone;//手机号码
 
 }

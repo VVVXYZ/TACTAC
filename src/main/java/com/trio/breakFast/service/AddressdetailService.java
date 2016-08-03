@@ -1,7 +1,6 @@
 package com.trio.breakFast.service;
 
 import com.trio.breakFast.model.Addressdetail;
-import com.trio.breakFast.model.User;
 
 import java.util.List;
 
@@ -16,10 +15,10 @@ public interface AddressdetailService {
 
     public List<Addressdetail> showAddress(String username);
 
-    public void changeAddress(String username, String address_content, String newaddress);
+    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone);
 
     public void deleteAddress(String username, String address_content);
 
-    public void addAddress(String username, String newAddress);
+    public void addAddress(String username, String newAddress,String receivername,String phone);
 
 }

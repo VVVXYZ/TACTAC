@@ -1,7 +1,6 @@
 package com.trio.breakFast.controller;
 
 import com.trio.breakFast.model.Addressdetail;
-import com.trio.breakFast.model.User;
 import com.trio.breakFast.model.Usermessage;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
@@ -74,10 +73,10 @@ public class PersonalHomeController {
     //修改地址接口
     @ResponseBody
     @RequestMapping(value = "/changeAddress", method = RequestMethod.POST)
-    public MessageHelper changeAddress(String username, String address_content, String newaddress) {
+    public MessageHelper changeAddress(String username, String address_content, String newaddress,String receivername,String phone) {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            addressdetailService.changeAddress(username, address_content, newaddress);
+            addressdetailService.changeAddress(username, address_content, newaddress,receivername,phone);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("地址修改成功");
 
@@ -112,10 +111,10 @@ public class PersonalHomeController {
     //新增收货地址
     @ResponseBody
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-    public MessageHelper addAddress(String username, String newAddress) {
+    public MessageHelper addAddress(String username, String newAddress,String receivername,String phone) {
         MessageHelper messageHelper=new MessageHelper();
         try{
-            addressdetailService.addAddress(username, newAddress);
+            addressdetailService.addAddress(username, newAddress,receivername,phone);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("添加新地址成功");
 

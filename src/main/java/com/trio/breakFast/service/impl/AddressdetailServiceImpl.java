@@ -54,7 +54,7 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //修改某条地址
     @Override
-    public void changeAddress(String username, String address_content, String newaddress)
+    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone)
     {
         String hql = "from Addressdetail a where a.username=:username and a.address=:address";
         Map<String,Object> params=new HashMap<String,Object>();
@@ -68,6 +68,8 @@ public class AddressdetailServiceImpl implements AddressdetailService {
         }
 
         addressdetail.setAddress(newaddress);
+        addressdetail.setPhone(phone);
+        addressdetail.setReceivername(receivername);
         ServiceHelper.update(addressdetailDao,Addressdetail.class,addressdetail);
 
     }
@@ -93,7 +95,7 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //添加一条新的收货地址
     @Override
-    public void addAddress(String username, String newAddress)
+    public void addAddress(String username, String newAddress,String receivername,String phone)
     {
         System.out.println(newAddress);
         System.out.println("*************");
@@ -104,6 +106,8 @@ public class AddressdetailServiceImpl implements AddressdetailService {
         Addressdetail addressdetail=new Addressdetail();
         addressdetail.setUsername(username);
         addressdetail.setAddress(newAddress);
+        addressdetail.setReceivername(receivername);
+        addressdetail.setPhone(phone);
         addressdetail.setUser(user);
 
 
