@@ -108,12 +108,12 @@ public class OrderlistController extends BaseController{
     //根据用户名返回进行中订单
     @ResponseBody
     @RequestMapping(value = "/getOrderAndDetail", method = RequestMethod.POST)
-    public MyDataHelper getOrderAndDetail(String username, Integer page, Integer rows) {
+    public MyDataHelper getOrderAndDetail(String username, Integer page, Integer rows, String type) {
         MyDataHelper myDataHelper = new MyDataHelper();
 
         try {
-            List<Orderlist> orderlists = orderlistService.getOrderlistByUsername(username, page, rows);
-            List<Orderdetail> orderdetails = orderlistService.getDetailByList(username, page, rows);
+            List<Orderlist> orderlists = orderlistService.getOrderlistByUsername(username, page, rows, type);
+            List<Orderdetail> orderdetails = orderlistService.getDetailByList(username, page, rows, type);
             myDataHelper.setData(orderlists);
             myDataHelper.setMydata(orderdetails);
             myDataHelper.setSuccess(true);

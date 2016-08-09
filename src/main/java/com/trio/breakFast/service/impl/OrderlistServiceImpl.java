@@ -110,10 +110,12 @@ public class OrderlistServiceImpl implements OrderlistService {
 
     //根据username返回订单记录  状态  为1
     @Override
-    public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows) {
-        String hql = "from Orderlist c where c.username=:username";
+    public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows, String type) {
+        String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus";
         Map<String, Object> params = new HashMap<String, Object>();
+        Integer totype = Integer.parseInt(type);
         params.put("username", username);
+        params.put("orderstatus", totype);
 
         List<Orderlist> orderlists = orderlistDao.find(hql, params, page, rows);
 
@@ -128,16 +130,16 @@ public class OrderlistServiceImpl implements OrderlistService {
 
     //根据username返回订单明细记录  状态为 1
     @Override
-    public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows) {
+    public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows, String type) {
 
         List<Orderdetail> ods = new ArrayList<Orderdetail>();
-        List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows);
+        List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows, type);
 
         System.out.println("orderlists  size=" + orderlists.size());
         for (Integer i = 0; i < orderlists.size(); i++) {
             Orderlist orderlist = orderlists.get(i);
             Integer orderid = orderlist.getOrderid();
-            List<Orderdetail> orderdetails = orderdetailService.getOrderdetailOn(orderid);
+            List<Orderdetail> orderdetails = orderdetailService.getOrderdetailOn(orderid, type);
             System.out.println("****************orderdetails size=" + orderdetails.size());
             for (Integer j = 0; j < orderdetails.size(); j++) {
                 // orderdetails.

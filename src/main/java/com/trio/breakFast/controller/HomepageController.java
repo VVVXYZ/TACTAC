@@ -66,8 +66,6 @@ public class HomepageController extends BaseController {
     }
 
 
-    //订单完成后要改销售量
-
     //购物车接口
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)

@@ -14,5 +14,5 @@ public interface OrderdetailService {
     public void addorderDetail(Integer orderid, String commodityname, Integer commodityquantity, Double price);
 
 
-    public List<Orderdetail> getOrderdetailOn(Integer orderid);
+    public List<Orderdetail> getOrderdetailOn(Integer orderid, String type);
 }

@@ -18,9 +18,9 @@ public interface OrderlistService {
     public void cancelOrder(Integer orderid, String remark);
     public Orderlist getOrderlistByOrderid(Integer orderid);
 
-    public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows);
+    public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows, String type);
 
-    public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows);
+    public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows, String type);
 
     public void confirmOrder(Integer orderid);
 
