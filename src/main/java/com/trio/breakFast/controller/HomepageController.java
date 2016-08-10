@@ -1,8 +1,6 @@
 package com.trio.breakFast.controller;
 
 import com.trio.breakFast.model.Commodity;
-import com.trio.breakFast.model.Orderlist;
-import com.trio.breakFast.model.User;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.CommodityService;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,11 +67,12 @@ public class HomepageController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
     public DataHelper shopingCar(String username, Double amount, String datetime, String deliverymethod,
-                                 String paymentmethod, Integer orderstatus, String remark, String adress) {
+                                 String paymentmethod, Integer orderstatus, String remark, String adress,
+                                 String receivername,String phone) {
         DataHelper dataHelper =new DataHelper();
         try{
             Integer orderid = orderlistService.shopingCar(username, amount, datetime, deliverymethod,
-                    paymentmethod, orderstatus, remark, adress);
+                    paymentmethod, orderstatus, remark, adress,receivername,phone);
             dataHelper.setData(orderid);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("订单提交成功");

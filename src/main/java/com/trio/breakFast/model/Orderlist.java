@@ -56,4 +56,10 @@ public class Orderlist implements Serializable {
 
     @Column(name = "adress")
     private String adress;//备注
+
+    @Column(name = "receivername")
+    private String receivername;//收货人姓名
+
+    @Column(name = "phone")
+    private String phone;//手机号
 }

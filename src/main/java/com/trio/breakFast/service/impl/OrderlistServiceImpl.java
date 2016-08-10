@@ -47,7 +47,8 @@ public class OrderlistServiceImpl implements OrderlistService {
     //购物车   ****千万不要设置id ，id是自增长的
     @Override
     public Integer shopingCar(String username, Double amount, String datetime, String deliverymethod,
-                              String paymentmethod, Integer orderstatus, String remark, String adress)
+                              String paymentmethod, Integer orderstatus, String remark, String adress,
+                              String receivername,String phone)
     {
 
         User user = userService.getUser(username);
@@ -73,6 +74,8 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderlist.setOrderstatus(orderstatus);
         orderlist.setRemark(remark);
         orderlist.setAdress(adress);
+        orderlist.setReceivername(receivername);
+        orderlist.setPhone(phone);
 
         System.out.println("****************");
         Serializable flag=orderlistDao.save(orderlist);
