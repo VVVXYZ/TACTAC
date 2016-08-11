@@ -15,9 +15,10 @@ public interface AddressdetailService {
 
     public List<Addressdetail> showAddress(String username);
 
-    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone);
+    public void changeAddress(Integer addressid, String address,String receivername,String phone);
+//    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone);
 
-    public void deleteAddress(String username, String address_content);
+    public void deleteAddress(Integer addressid);
 
     public void addAddress(String username, String newAddress,String receivername,String phone);
 

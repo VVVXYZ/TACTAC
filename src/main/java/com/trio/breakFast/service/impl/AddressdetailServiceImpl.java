@@ -54,12 +54,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //修改某条地址
     @Override
-    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone)
+    public void changeAddress(Integer addressid, String address,String receivername,String phone)
     {
-        String hql = "from Addressdetail a where a.username=:username and a.address=:address";
+        String hql = "from Addressdetail a where a.addressid=:addressid";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("username", username);
-        params.put("address",address_content);
+        params.put("addressid", addressid);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
         if(addressdetail==null)
@@ -67,7 +66,7 @@ public class AddressdetailServiceImpl implements AddressdetailService {
             throw new ServiceException("未找到该条地址" );
         }
 
-        addressdetail.setAddress(newaddress);
+        addressdetail.setAddress(address);
         addressdetail.setPhone(phone);
         addressdetail.setReceivername(receivername);
         ServiceHelper.update(addressdetailDao,Addressdetail.class,addressdetail);
@@ -76,12 +75,11 @@ public class AddressdetailServiceImpl implements AddressdetailService {
 
     //删除收货地址
     @Override
-    public void deleteAddress(String username, String address_content)
+    public void deleteAddress(Integer addressid)
     {
-        String hql = "from Addressdetail a where a.username=:username and a.address=:address";
+        String hql = "from Addressdetail a where a.addressid=:addressid";
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("username", username);
-        params.put("address",address_content);
+        params.put("addressid", addressid);
         Addressdetail  addressdetail=addressdetailDao.get(hql,params);
 
         if(addressdetail==null)
