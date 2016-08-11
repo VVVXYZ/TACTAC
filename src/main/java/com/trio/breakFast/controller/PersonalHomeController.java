@@ -6,7 +6,7 @@ import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.AddressdetailService;
 import com.trio.breakFast.service.UsermessageService;
-import com.trio.breakFast.service.FtpUpAndDownService;
+import com.trio.breakFast.service.FTPffUpAndDownService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class PersonalHomeController {
     UsermessageService usermessageService;
 
     @Autowired
-    FtpUpAndDownService ftpUpAndDownService;
+    FTPffUpAndDownService FTPffUpAndDownService;
 
     //上传头像
     @ResponseBody
@@ -40,7 +40,7 @@ public class PersonalHomeController {
     public MessageHelper FileUp(String fileName, InputStream inputStream) {
         MessageHelper messageHelper = new MessageHelper();
         try {
-            ftpUpAndDownService.FileUp(fileName, inputStream);
+            FTPffUpAndDownService.FileUp(fileName, inputStream);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("头像上传成功");
 
@@ -59,7 +59,7 @@ public class PersonalHomeController {
     public DataHelper FileDown(String fileName) {
         DataHelper dataHelper = new DataHelper();
         try {
-            InputStream inputStream = ftpUpAndDownService.FileDown(fileName);
+            InputStream inputStream = FTPffUpAndDownService.FileDown(fileName);
             dataHelper.setData(inputStream);
             dataHelper.setSuccess(true);
 
