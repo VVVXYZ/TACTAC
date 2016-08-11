@@ -6,6 +6,7 @@ import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.AddressdetailService;
 import com.trio.breakFast.service.UsermessageService;
+import com.trio.breakFast.service.FtpUpAndDownService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -28,6 +30,48 @@ public class PersonalHomeController {
 
     @Autowired
     UsermessageService usermessageService;
+
+    @Autowired
+    FtpUpAndDownService ftpUpAndDownService;
+
+    //上传头像
+    @ResponseBody
+    @RequestMapping(value = "/upFile", method = RequestMethod.POST)
+    public MessageHelper FileUp(String fileName, InputStream inputStream) {
+        MessageHelper messageHelper = new MessageHelper();
+        try {
+            ftpUpAndDownService.FileUp(fileName, inputStream);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("头像上传成功");
+
+        } catch (ServiceException e) {
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+
+        }
+
+        return messageHelper;
+    }
+
+    //加载头像
+    @ResponseBody
+    @RequestMapping(value = "/downFile", method = RequestMethod.POST)
+    public DataHelper FileDown(String fileName) {
+        DataHelper dataHelper = new DataHelper();
+        try {
+            InputStream inputStream = ftpUpAndDownService.FileDown(fileName);
+            dataHelper.setData(inputStream);
+            dataHelper.setSuccess(true);
+
+            dataHelper.setMessage("头像加载成功");
+
+        } catch (ServiceException e) {
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+
+        }
+        return dataHelper;
+    }
 
     //显示系统消息列表接口
     @ResponseBody
