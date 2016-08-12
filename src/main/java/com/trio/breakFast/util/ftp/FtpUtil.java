@@ -93,6 +93,7 @@ public class FtpUtil {
 
     }
 
+    //
     public static void closeFtp(FTPClient ftp) {
         try {
             ftp.changeWorkingDirectory(FTP_BASE);
