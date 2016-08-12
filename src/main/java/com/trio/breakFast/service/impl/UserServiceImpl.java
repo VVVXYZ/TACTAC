@@ -71,14 +71,14 @@ public class UserServiceImpl implements UserService {
         user.setSecuritypsw(securitypsw);
         user.setSecurityquestionid(securityquestionid);
 
-//        Integer flag=ServiceHelper.create(userDao, User.class, user);
-       ServiceHelper.create(userDao, User.class, user);
+        Integer flag=ServiceHelper.create(userDao, User.class, user);
+ //       ServiceHelper.create(userDao, User.class, user);
 
-//
-//       if(flag == null)
-//           throw new ServiceException("注册失败");
-//        else
-//           throw new ServiceException("注册成功" );
+
+       if(flag == null)
+           throw new ServiceException("注册失败");
+        else
+           throw new ServiceException("注册成功" );
 
     }
 
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword().equals(psw)) {
 
         } else {
-            throw new ServiceException("登录失败" );
+            throw new ServiceException("密码错误！" );
         }
         return user;
     }
