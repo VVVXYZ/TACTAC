@@ -146,7 +146,15 @@ public class FTPfUpAndDownUtil {
             }
             //切换FTP目录
             ftpClient.changeWorkingDirectory(pathname);
-            ftpClient.dele(filename);
+
+            InputStream ins = ftpClient.retrieveFileStream(filename);
+            if (ins == null) {
+                System.out.println("文件不存在");
+            } else {
+                ftpClient.dele(filename);
+                System.out.println("文件存在,删除...");
+            }
+
             ftpClient.logout();
             flag = true;
         } catch (Exception e) {
@@ -196,6 +204,9 @@ public class FTPfUpAndDownUtil {
             //切换FTP目录
             ftpClient.changeWorkingDirectory(pathname);
             inputStream = ftpClient.retrieveFileStream(filename);
+            if (inputStream == null) {
+                throw new ServiceException("头像不存在");
+            }
 
             FTPFile[] ftpFiles = ftpClient.listFiles();
 //            for(FTPFile file : ftpFiles){
