@@ -37,9 +37,7 @@ public class Usermessage implements Serializable {
     private Orderlist order;//订单
 
     @Column(name = "datetime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datetime;//时间
+    private String datetime;//时间
 
     @Column(name = "messagecontent")
     private String messagecontent;//消息内容

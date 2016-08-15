@@ -1,8 +1,11 @@
 package com.trio.breakFast.service.impl;
 
+import com.trio.breakFast.dao.CommodityDao;
 import com.trio.breakFast.dao.OrderdetailDao;
+import com.trio.breakFast.model.Commodity;
 import com.trio.breakFast.model.Orderdetail;
 import com.trio.breakFast.model.Orderlist;
+import com.trio.breakFast.service.CommodityService;
 import com.trio.breakFast.service.OrderdetailService;
 import com.trio.breakFast.service.OrderlistService;
 import com.trio.breakFast.sys.exception.ServiceException;
@@ -24,6 +27,10 @@ public class OrderdetailServiceImpl implements OrderdetailService {
 
     @Autowired
     OrderlistService orderlistService;
+
+    @Autowired
+    CommodityService commodityService;
+
     //显示某条订单的订单明细列表  详情
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
@@ -52,6 +59,11 @@ public class OrderdetailServiceImpl implements OrderdetailService {
         orderdetail.setCommodityname(commodityname);
         orderdetail.setCommodityquantity(commodityquantity);
         orderdetail.setPrice(price);
+        Commodity commodity = commodityService.getFoodByRightname(commodityname);
+        String picturename = commodity.getCommoditypicture();
+        System.out.println("**********" + picturename);
+        orderdetail.setCommoditypicture(picturename);
+
         Integer flag=ServiceHelper.create(orderdetailDao, Orderdetail.class, orderdetail);
         if(flag==-1)
             throw new ServiceException("添加订单明细失败");

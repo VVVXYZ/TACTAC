@@ -36,4 +36,7 @@ public class Orderdetail implements Serializable {
     @Column(name = "price")
     private Double price;//商品价格
 
+    @Column(name = "commoditypicture")
+    private String commoditypicture;//商品价格
+
 }
