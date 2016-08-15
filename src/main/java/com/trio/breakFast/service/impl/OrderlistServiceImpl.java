@@ -48,7 +48,7 @@ public class OrderlistServiceImpl implements OrderlistService {
     @Override
     public Integer shopingCar(String username, Double amount, String datetime, String deliverymethod,
                               String paymentmethod, Integer orderstatus, String remark, String adress,
-                              String receivername,String phone)
+                              String receivername, String phone, String deliverytime)
     {
 
         User user = userService.getUser(username);
@@ -68,6 +68,7 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderlist.setAdress(adress);
         orderlist.setReceivername(receivername);
         orderlist.setPhone(phone);
+        orderlist.setDeliverytime(deliverytime);
 
         System.out.println("****************");
         Serializable flag=orderlistDao.save(orderlist);
@@ -137,8 +138,14 @@ public class OrderlistServiceImpl implements OrderlistService {
 
         List<Orderdetail> ods = new ArrayList<Orderdetail>();
         List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows, type);
+        //if(orderlists)
+        System.out.println("*********  username:" + username + "******");
+        System.out.println("*********  type:" + type + "******");
 
-        System.out.println("orderlists  size=" + orderlists.size());
+        System.out.println("*********  page:" + page + "******");
+        System.out.println("*********  rows:" + rows + "******");
+
+        System.out.println("*********  orderlists  size=" + orderlists.size());
         for (Integer i = 0; i < orderlists.size(); i++) {
             Orderlist orderlist = orderlists.get(i);
             Integer orderid = orderlist.getOrderid();
@@ -152,7 +159,7 @@ public class OrderlistServiceImpl implements OrderlistService {
             }
         }
 
-        System.out.println("ods.size=" + ods.size());
+        System.out.println("***********  ods.size=" + ods.size());
         if (ods.size() == 0) {
             throw new ServiceException("订单明细列表获取失败");
         }

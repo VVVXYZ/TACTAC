@@ -68,11 +68,11 @@ public class HomepageController extends BaseController {
     @RequestMapping(value = "/shopingCar", method = RequestMethod.POST)
     public DataHelper shopingCar(String username, Double amount, String datetime, String deliverymethod,
                                  String paymentmethod, Integer orderstatus, String remark, String adress,
-                                 String receivername,String phone) {
+                                 String receivername, String phone, String deliverytime) {
         DataHelper dataHelper =new DataHelper();
         try{
             Integer orderid = orderlistService.shopingCar(username, amount, datetime, deliverymethod,
-                    paymentmethod, orderstatus, remark, adress,receivername,phone);
+                    paymentmethod, orderstatus, remark, adress, receivername, phone, deliverytime);
             dataHelper.setData(orderid);
             dataHelper.setSuccess(true);
             dataHelper.setMessage("订单提交成功");

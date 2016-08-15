@@ -44,6 +44,10 @@ public class Orderlist implements Serializable {
     @Column(name = "deliverymethod")
     private String deliverymethod;//配送方式
 
+    //deliverytime
+    @Column(name = "deliverytime")
+    private String deliverytime;//送达时间
+
     @Column(name = "paymentmethod")
     private String paymentmethod;//支付方式
 
