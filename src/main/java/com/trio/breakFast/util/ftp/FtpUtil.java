@@ -34,8 +34,7 @@ public class FtpUtil {
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
             }
-            if (FTPReply.isPositiveCompletion(ftp.sendCommand(
-                    "OPTS UTF8", "ON"))) {// 开启服务器对UTF-8的支持，如果服务器支持就用UTF-8编码，否则就使用本地编码（GBK）.
+            if (FTPReply.isPositiveCompletion(ftp.sendCommand("OPTS UTF8", "ON"))) {// 开启服务器对UTF-8的支持，如果服务器支持就用UTF-8编码，否则就使用本地编码（GBK）.
                 LOCAL_CHARSET = "UTF-8";
             }
 //            ftp.setControlEncoding(LOCAL_CHARSET);
