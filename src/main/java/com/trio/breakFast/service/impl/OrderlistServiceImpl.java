@@ -53,14 +53,6 @@ public class OrderlistServiceImpl implements OrderlistService {
 
         User user = userService.getUser(username);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = new Date();
-        try {
-            date = sdf.parse(datetime);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         Integer orderid=0;
 
@@ -68,7 +60,7 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderlist.setUser(user);
         orderlist.setUsername(username);
         orderlist.setAmount(amount);
-        orderlist.setDatetime(date);
+        orderlist.setDatetime(datetime);
         orderlist.setDeliverymethod(deliverymethod);
         orderlist.setPaymentmethod(paymentmethod);
         orderlist.setOrderstatus(orderstatus);
@@ -103,6 +95,7 @@ public class OrderlistServiceImpl implements OrderlistService {
 
         Orderlist orderlists=orderlistDao.get(hql, params);
 
+
         if(orderlists==null){
             throw new ServiceException("未搜索到订单记录" );
         }
@@ -121,12 +114,19 @@ public class OrderlistServiceImpl implements OrderlistService {
         params.put("orderstatus", totype);
 
         List<Orderlist> orderlists = orderlistDao.find(hql, params, page, rows);
-
+        List<Orderlist> orderlists1 = new ArrayList<Orderlist>();
 
         if (orderlists == null) {
             throw new ServiceException("未搜索到订单列表记录");
         }
 
+        for (int i = 0; i < orderlists.size(); i++) {
+            Orderlist orderlist = null;
+            orderlist = orderlists.get(i);
+
+            //orderlists.
+            System.out.println("*********** 订单时间：" + orderlist.getDatetime());
+        }
         return orderlists;
     }
 

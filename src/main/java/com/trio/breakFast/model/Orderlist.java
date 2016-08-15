@@ -7,6 +7,7 @@ package com.trio.breakFast.model;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -38,9 +39,7 @@ public class Orderlist implements Serializable {
 
 
     @Column(name = "datetime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datetime;//时间
+    private String datetime;//时间
 
     @Column(name = "deliverymethod")
     private String deliverymethod;//配送方式
@@ -62,4 +61,6 @@ public class Orderlist implements Serializable {
 
     @Column(name = "phone")
     private String phone;//手机号
+
+
 }
