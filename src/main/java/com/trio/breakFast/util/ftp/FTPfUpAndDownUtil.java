@@ -4,6 +4,7 @@ import com.trio.breakFast.sys.exception.ServiceException;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -185,10 +186,22 @@ public class FTPfUpAndDownUtil {
      */
 
 
-    public static InputStream downloadFile(String hostname, int port, String username,
+    public static MultipartFile downloadFile(String hostname, int port, String username,
                                            String password, String pathname, String filename) {
         InputStream inputStream = null;
+        File localFile = null;
+        File file1 = null;
+        MultipartFile multipartFile = null;
         boolean flag = false;
+        String localpath = "E:/image";
+
+        file1 = new File(localpath + "/" + file1.getName());
+
+        if (file1.exists()) {
+            file1.delete();
+            System.out.println(" down 文件存在,删除...");
+        }
+
         FTPClient ftpClient = new FTPClient();
         try {
             //连接FTP服务器
@@ -203,20 +216,23 @@ public class FTPfUpAndDownUtil {
             }
             //切换FTP目录
             ftpClient.changeWorkingDirectory(pathname);
-            inputStream = ftpClient.retrieveFileStream(filename);
-            if (inputStream == null) {
-                throw new ServiceException("头像不存在");
-            }
+//            inputStream = ftpClient.retrieveFileStream(filename);
+//            if (inputStream == null) {
+//                throw new ServiceException("头像不存在");
+//            }
+
 
             FTPFile[] ftpFiles = ftpClient.listFiles();
-//            for(FTPFile file : ftpFiles){
-//                if(filename.equalsIgnoreCase(file.getName())){
-//                    File localFile = new File(localpath + "/" + file.getName());
-//                    OutputStream os = new FileOutputStream(localFile);
-//                    ftpClient.retrieveFile(file.getName(), os);
-//                    os.close();
-//                }
-//            }
+            for (FTPFile file : ftpFiles) {
+                if (filename.equalsIgnoreCase(file.getName())) {
+                    localFile = new File(localpath + "/" + file.getName());
+                    OutputStream os = new FileOutputStream(localFile);
+                    ftpClient.retrieveFile(file.getName(), os);
+                    os.close();
+                }
+            }
+            multipartFile = (MultipartFile) localFile;
+
             ftpClient.logout();
             flag = true;
 
@@ -231,6 +247,6 @@ public class FTPfUpAndDownUtil {
                 }
             }
         }
-        return inputStream;
+        return multipartFile;
     }
 }

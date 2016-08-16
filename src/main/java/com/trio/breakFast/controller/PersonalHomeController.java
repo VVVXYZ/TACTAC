@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -37,10 +38,10 @@ public class PersonalHomeController {
     //上传头像
     @ResponseBody
     @RequestMapping(value = "/upFile", method = RequestMethod.POST)
-    public MessageHelper FileUp(String fileName, InputStream inputStream) {
+    public MessageHelper FileUp(String fileName, MultipartFile picture) {
         MessageHelper messageHelper = new MessageHelper();
         try {
-            FTPffUpAndDownService.FileUp(fileName, inputStream);
+            FTPffUpAndDownService.FileUp(fileName, picture);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("头像上传成功");
 
@@ -59,8 +60,8 @@ public class PersonalHomeController {
     public DataHelper FileDown(String fileName) {
         DataHelper dataHelper = new DataHelper();
         try {
-            InputStream inputStream = FTPffUpAndDownService.FileDown(fileName);
-            dataHelper.setData(inputStream);
+            MultipartFile multipartFile = FTPffUpAndDownService.FileDown(fileName);
+            dataHelper.setData(multipartFile);
             dataHelper.setSuccess(true);
 
             dataHelper.setMessage("头像加载成功");

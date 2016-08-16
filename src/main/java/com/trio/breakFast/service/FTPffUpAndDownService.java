@@ -1,5 +1,7 @@
 package com.trio.breakFast.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 
 /**
@@ -7,9 +9,9 @@ import java.io.InputStream;
  */
 
 public interface FTPffUpAndDownService {
-    public boolean FileUp(String fileName, InputStream inputStream);
+    public boolean FileUp(String fileName, MultipartFile file);
 
-    public InputStream FileDown(String fileName);
+    public MultipartFile FileDown(String fileName);
 
 
 }
