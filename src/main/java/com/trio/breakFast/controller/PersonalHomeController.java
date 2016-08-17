@@ -38,7 +38,7 @@ public class PersonalHomeController {
     //上传头像
     @ResponseBody
     @RequestMapping(value = "/upFile", method = RequestMethod.POST)
-    public MessageHelper FileUp(String fileName, MultipartFile picture) {
+    public MessageHelper FileUp(String fileName, String picture) {
         MessageHelper messageHelper = new MessageHelper();
         try {
             FTPffUpAndDownService.FileUp(fileName, picture);
@@ -60,8 +60,8 @@ public class PersonalHomeController {
     public DataHelper FileDown(String fileName) {
         DataHelper dataHelper = new DataHelper();
         try {
-            MultipartFile multipartFile = FTPffUpAndDownService.FileDown(fileName);
-            dataHelper.setData(multipartFile);
+            String picture = FTPffUpAndDownService.FileDown(fileName);
+            dataHelper.setData(picture);
             dataHelper.setSuccess(true);
 
             dataHelper.setMessage("头像加载成功");

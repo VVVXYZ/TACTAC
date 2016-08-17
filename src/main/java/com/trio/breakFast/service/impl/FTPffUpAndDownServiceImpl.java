@@ -7,8 +7,10 @@ import com.trio.breakFast.util.ftp.FTPfUpAndDownUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 
 /**
@@ -27,17 +29,20 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
 
     //上传图片
     @Override
-    public boolean FileUp(String fileName, MultipartFile file) {
+    public boolean FileUp(String fileName, String file) {
 
         String hostname = "127.0.0.1";
         int port = 21;
         String username = "vv";
         String password = "5215215241";
         String pathname = "business/ebook";
+        Base64 base64 = null;
 
         InputStream inputStream = null;
+        ByteArrayInputStream byteArrayInputStream = null;
+        inputStream = byteArrayInputStream;
         try {
-            inputStream = file.getInputStream();
+            inputStream = new ByteArrayInputStream(file.getBytes("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
             //logger.error("上传失败");
@@ -61,7 +66,7 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
     //
     //下载图片
     @Override
-    public MultipartFile FileDown(String fileName) {
+    public String FileDown(String fileName) {
         String hostname = "127.0.0.1";
         int port = 21;
         String username = "vv";
@@ -69,9 +74,10 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
         String pathname = "business/ebook";
         MultipartFile multipartFile = null;
 
-        multipartFile = FTPfUpAndDownUtil.downloadFile(hostname, port, username, password, pathname, fileName);
+        String picture = null;
+        picture = FTPfUpAndDownUtil.downloadFile(hostname, port, username, password, pathname, fileName);
 
-        return multipartFile;
+        return picture;
     }
 
 }

@@ -24,4 +24,6 @@ public interface OrderlistService {
 
     public void confirmOrder(Integer orderid);
 
+    public int getOrderlistNumByUsername(String username, String type);
+
 }

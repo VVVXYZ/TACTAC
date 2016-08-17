@@ -105,6 +105,24 @@ public class OrderlistServiceImpl implements OrderlistService {
     }
 
 
+    //根据username返回订单记录 条数
+    @Override
+    public int getOrderlistNumByUsername(String username, String type) {
+
+        int i = 0;
+        String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus";
+        Map<String, Object> params = new HashMap<String, Object>();
+        Integer totype = Integer.parseInt(type);
+        params.put("username", username);
+        params.put("orderstatus", totype);
+
+        List<Orderlist> orderlists = orderlistDao.find(hql, params);
+
+        i = orderlists.size();
+
+        return i;
+    }
+
     //根据username返回订单记录  状态  为1
     @Override
     public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows, String type) {

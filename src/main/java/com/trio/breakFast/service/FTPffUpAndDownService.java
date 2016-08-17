@@ -9,9 +9,9 @@ import java.io.InputStream;
  */
 
 public interface FTPffUpAndDownService {
-    public boolean FileUp(String fileName, MultipartFile file);
+    public boolean FileUp(String fileName, String file);
 
-    public MultipartFile FileDown(String fileName);
+    public String FileDown(String fileName);
 
 
 }
