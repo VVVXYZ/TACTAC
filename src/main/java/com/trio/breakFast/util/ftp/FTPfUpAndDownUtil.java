@@ -188,7 +188,7 @@ public class FTPfUpAndDownUtil {
         File file1 = null;
         MultipartFile multipartFile = null;
         boolean flag = false;
-        String picture = "";
+        String picture = null;
         String localpath = "E:/image";
 
         System.out.println("***************** down 文件...");
@@ -213,25 +213,29 @@ public class FTPfUpAndDownUtil {
             }
             //切换FTP目录
             ftpClient.changeWorkingDirectory(pathname);
+
             inputStream = ftpClient.retrieveFileStream(filename);
             if (inputStream == null) {
-                throw new ServiceException("头像不存在");
-            }
+                System.out.println(" *****  头像不存在");
+                //throw new ServiceException("头像不存在");
 
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int i = -1;
-            while ((i = inputStream.read()) != -1) {
-                baos.write(i);
+            } else {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                int i = -1;
+                while ((i = inputStream.read()) != -1) {
+                    baos.write(i);
+                }
+                picture = baos.toString();
+                System.out.println(" *****  down 文件 return picture");
+                System.out.println(" *****  down 文件 lenth:" + picture.length());
             }
-            picture = baos.toString();
-
-            if (inputStream == null) {
-                System.out.println(" *****  down 文件 inputStream==null");
-            }
-            if (picture == null) {
-                System.out.println(" *****  down 文件 picture==null");
-            }
+            System.out.println(" *****  down 文件 picture = baos.toString()");
+//            if (inputStream==null) {
+//                System.out.println(" *****  down 文件 inputStream==null");
+//            }
+//            if (picture==null) {
+//                System.out.println(" *****  down 文件 picture==null");
+//            }
 //            FTPFile[] ftpFiles = ftpClient.listFiles();
 //            for (FTPFile file : ftpFiles) {
 //                if (filename.equalsIgnoreCase(file.getName())) {
@@ -242,6 +246,7 @@ public class FTPfUpAndDownUtil {
 //                }
 //            }
 //            multipartFile = (MultipartFile) localFile;
+
 
             ftpClient.logout();
             flag = true;
@@ -257,6 +262,7 @@ public class FTPfUpAndDownUtil {
                 }
             }
         }
+
         return picture;
     }
 }

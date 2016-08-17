@@ -77,6 +77,10 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
         String picture = null;
         picture = FTPfUpAndDownUtil.downloadFile(hostname, port, username, password, pathname, fileName);
 
+        if (picture == null) {
+            throw new ServiceException("tupian未找到");
+        }
+        System.out.println("***************** 下载图片 fileName:" + fileName);
         return picture;
     }
 

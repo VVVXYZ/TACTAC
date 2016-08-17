@@ -42,6 +42,7 @@ public class PersonalHomeController {
         MessageHelper messageHelper = new MessageHelper();
         try {
             FTPffUpAndDownService.FileUp(fileName, picture);
+            System.out.println(fileName);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("头像上传成功");
 
