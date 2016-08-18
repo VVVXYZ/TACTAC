@@ -51,6 +51,7 @@ public class FTPfUpAndDownUtil {
             inputStream.close();
             ftpClient.logout();
 
+
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();

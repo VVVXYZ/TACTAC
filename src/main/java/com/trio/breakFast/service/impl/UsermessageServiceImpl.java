@@ -24,10 +24,12 @@ public class UsermessageServiceImpl implements UsermessageService {
 
     //显示系统消息，列表
     @Override
-    public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows) {
-        String hql = "from Usermessage  u where u.user.username=:username  order by  u.datetime      ";
+    public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows, Integer type) {
+        String hql = "from Usermessage  u where u.user.username=:username and u.type=:type order by  u.datetime      ";
         Map<String, Object> params = new HashMap<String, Object>();
+
         params.put("username", username);
+        params.put("type", type);
 
         List<Usermessage> usermessages = usermessageDao.find(hql, params, page, rows);
         // Usermessage usermessage=usermessages.get(1);

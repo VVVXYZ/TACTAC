@@ -78,11 +78,11 @@ public class PersonalHomeController {
     //显示系统消息列表接口
     @ResponseBody
     @RequestMapping(value = "/getUsermessageList", method = RequestMethod.POST)
-    public DataHelper getUsermessageList(String username, Integer page, Integer rows)
+    public DataHelper getUsermessageList(String username, Integer page, Integer rows, Integer type)
     {
         DataHelper dataHelper=new DataHelper();
         try{
-            List<Usermessage> usermessages = usermessageService.getUsermessageList(username, page, rows);
+            List<Usermessage> usermessages = usermessageService.getUsermessageList(username, page, rows, type);
             dataHelper.setData(usermessages);
             dataHelper.setSuccess(true);
 

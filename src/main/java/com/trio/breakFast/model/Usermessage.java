@@ -29,6 +29,9 @@ public class Usermessage implements Serializable {
     private User user;//用户
 
 
+    @Column(name = "type")
+    private int type;//类型
+
     @Column(name = "username")
     private String username;//用户名
 
@@ -41,5 +44,6 @@ public class Usermessage implements Serializable {
 
     @Column(name = "messagecontent")
     private String messagecontent;//消息内容
+
 
 }

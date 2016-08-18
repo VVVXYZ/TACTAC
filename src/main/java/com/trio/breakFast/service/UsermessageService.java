@@ -12,6 +12,6 @@ public interface UsermessageService {
 
     public Usermessage getUsermessage(Integer userid, Integer orderid);
 
-    public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows);
+    public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows, Integer type);
 
 }

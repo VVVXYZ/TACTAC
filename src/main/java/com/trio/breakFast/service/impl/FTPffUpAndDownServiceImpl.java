@@ -6,6 +6,7 @@ import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.ftp.FTPfUpAndDownUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -38,11 +39,32 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
         String pathname = "business/ebook";
         Base64 base64 = null;
 
+        String s = null;
+        byte[] b = null;
+        String result = null;
+
+        String name = "back_" + fileName;
+        InputStream is = null;
         InputStream inputStream = null;
         ByteArrayInputStream byteArrayInputStream = null;
         inputStream = byteArrayInputStream;
+
+        s = file;
+
+        if (s != null) {
+            BASE64Decoder decoder = new BASE64Decoder();
+            try {
+                b = decoder.decodeBuffer(s);
+                result = new String(b, "utf-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         try {
             inputStream = new ByteArrayInputStream(file.getBytes("UTF-8"));
+            is = new ByteArrayInputStream(result.getBytes("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
             //logger.error("上传失败");
@@ -52,6 +74,9 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
         boolean flag = false;
         boolean f1 = FTPfUpAndDownUtil.deleteFile(hostname, port, username, password, pathname, fileName);
         boolean f2 = FTPfUpAndDownUtil.uploadFile(hostname, port, username, password, pathname, fileName, inputStream);
+
+        FTPfUpAndDownUtil.uploadFile(hostname, port, username, password, pathname, name, is);
+
 
         if (f1 == true && f2 == true)
             flag = true;

@@ -126,7 +126,7 @@ public class OrderlistServiceImpl implements OrderlistService {
     //根据username返回订单记录  状态  为1
     @Override
     public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows, String type) {
-        String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus";
+        String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus order by c.datetime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
         Integer totype = Integer.parseInt(type);
         params.put("username", username);
