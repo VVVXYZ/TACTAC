@@ -71,6 +71,7 @@ public class AddressdetailServiceImpl implements AddressdetailService {
         addressdetail.setReceivername(receivername);
         ServiceHelper.update(addressdetailDao,Addressdetail.class,addressdetail);
 
+
     }
 
     //删除收货地址

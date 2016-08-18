@@ -41,6 +41,7 @@ public class CommodityServiceImpl implements CommodityService {
         return commodity;
     }
 
+
     //搜索早餐，
     @Override
     public List<Commodity> getFood(String commodityname,Integer page,Integer rows)

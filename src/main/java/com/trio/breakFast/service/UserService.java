@@ -14,6 +14,7 @@ public interface UserService {
     public User getUser(String username);
     public void checkUser(String username);
 
+
     public void judgeUser(String name, String psw);
 
 }

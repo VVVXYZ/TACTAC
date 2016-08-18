@@ -83,6 +83,7 @@ public class HomepageController extends BaseController {
         return dataHelper;
     }
 
+
     //购物车订单明细接口，一条订单对应多条明细，要多次调用这个接口添加明细
     @ResponseBody
     @RequestMapping(value = "/addorderDetail", method = RequestMethod.POST)

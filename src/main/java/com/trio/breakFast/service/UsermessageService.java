@@ -14,4 +14,5 @@ public interface UsermessageService {
 
     public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows, Integer type);
 
+
 }

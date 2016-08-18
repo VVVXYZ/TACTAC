@@ -28,6 +28,7 @@ public class AccountController extends BaseController {
     @Autowired
     private AccountService accountService;
 
+
     @RequiresRoles("manage")
     @RequestMapping
     public String index(Model model){

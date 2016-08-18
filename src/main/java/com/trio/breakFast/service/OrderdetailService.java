@@ -16,3 +16,4 @@ public interface OrderdetailService {
 
     public List<Orderdetail> getOrderdetailOn(Integer orderid, String type);
 }
+

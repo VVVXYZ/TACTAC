@@ -23,6 +23,7 @@ public class LoginregisterController extends BaseController {
 //    @Autowired
 //    private SecurityService securityService;
 
+
     //注册用户接口
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)

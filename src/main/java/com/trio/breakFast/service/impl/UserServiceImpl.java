@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+
     //根据用户名验证用户是否存在
     @Override
     public void checkUser(String username)

@@ -47,6 +47,7 @@ public class OrderdetailServiceImpl implements OrderdetailService {
         return orderdetails;
     }
 
+
     //添加订单明细
     @Override
     public void addorderDetail(Integer orderid, String commodityname, Integer commodityquantity, Double price) {
