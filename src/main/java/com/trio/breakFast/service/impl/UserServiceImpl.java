@@ -20,7 +20,6 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     @Autowired
     UserDao userDao;
 
@@ -28,6 +27,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String username)
     {
+        if(username == null)
+            throw new ServiceException("用户名不能为空");
+
         User user=get(username);
         if(user==null)
         {
@@ -62,6 +64,13 @@ public class UserServiceImpl implements UserService {
     //注册
     @Override
     public void put(String username,String password,Integer securityquestionid,String securitypsw) {
+
+        if(username == null)
+            throw new ServiceException("用户名不能为空");
+        if(password == null)
+            throw new ServiceException("密码不能为空");
+        if(securitypsw == null)
+            throw new ServiceException("密保问题答案不能为空");
 
         if (get(username) != null) {
             throw new ServiceException("该用户已存在" + username);
@@ -130,6 +139,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User judgeLogin(String name, String psw) {
 
+        if(name == null)
+            throw new ServiceException("用户名不能为空");
+        if(psw == null)
+            throw new ServiceException("密码不能为空");
+
         System.out.println(name);
         System.out.println(psw);
 
@@ -161,7 +175,13 @@ public class UserServiceImpl implements UserService {
     //验证密保
     @Override
     public void checkSecurity (String username,Integer securityquestionid,String securitypsw) {
-       User user= get(username);
+
+        if(username == null)
+            throw new ServiceException("用户名不能为空");
+        if(securitypsw == null)
+            throw new ServiceException("密保问题答案不能为空");
+
+        User user= get(username);
         if(user==null)
         {
             throw new ServiceException("用户不存在" );
