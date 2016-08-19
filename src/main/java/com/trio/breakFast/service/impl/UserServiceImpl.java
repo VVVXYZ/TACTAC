@@ -81,14 +81,16 @@ public class UserServiceImpl implements UserService {
         user.setSecuritypsw(securitypsw);
         user.setSecurityquestionid(securityquestionid);
 
+
         Integer flag=ServiceHelper.create(userDao, User.class, user);
  //       ServiceHelper.create(userDao, User.class, user);
 
+        System.out.println("*****  flag:" + flag);
 
-       if(flag == null)
-           throw new ServiceException("注册失败");
-        else
-           throw new ServiceException("注册成功" );
+//       if(flag == -1)
+//           throw new ServiceException("注册失败");
+//        else
+//           throw new ServiceException("注册成功" );
 
     }
 
