@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by asus on 2016/7/26.
@@ -52,6 +54,14 @@ public class OrderlistServiceImpl implements OrderlistService {
     {
 
         User user = userService.getUser(username);
+
+
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(phone);
+        if (!m.matches()) {
+            throw new ServiceException("错误手机号");
+        }
 
 
         Integer orderid=0;

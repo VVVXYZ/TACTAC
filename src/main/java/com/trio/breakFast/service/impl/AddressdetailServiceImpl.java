@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by asus on 2016/7/26.
@@ -111,6 +113,15 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public void addAddress(String username, String newAddress,String receivername,String phone)
     {
+
+
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(phone);
+        if (!m.matches()) {
+            throw new ServiceException("错误手机号");
+        }
+
         System.out.println(newAddress);
         System.out.println("*************");
         User user = userService.getUser(username);
