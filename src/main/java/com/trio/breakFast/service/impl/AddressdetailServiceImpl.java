@@ -34,7 +34,7 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public List<Addressdetail> showAddress(String username)
     {
-        String hql = "from Addressdetail a where a.user.username=:username";
+        String hql = "from Addressdetail a where a.user.username=:username order by a.addressid desc";
         Map<String,Object> params=new HashMap<String,Object>();
         //String str=user_id+"";
         params.put("username", username);
@@ -51,6 +51,21 @@ public class AddressdetailServiceImpl implements AddressdetailService {
         return addressdetails;
     }
 
+    //返回默认地址
+    @Override
+    public Addressdetail getDefaultAdresss(String username) {
+        Addressdetail addressdetail = null;
+
+        List<Addressdetail> addressdetails = showAddress(username);
+
+        addressdetail = addressdetails.get(0);
+
+        if (addressdetail == null) {
+            throw new ServiceException("未找到该用户的默认地址");
+        }
+
+        return addressdetail;
+    }
 
     //修改某条地址
     @Override

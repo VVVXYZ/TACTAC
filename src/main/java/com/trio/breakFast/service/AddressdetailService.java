@@ -15,7 +15,7 @@ public interface AddressdetailService {
 
     public List<Addressdetail> showAddress(String username);
 
-
+    public Addressdetail getDefaultAdresss(String username);
     public void changeAddress(Integer addressid, String address,String receivername,String phone);
 //    public void changeAddress(String username, String address_content, String newaddress,String receivername,String phone);
 

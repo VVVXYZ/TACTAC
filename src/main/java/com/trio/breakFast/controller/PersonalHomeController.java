@@ -97,6 +97,26 @@ public class PersonalHomeController {
         return dataHelper;
     }
 
+    //显示默认地址接口,
+    @ResponseBody
+    @RequestMapping(value = "/getDefaultAdresss", method = RequestMethod.POST)
+    public DataHelper getDefaultAdresss(String username) {
+        DataHelper dataHelper = new DataHelper();
+        try {
+            Addressdetail addressdetail = addressdetailService.getDefaultAdresss(username);
+            dataHelper.setData(addressdetail);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("查找到地址");
+
+        } catch (ServiceException e) {
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+
+        }
+        return dataHelper;
+    }
+
+
     //显示地址接口,得到某个人的收货地址集合
     @ResponseBody
     @RequestMapping(value = "/showAddress", method = RequestMethod.POST)
