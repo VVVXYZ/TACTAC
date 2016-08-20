@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User judgeLogin(String name, String psw) {
 
-        if(name == null || name.length()<=0)
+        if(name == null || name.equals(""))
             throw new ServiceException("用户名不能为空");
         if(psw == null || psw.length()<=0)
             throw new ServiceException("密码不能为空");
