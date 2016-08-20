@@ -25,6 +25,15 @@ public class UsermessageServiceImpl implements UsermessageService {
     //显示系统消息，列表
     @Override
     public List<Usermessage> getUsermessageList(String username, Integer page, Integer rows, Integer type) {
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(type == null || type<=0)
+            throw new ServiceException("消息类型有误");
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
+
         String hql = "from Usermessage  u where u.user.username=:username and u.type=:type order by  u.datetime      ";
         Map<String, Object> params = new HashMap<String, Object>();
 

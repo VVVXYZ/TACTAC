@@ -46,6 +46,12 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getFood(String commodityname,Integer page,Integer rows)
     {
+        if(commodityname == null || commodityname.length()<=0)
+            throw new ServiceException("商品名不能为空");
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
 
         String hql="from Commodity c where c.commodityname like :commodityname";
         Map<String,Object> params=new HashMap<String,Object>();
@@ -65,6 +71,9 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public void addNumberofpoints(Integer commodity_id)
     {
+        if(commodity_id == null || commodity_id <= 0)
+            throw new ServiceException("商品编号有误");
+
         Commodity commodity= ServiceHelper.get(commodityDao,Commodity.class,commodity_id);
 
         if(commodity==null){
@@ -80,6 +89,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getCommodityByCommodityamount(Integer page,Integer rows)
     {
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
+
         String hql="from Commodity c order by c.commodityamount asc";
         List<Commodity> commodities=commodityDao.find(hql,page,rows);
         if(commodities.size()==0)
@@ -91,6 +105,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getCommodityBySales(Integer page,Integer rows)
     {
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
+
         String hql="from Commodity c order by c.sales desc";
         List<Commodity> commodities=commodityDao.find(hql,page,rows);
         if(commodities.size()==0)
@@ -104,6 +123,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> getCommodityByBaozi(Integer page,Integer rows)
     {
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
+
         String commodityname="包";
         String food="'%"+commodityname+"%'";
 

@@ -18,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,18 +53,30 @@ public class OrderlistServiceImpl implements OrderlistService {
     public Integer shopingCar(String username, Double amount, String datetime, String deliverymethod,
                               String paymentmethod, Integer orderstatus, String remark, String adress,
                               String receivername, String phone, String deliverytime)
-    {
+    {   if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(amount == null || amount < 0)
+            throw new ServiceException("订单金额出错");
+        if(deliverymethod == null || deliverymethod.length()<=0)
+            throw new ServiceException("配送方式不能为空");
+        if(paymentmethod == null || paymentmethod.length()<=0)
+            throw new ServiceException("支付方式不能为空");
+        if(orderstatus == null || orderstatus <= 0)
+            throw new ServiceException("订单状态出错");
+        if(adress == null || adress.length()<=0)
+            throw new ServiceException("配送地址不能为空");
+        if(receivername == null || receivername.length()<=0)
+            throw new ServiceException("收货人姓名不能为空");
+        if(phone == null || phone.length()<=0)
+            throw new ServiceException("收货人手机号不能为空");
 
         User user = userService.getUser(username);
-
-
         String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(phone);
         if (!m.matches()) {
             throw new ServiceException("错误手机号");
         }
-
 
         Integer orderid=0;
 
@@ -100,6 +114,9 @@ public class OrderlistServiceImpl implements OrderlistService {
     @Override
     public Orderlist getOrderlistByOrderid(Integer orderid)
     {
+        if(orderid == null || orderid <= 0)
+            throw new ServiceException("订单编号有误");
+
         String hql="from Orderlist c where c.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("orderid", orderid);
@@ -119,6 +136,11 @@ public class OrderlistServiceImpl implements OrderlistService {
     @Override
     public int getOrderlistNumByUsername(String username, String type) {
 
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(type == null || type.length()<=0)
+            throw new ServiceException("订单状态不能为空");
+
         int i = 0;
         String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus";
         Map<String, Object> params = new HashMap<String, Object>();
@@ -134,9 +156,18 @@ public class OrderlistServiceImpl implements OrderlistService {
     }
 
 
-    //根据username返回订单记录  状态  为1
+    //根据username返回订单记录  状态为1
     @Override
     public List<Orderlist> getOrderlistByUsername(String username, Integer page, Integer rows, String type) {
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(type == null || type.length()<=0)
+            throw new ServiceException("订单状态不能为空");
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
+
         String hql = "from Orderlist c where c.username=:username and c.orderstatus=:orderstatus order by c.datetime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
         Integer totype = Integer.parseInt(type);
@@ -164,6 +195,14 @@ public class OrderlistServiceImpl implements OrderlistService {
     //根据username返回订单明细记录  状态为 1
     @Override
     public List<Orderdetail> getDetailByList(String username, Integer page, Integer rows, String type) {
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(type == null || type.length()<=0)
+            throw new ServiceException("订单状态不能为空");
+        if(rows <= 0)
+            throw new ServiceException("条数应大于0");
+        if(page <= 0)
+            throw new ServiceException("页数应大于0");
 
         List<Orderdetail> ods = new ArrayList<Orderdetail>();
         List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows, type);
@@ -200,8 +239,8 @@ public class OrderlistServiceImpl implements OrderlistService {
     //取消订单
     @Override
     public void cancelOrder(Integer orderid, String remark) {
-
-
+        if(orderid == null || orderid<=0)
+            throw new ServiceException("订单编号有误");
 
         Orderlist orderlist=ServiceHelper.get(orderlistDao,Orderlist.class,orderid);
         Integer orderstatus = orderlist.getOrderstatus();
@@ -222,6 +261,9 @@ public class OrderlistServiceImpl implements OrderlistService {
 
     //确认收货  改变 状态 商品销售量
     public void confirmOrder(Integer orderid) {
+        if(orderid == null || orderid<=0)
+            throw new ServiceException("订单编号有误");
+
         Orderlist orderlist = ServiceHelper.get(orderlistDao, Orderlist.class, orderid);
         Integer orderstatus = orderlist.getOrderstatus();
 

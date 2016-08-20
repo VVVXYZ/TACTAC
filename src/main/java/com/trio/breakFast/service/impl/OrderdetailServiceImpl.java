@@ -1,6 +1,5 @@
 package com.trio.breakFast.service.impl;
 
-import com.trio.breakFast.dao.CommodityDao;
 import com.trio.breakFast.dao.OrderdetailDao;
 import com.trio.breakFast.model.Commodity;
 import com.trio.breakFast.model.Orderdetail;
@@ -35,6 +34,9 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     @Override
     public List<Orderdetail> showOrder(Integer orderid)
     {
+        if(orderid <= 0)
+            throw new ServiceException("订单编号有误");
+
         String hql = "from Orderdetail o where o.order.orderid=:orderid";
         Map<String,Object> params=new HashMap<String,Object>();
 
@@ -51,6 +53,14 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     //添加订单明细
     @Override
     public void addorderDetail(Integer orderid, String commodityname, Integer commodityquantity, Double price) {
+        if(orderid == null || orderid<=0)
+            throw new ServiceException("订单编号有误");
+        if(commodityname == null || commodityname.length()<=0)
+            throw new ServiceException("商品名不能为空");
+        if(commodityquantity == null || commodityquantity <0)
+            throw new ServiceException("商品数量有误");
+        if(price == null || price < 0)
+            throw new ServiceException("商品单价有误");
 
         Orderlist orderlist = new Orderlist();
         orderlist = orderlistService.getOrderlistByOrderid(orderid);
@@ -75,6 +85,10 @@ public class OrderdetailServiceImpl implements OrderdetailService {
     //根据订单编号查询进行中的订单明细  订单状态
     @Override
     public List<Orderdetail> getOrderdetailOn(Integer orderid, String type) {
+        if(orderid <= 0)
+            throw new ServiceException("订单编号有误");
+        if(type == null || type.length()<=0)
+            throw new ServiceException("订单状态不能为空");
 
         Integer status = Integer.parseInt(type);
         String hql = "from Orderdetail o where o.order.orderid=:orderid and o.order.orderstatus=:status";

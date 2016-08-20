@@ -36,6 +36,9 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public List<Addressdetail> showAddress(String username)
     {
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+
         String hql = "from Addressdetail a where a.user.username=:username order by a.addressid desc";
         Map<String,Object> params=new HashMap<String,Object>();
         //String str=user_id+"";
@@ -56,6 +59,9 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     //返回默认地址
     @Override
     public Addressdetail getDefaultAdresss(String username) {
+        if(username == null || username.length() <= 0)
+            throw new ServiceException("用户名不能为空");
+
         Addressdetail addressdetail = null;
 
         List<Addressdetail> addressdetails = showAddress(username);
@@ -73,6 +79,21 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public void changeAddress(Integer addressid, String address,String receivername,String phone)
     {
+        if(addressid == null || addressid <= 0)
+            throw new ServiceException("地址编号有误");
+        if(address == null || address.length() <= 0)
+            throw new ServiceException("地址不能为空");
+        if(receivername == null || receivername.length() <= 0)
+            throw new ServiceException("收货人姓名不能为空");
+        if(phone == null || phone.length() <= 0)
+            throw new ServiceException("手机号不能为空");
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(phone);
+        if (!m.matches()) {
+            throw new ServiceException("错误手机号");
+        }
+
         String hql = "from Addressdetail a where a.addressid=:addressid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("addressid", addressid);
@@ -95,6 +116,9 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public void deleteAddress(Integer addressid)
     {
+        if(addressid == null || addressid <= 0)
+            throw new ServiceException("地址编号有误");
+
         String hql = "from Addressdetail a where a.addressid=:addressid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("addressid", addressid);
@@ -113,7 +137,14 @@ public class AddressdetailServiceImpl implements AddressdetailService {
     @Override
     public void addAddress(String username, String newAddress,String receivername,String phone)
     {
-
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(newAddress == null || newAddress.length()<=0)
+            throw new ServiceException("地址不能为空");
+        if(receivername == null || receivername.length()<=0)
+            throw new ServiceException("收货人姓名不能为空");
+        if(phone == null || phone.length()<=0)
+            throw new ServiceException("手机号不能为空");
 
         String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
         Pattern p = Pattern.compile(regExp);

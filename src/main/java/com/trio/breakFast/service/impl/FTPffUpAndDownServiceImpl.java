@@ -31,6 +31,10 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
     //上传图片
     @Override
     public boolean FileUp(String fileName, String file) {
+        if(fileName == null  || fileName.length()<=0)
+            throw new ServiceException("头像名不能为空");
+        if(file == null || file.length()<=0)
+            throw new ServiceException("文件不能为空");
 
         String hostname = "127.0.0.1";
         int port = 21;
@@ -92,6 +96,9 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
     //下载图片
     @Override
     public String FileDown(String fileName) {
+        if(fileName == null  ||fileName.length()<=0)
+            throw new ServiceException("头像名不能为空");
+
         String hostname = "127.0.0.1";
         int port = 21;
         String username = "vv";

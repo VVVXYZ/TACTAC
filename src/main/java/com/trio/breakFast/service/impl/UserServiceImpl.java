@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String username)
     {
-        if(username == null)
+        if(username == null || username.length()<=0)
             throw new ServiceException("用户名不能为空");
 
         User user=get(username);
@@ -64,14 +64,12 @@ public class UserServiceImpl implements UserService {
     //注册
     @Override
     public void put(String username,String password,Integer securityquestionid,String securitypsw) {
-
-        if(username == null)
+        if(username == null || username.length() <= 0 )
             throw new ServiceException("用户名不能为空");
-        if(password == null)
+        if(password == null || password.isEmpty())
             throw new ServiceException("密码不能为空");
-        if(securitypsw == null)
+        if(securitypsw == null || securitypsw.equals(""))
             throw new ServiceException("密保问题答案不能为空");
-
         if (get(username) != null) {
             throw new ServiceException("该用户已存在" + username);
         }
@@ -81,14 +79,13 @@ public class UserServiceImpl implements UserService {
         user.setSecuritypsw(securitypsw);
         user.setSecurityquestionid(securityquestionid);
 
-        Integer flag=ServiceHelper.create(userDao, User.class, user);
- //       ServiceHelper.create(userDao, User.class, user);
-
-
-       if(flag == null)
-           throw new ServiceException("注册失败");
-        else
-           throw new ServiceException("注册成功" );
+//        Integer flag=ServiceHelper.create(userDao, User.class, user);
+       ServiceHelper.create(userDao, User.class, user);
+//        System.out.println(flag);
+//       if(flag == null)
+//           throw new ServiceException("注册失败");
+//        else
+//           throw new ServiceException("注册成功" );
 
     }
 
@@ -103,10 +100,13 @@ public class UserServiceImpl implements UserService {
     //验证登录
     @Override
     public void judgeUser(String name, String psw) {
+        if(name == null || name.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(psw == null || psw.length()<=0)
+            throw new ServiceException("密码不能为空");
 
         System.out.println(name);
         System.out.println(psw);
-
 
         //String hql = "from User u where u.username="+name;
         String hql = "from User u where u.username=:name";
@@ -139,9 +139,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User judgeLogin(String name, String psw) {
 
-        if(name == null)
+        if(name == null || name.length()<=0)
             throw new ServiceException("用户名不能为空");
-        if(psw == null)
+        if(psw == null || psw.length()<=0)
             throw new ServiceException("密码不能为空");
 
         System.out.println(name);
@@ -176,9 +176,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void checkSecurity (String username,Integer securityquestionid,String securitypsw) {
 
-        if(username == null)
+        if(username == null || username.length()<=0)
             throw new ServiceException("用户名不能为空");
-        if(securitypsw == null)
+        if(securitypsw == null || securitypsw.length()<=0)
             throw new ServiceException("密保问题答案不能为空");
 
         User user= get(username);
@@ -201,6 +201,11 @@ public class UserServiceImpl implements UserService {
     //忘记密码(要验证密保后在修改) /记得密码直接修改  修改密码
     @Override
     public void changePassword(String username,String password){
+
+        if(username == null || username.length()<=0)
+            throw new ServiceException("用户名不能为空");
+        if(password == null || password.length()<=0)
+            throw new ServiceException("密码不能为空");
 
         User user =get(username);
         user.setPassword(password);
