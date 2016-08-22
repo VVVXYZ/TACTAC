@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService {
 
         if(name == null || name.equals(""))
             throw new ServiceException("用户名不能为空");
-        if(psw == null || psw.length()<=0)
+        if(psw == null || psw.equals(""))
             throw new ServiceException("密码不能为空");
 
         System.out.println(name);
