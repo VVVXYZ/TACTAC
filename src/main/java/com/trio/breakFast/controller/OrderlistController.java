@@ -43,7 +43,7 @@ public class OrderlistController extends BaseController{
     public MessageHelper cancelOrder(Integer orderid, String remark)
     {
         MessageHelper messageHelper=new MessageHelper();
-        System.out.println("取消订单。。。");
+        //System.out.println("取消订单。。。");
 
         try{
             orderlistService.cancelOrder(orderid, remark);
@@ -140,7 +140,7 @@ public class OrderlistController extends BaseController{
     @RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
     public MessageHelper confirmOrder(Integer orderid) {
         MessageHelper messageHelper = new MessageHelper();
-        System.out.println("确认订单。。。");
+        // System.out.println("确认订单。。。");
         try {
             orderlistService.confirmOrder(orderid);
             messageHelper.setSuccess(true);

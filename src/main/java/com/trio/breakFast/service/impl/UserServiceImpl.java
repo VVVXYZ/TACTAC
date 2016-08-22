@@ -120,8 +120,8 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new ServiceException("用户不存在！");
         }
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
+        //System.out.println(user.getUsername());
+        //System.out.println(user.getPassword());
 
 
         if (user.getPassword().equals(psw)) {
@@ -144,8 +144,8 @@ public class UserServiceImpl implements UserService {
         if(psw == null || psw.equals(""))
             throw new ServiceException("密码不能为空");
 
-        System.out.println(name);
-        System.out.println(psw);
+        //System.out.println(name);
+        //System.out.println(psw);
 
         //String hql = "from User u where u.username="+name;
         String hql = "from User u where u.username=:name";
@@ -160,8 +160,8 @@ public class UserServiceImpl implements UserService {
         {
             throw new ServiceException("用户不存在！" );
         }
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
+        //System.out.println(user.getUsername());
+        //System.out.println(user.getPassword());
 
 
         if (user.getPassword().equals(psw)) {

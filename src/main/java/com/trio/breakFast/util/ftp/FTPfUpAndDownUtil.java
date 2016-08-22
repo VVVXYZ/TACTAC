@@ -146,10 +146,10 @@ public class FTPfUpAndDownUtil {
 
             InputStream ins = ftpClient.retrieveFileStream(filename);
             if (ins == null) {
-                System.out.println("文件不存在");
+                //System.out.println("文件不存在");
             } else {
                 ftpClient.dele(filename);
-                System.out.println("文件存在,删除...");
+                // System.out.println("文件存在,删除...");
             }
 
             ftpClient.logout();
@@ -192,7 +192,7 @@ public class FTPfUpAndDownUtil {
         String picture = null;
         String localpath = "E:/image";
 
-        System.out.println("***************** down 文件...");
+        //System.out.println("***************** down 文件...");
         //       file1 = new File(localpath + "/" + filename);
 
 //        if (file1.exists()) {
@@ -217,7 +217,7 @@ public class FTPfUpAndDownUtil {
 
             inputStream = ftpClient.retrieveFileStream(filename);
             if (inputStream == null) {
-                System.out.println(" *****  头像不存在");
+                //System.out.println(" *****  头像不存在");
                 //throw new ServiceException("头像不存在");
 
             } else {
@@ -227,10 +227,10 @@ public class FTPfUpAndDownUtil {
                     baos.write(i);
                 }
                 picture = baos.toString();
-                System.out.println(" *****  down 文件 return picture");
-                System.out.println(" *****  down 文件 lenth:" + picture.length());
+                //System.out.println(" *****  down 文件 return picture");
+                // System.out.println(" *****  down 文件 lenth:" + picture.length());
             }
-            System.out.println(" *****  down 文件 picture = baos.toString()");
+            //System.out.println(" *****  down 文件 picture = baos.toString()");
 //            if (inputStream==null) {
 //                System.out.println(" *****  down 文件 inputStream==null");
 //            }

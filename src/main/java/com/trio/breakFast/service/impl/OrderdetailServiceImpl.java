@@ -72,7 +72,7 @@ public class OrderdetailServiceImpl implements OrderdetailService {
         orderdetail.setPrice(price);
         Commodity commodity = commodityService.getFoodByRightname(commodityname);
         String picturename = commodity.getCommoditypicture();
-        System.out.println("**********" + picturename);
+        // System.out.println("**********" + picturename);
         orderdetail.setCommoditypicture(picturename);
 
         Integer flag=ServiceHelper.create(orderdetailDao, Orderdetail.class, orderdetail);

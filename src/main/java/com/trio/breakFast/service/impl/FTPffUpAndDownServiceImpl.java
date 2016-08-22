@@ -112,7 +112,7 @@ public class FTPffUpAndDownServiceImpl implements FTPffUpAndDownService {
         if (picture == null) {
             throw new ServiceException("tupian未找到");
         }
-        System.out.println("***************** 下载图片 fileName:" + fileName);
+        // System.out.println("***************** 下载图片 fileName:" + fileName);
         return picture;
     }
 

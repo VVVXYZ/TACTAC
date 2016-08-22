@@ -94,17 +94,17 @@ public class OrderlistServiceImpl implements OrderlistService {
         orderlist.setPhone(phone);
         orderlist.setDeliverytime(deliverytime);
 
-        System.out.println("****************");
+        //System.out.println("****************");
         Serializable flag=orderlistDao.save(orderlist);
         if(flag==null){
             throw new ServiceException("下单失败" );
         }
 
-        System.out.println("####################");
+        //System.out.println("####################");
         //  ServiceHelper.create(orderlistDao,Orderlist.class,orderlist);
 
         orderid=(Integer)flag;
-        System.out.println("orderid" + orderid);
+        //System.out.println("orderid" + orderid);
         return orderid;
 
     }
@@ -186,7 +186,7 @@ public class OrderlistServiceImpl implements OrderlistService {
             orderlist = orderlists.get(i);
 
             //orderlists.
-            System.out.println("*********** 订单时间：" + orderlist.getDatetime());
+            ////System.out.println("*********** 订单时间：" + orderlist.getDatetime());
         }
         return orderlists;
     }
@@ -207,27 +207,27 @@ public class OrderlistServiceImpl implements OrderlistService {
         List<Orderdetail> ods = new ArrayList<Orderdetail>();
         List<Orderlist> orderlists = getOrderlistByUsername(username, page, rows, type);
         //if(orderlists)
-        System.out.println("*********  username:" + username + "******");
-        System.out.println("*********  type:" + type + "******");
-
-        System.out.println("*********  page:" + page + "******");
-        System.out.println("*********  rows:" + rows + "******");
-
-        System.out.println("*********  orderlists  size=" + orderlists.size());
+        //System.out.println("*********  username:" + username + "******");
+//        System.out.println("*********  type:" + type + "******");
+//
+//        System.out.println("*********  page:" + page + "******");
+//        System.out.println("*********  rows:" + rows + "******");
+//
+//        System.out.println("*********  orderlists  size=" + orderlists.size());
         for (Integer i = 0; i < orderlists.size(); i++) {
             Orderlist orderlist = orderlists.get(i);
             Integer orderid = orderlist.getOrderid();
             List<Orderdetail> orderdetails = orderdetailService.getOrderdetailOn(orderid, type);
-            System.out.println("****************orderdetails size=" + orderdetails.size());
+            // System.out.println("****************orderdetails size=" + orderdetails.size());
             for (Integer j = 0; j < orderdetails.size(); j++) {
                 // orderdetails.
                 Orderdetail orderdetail = orderdetails.get(j);
-                System.out.println("###############" + orderdetail.getCommodityname());
+                //System.out.println("###############" + orderdetail.getCommodityname());
                 ods.add(orderdetail);
             }
         }
 
-        System.out.println("***********  ods.size=" + ods.size());
+        //System.out.println("***********  ods.size=" + ods.size());
         if (ods.size() == 0) {
             throw new ServiceException("订单明细列表获取失败");
         }
