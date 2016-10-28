@@ -23,7 +23,7 @@ public class Tac_recruit implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "recruitid")
-    private String recruitid;//招聘信息id
+    private Integer recruitid;//招聘信息id
 
     @ManyToOne
     @JoinColumn(name = "userid")

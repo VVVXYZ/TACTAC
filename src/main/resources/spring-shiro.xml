@@ -136,6 +136,7 @@
                 /orderlist/** = anon
                 /user/** = anon
                 /homepage/** = anon
+                /tacpersonal/** = anon
                 /settings/** = anon
                 /** = authc,currentUser
             </value>

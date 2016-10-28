@@ -24,7 +24,7 @@ public class Tac_admin implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "adminid")
-    private String adminid;//管理员id
+    private Integer adminid;//管理员id
 
 
     @Column(name = "account")

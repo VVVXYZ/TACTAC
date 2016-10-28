@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
 //        Integer flag=ServiceHelper.create(userDao, User.class, user);
        ServiceHelper.create(userDao, User.class, user);
+
 //        System.out.println(flag);
 //       if(flag == null)
 //           throw new ServiceException("注册失败");

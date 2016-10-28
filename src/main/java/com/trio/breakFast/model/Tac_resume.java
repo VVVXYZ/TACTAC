@@ -22,7 +22,7 @@ public class Tac_resume implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "resumeid")
-    private String resumeid;//个人简历id
+    private Integer resumeid;//个人简历id
 
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -56,6 +56,9 @@ public class Tac_resume implements Serializable {
 
     @Column(name = "url")
     private String url;//曾经做过的项目url
+
+    @Column(name = "kind")
+    private String kind;//工作方向
 
 
 }

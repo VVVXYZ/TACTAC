@@ -25,7 +25,7 @@ public class Tac_advice implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "adviceid")
-    private String adviceid;//建议id
+    private Integer adviceid;//建议id
 
 
     @Column(name = "userid")

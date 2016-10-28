@@ -49,4 +49,7 @@ public class Tac_user implements Serializable {
     @Column(name = "type")
     private Integer type;//用户类型
 
+    @Column(name = "kind")
+    private String kind;//工作方向
+
 }

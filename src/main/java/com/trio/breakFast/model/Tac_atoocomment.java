@@ -23,7 +23,7 @@ public class Tac_atoocomment implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "commentid")
-    private String commentid;//招聘信息id
+    private Integer commentid;//招聘信息id
 
     @ManyToOne
     @JoinColumn(name = "applicantsid")
