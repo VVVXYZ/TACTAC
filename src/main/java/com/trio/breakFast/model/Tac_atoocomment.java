@@ -49,7 +49,7 @@ public class Tac_atoocomment implements Serializable{
     private String aTOoComment;//应聘者对招聘者评价
 
     @Column(name = "aTOoPoint")
-    private Integer aTOoPoint;//应聘者对招聘者评分
+    private Float aTOoPoint;//应聘者对招聘者评分
 
     @Column(name = "aTOotime")
     private String aTOotime;//应聘者对招聘者评价发布时间

@@ -46,6 +46,9 @@ public class Tac_user implements Serializable {
     @Column(name = "image")
     private String image;//头像
 
+    @Column(name = "point")
+    private Float  point;//评分
+
     @Column(name = "type")
     private Integer type;//用户类型
 

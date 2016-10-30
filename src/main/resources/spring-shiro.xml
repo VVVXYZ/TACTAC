@@ -137,6 +137,8 @@
                 /user/** = anon
                 /homepage/** = anon
                 /tacpersonal/** = anon
+                /tacrecruit/** = anon
+                /tacapplication/** = anon
                 /settings/** = anon
                 /** = authc,currentUser
             </value>

@@ -48,7 +48,7 @@ public class Tac_otoacomment implements Serializable{
     private String oTOaComment;//招聘者对应聘者评价
 
     @Column(name = "oTOaPoint")
-    private Integer oTOaPoint;//招聘者对应聘者评分
+    private Float oTOaPoint;//招聘者对应聘者评分
 
     @Column(name = "oTOatime")
     private String oTOatime;//招聘者对应聘者评价发布时间

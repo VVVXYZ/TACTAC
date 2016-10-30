@@ -32,11 +32,11 @@ public class Tac_applicants implements Serializable  {
     @Column(name = "applicantname")
     private String applicantname;//应聘者名字
 
-    @Column(name = "haddone")
-    private Integer haddone;//曾经做过的项目个数
+    @Column(name = "point")
+    private Float point;//分数
 
-    @Column(name = "goodat")
-    private String goodat;//擅长
+    @Column(name = "singleresume")
+    private String singleresume;//擅长
 
     @Column(name = "image")
     private String image;//头像
@@ -49,7 +49,7 @@ public class Tac_applicants implements Serializable  {
     private String applicanttime;//申请时间
 
     @Column(name = "ownerid")
-    private String ownerid;//招聘拥有者id
+    private Integer ownerid;//招聘拥有者id
 
     @Column(name = "ownername")
     private String ownername;//工作地点招聘拥有者名字

@@ -46,6 +46,20 @@ public class Tac_userServiceImpl implements Tac_userService {
         filterGroup.addRules(new FilterRule("name", HqlUtil.EQUAL, username));
         return ServiceHelper.get(tac_userDao, Tac_user.class, filterGroup);
     }
+
+    @Override
+    //根据用户id查询该用户
+    public Tac_user getUserByID(Integer userid)
+    {
+        String hql = "from Tac_user tu where tu.userid=:userid";
+        Map<String, Object> params = new HashMap<>();
+        params.put("userid", userid);
+
+        Tac_user tac_user = tac_userDao.get(hql, params);
+        return  tac_user;
+    }
+
+
     //添加一条用户记录
     @Override
     public  void create(String name ,String password,String phone,String email)
@@ -58,7 +72,7 @@ public class Tac_userServiceImpl implements Tac_userService {
         tac_user.setPasswd(password);
         tac_user.setPhone(phone);
         tac_user.setEmail(email);
-
+        tac_user.setPoint(60.0f);
         ServiceHelper.create(tac_userDao,Tac_user.class,tac_user);
     }
 
