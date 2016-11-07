@@ -29,7 +29,7 @@ public class Tac_advice implements Serializable {
 
 
     @Column(name = "userid")
-    private String userid;//建议人id
+    private Integer userid;//建议人id
 
     @Column(name = "username")
     private String username;//建议人名字

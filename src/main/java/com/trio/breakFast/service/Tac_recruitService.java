@@ -14,6 +14,7 @@ public interface Tac_recruitService {
     public void changeStatusOfRecruit(Integer recruitid,Integer status);
     public Tac_recruit getRecruitByID(Integer recruitid);
     public  List<Tac_recruit> getRecruit(Integer page, Integer rows);
+    public  List<Tac_recruit> getRecruitForManager(Integer page, Integer rows);
 
 
 

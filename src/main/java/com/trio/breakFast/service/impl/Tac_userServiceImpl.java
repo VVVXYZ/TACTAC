@@ -73,7 +73,26 @@ public class Tac_userServiceImpl implements Tac_userService {
         tac_user.setPhone(phone);
         tac_user.setEmail(email);
         tac_user.setPoint(60.0f);
+        tac_user.setType(0);//0-普通用户
         ServiceHelper.create(tac_userDao,Tac_user.class,tac_user);
+    }
+
+    //更新用户资料
+    @Override
+    public  void update(Integer useid,String name ,String password,String phone,String email)
+    {
+        Tac_user tac_user=getUserByID(useid);
+        if (tac_user== null) {
+            throw new ServiceException("用户不存在" + name);
+        }
+
+        tac_user.setName(name);
+        tac_user.setPasswd(password);
+        tac_user.setPhone(phone);
+        tac_user.setEmail(email);
+
+        ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+
     }
 
     //验证登录

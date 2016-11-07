@@ -60,9 +60,9 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         Tac_user tac_user=tac_userService.get(username);
         tac_recruit.setTac_user(tac_user);
         tac_recruit.setOwner(username);
-        tac_recruit.setTitle(title+"+++");
+        tac_recruit.setTitle(title);
         tac_recruit.setWorkplace(workplace);
-        tac_recruit.setWorkInfo(workInfo+"+++");
+        tac_recruit.setWorkInfo(workInfo);
         tac_recruit.setDealdine(deadline);
         tac_recruit.setPhone(phone);
         tac_recruit.setDisplaytime(displaytime);
@@ -136,6 +136,9 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         //重新评分
         //2016-10-28 21  待完成
         //?????????
+
+        //申请要改变
+        //？？？？？？
     }
 
     //---------------
@@ -156,5 +159,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
         return tac_applicantsLists;
     }
+
+    //管理员查看招聘
+    //2016-10-29 13  VV
+    @Override
+    public  List<Tac_recruit> getRecruitForManager(Integer page, Integer rows)
+    {
+        String hql = "from Tac_recruit c where  c.status=:stu2 order by c.displaytime desc ";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("stu2", 0);
+
+        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        return tac_applicantsLists;
+    }
+
+
 
 }

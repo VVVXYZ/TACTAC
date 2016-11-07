@@ -8,6 +8,7 @@ import com.trio.breakFast.model.Tac_recruit;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.Tac_applicantsService;
+import com.trio.breakFast.service.Tac_otoacommentService;
 import com.trio.breakFast.service.Tac_recruitService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class Tac_recruitController {
     Tac_recruitService recruitService;
     @Autowired
     Tac_applicantsService tac_applicantsService;
+    @Autowired
+    Tac_otoacommentService tac_otoacommentService;
 
     @ResponseBody
     @RequestMapping(value = "/createRecruit", method = RequestMethod.POST)
@@ -189,9 +192,34 @@ public class Tac_recruitController {
 
 
 
+     ///------------------------
 
-    //评价
-    //2016-10-29 16 VV
+    // 招聘者评价应聘者
+    //2016-10-29 16  VV
+    @ResponseBody
+    @RequestMapping(value = "/createComment", method = RequestMethod.POST)
+    public MessageHelper createComment(Integer applicantsid,Integer recruitid,Integer applicantid,Integer ownerid,
+                              String ownername,String comment,float point, String cmmentTime)
+    {
+        MessageHelper messageHelper=new MessageHelper();
+        try {
+            tac_otoacommentService.createComment( applicantsid, recruitid, applicantid, ownerid,
+                                   ownername, comment, point,  cmmentTime);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("oTOa 评价成功");
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+
+        return  messageHelper;
+    }
+
+
+
+
+
+
 
 
     //检查是否已经选择

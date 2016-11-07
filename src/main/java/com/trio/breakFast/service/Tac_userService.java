@@ -12,4 +12,5 @@ public interface Tac_userService {
     public Tac_user get(String username);
     public Tac_user judgeLogin(String name, String psw);
     public Tac_user getUserByID(Integer userid);
+    public  void update(Integer useid,String name ,String password,String phone,String email);
 }

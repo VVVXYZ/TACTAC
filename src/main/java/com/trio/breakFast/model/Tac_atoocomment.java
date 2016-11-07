@@ -27,23 +27,23 @@ public class Tac_atoocomment implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "applicantsid")
-    private Tac_applicants tac_applicants;//用户id（）发布者id
+    private Tac_applicants tac_applicants;//申请id
 
 
     @Column(name = "ownerid")
-    private String ownerid;//招聘发布者id
+    private Integer ownerid;//招聘发布者id
 
     @Column(name = "ownername")
-    private Integer ownername;//招聘发布者名字
+    private String ownername;//招聘发布者名字
 
     @Column(name = "applicantid")
-    private String applicantid;//申请者id
+    private Integer applicantid;//申请者id
 
     @Column(name = "applicantname")
     private String applicantname;//申请者名字
 
     @Column(name = "recruitid")
-    private String recruitid;//招聘信息id
+    private Integer recruitid;//招聘信息id
 
     @Column(name = "aTOoComment")
     private String aTOoComment;//应聘者对招聘者评价

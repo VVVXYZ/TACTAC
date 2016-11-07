@@ -8,6 +8,7 @@ import com.trio.breakFast.model.Tac_recruit;
 import com.trio.breakFast.pageModel.DataHelper;
 import com.trio.breakFast.pageModel.MessageHelper;
 import com.trio.breakFast.service.Tac_applicantsService;
+import com.trio.breakFast.service.Tac_atoocommentService;
 import com.trio.breakFast.service.Tac_recruitService;
 import com.trio.breakFast.sys.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class Tac_applicationController {
     Tac_recruitService recruitService;
     @Autowired
     Tac_applicantsService tac_applicantsService;
+    @Autowired
+    Tac_atoocommentService tac_atoocommentService;
     //-----------------
     //应聘的人查看招聘列表
     //2016-10-29 13  VV
@@ -158,13 +161,31 @@ public class Tac_applicationController {
 
     // 应聘者评价招聘者  评价前需要检查自己是否被选择
     //2016-10-29 16  VV
+    @ResponseBody
+    @RequestMapping(value = "/createComment", method = RequestMethod.POST)
+    public MessageHelper createComment(Integer applicantsid,Integer recruitid,Integer applicantid,Integer ownerid,
+                              String ownername,String comment,float point, String cmmentTime)
+    {
+        MessageHelper messageHelper=new MessageHelper();
+        try {
+            tac_atoocommentService.createComment( applicantsid, recruitid, applicantid, ownerid,
+                                  ownername, comment, point,  cmmentTime);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("aTOo 评价成功");
 
-    // 招聘者评价应聘者
-    //2016-10-29 16  VV
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
 
-    //应聘者评价招聘者举报
+        return  messageHelper;
+    }
 
-    //招聘者评价应聘者举报
+
+
+
+
+
 
 
 }
