@@ -35,7 +35,8 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
     @Override
     public void createRecruit(Integer userid,String username,
                               String title,String workplace ,String deadline,
-                              String phone,String workInfo ,String displaytime)
+                              String phone,String workInfo ,String displaytime,
+                               Integer   needpeopleNum )
     {
         //for(int i=0;i<i)
        /* title=java.net.URLDecoder.decode(title);
@@ -68,6 +69,8 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         tac_recruit.setDisplaytime(displaytime);
         //设置状态待审核  0-待审核  1-审核未通过  2-进行中  3-已截止 4-取消招聘
         tac_recruit.setStatus(0);
+        tac_recruit.setNeedpeopleNum(needpeopleNum);
+        tac_recruit.setApplypeopleNum(0);
 
         ServiceHelper.create(tac_recruitDao,Tac_recruit.class,tac_recruit);
 
@@ -121,6 +124,43 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
 
     }
 
+    //合并了   ********************
+    //查看正在进行的招聘消息
+    //包括待审核和进行中（rstatus=0）   包括审核未通过、已截止、取消招聘(rstatus=1)
+    //2016-10-28 21  VV
+    @Override
+    public  List<Tac_recruit> getRecruitForRecruitor(Integer userid,Integer page, Integer rows,Integer rstatus)
+    {
+        String hql="";
+        Map<String, Object> params = new HashMap<String, Object>();
+
+       if(rstatus==0)
+       {
+           //待审核和进行中（rstatus=0）
+           hql = "from Tac_recruit c " +
+                   "where c.tac_user.userid=:userid and (c.status=:stu1 or c.status=:stu2) " +
+                   "order by c.displaytime desc ";
+           params.put("userid", userid);
+           params.put("stu1", 0);
+           params.put("stu2", 2);
+       }
+        if(rstatus==1)
+        {
+            // 审核未通过、已截止、取消招聘(rstatus=1)
+            hql = "from Tac_recruit c " +
+                    "where c.tac_user.userid=:userid and (c.status=:stu1 or c.status=:stu2 or c.status=:stu3) " +
+                    "order by c.displaytime desc ";
+            params.put("userid", userid);
+            params.put("stu1", 1);
+            params.put("stu2", 3);
+            params.put("stu3", 4);
+        }
+        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        return tac_applicantsLists;
+    }
+
+
+
     //取消招聘，改变招聘的状态 Status-> 4  重新评分
     //2016-10-28 21  VV
     @Override
@@ -173,6 +213,28 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         return tac_applicantsLists;
     }
 
+    //合并了 ************
+    //管理员查看招聘 (rstatus=0)  应聘的人查看招聘(rstatus=1)
+    //2016-11-7 13  VV
+    @Override
+    public  List<Tac_recruit> getRecruitForManagerAndApplicator(Integer page, Integer rows,Integer rstatus)
+    {
+        String hql="";
+        Map<String, Object> params = new HashMap<String, Object>();
+        if(rstatus==0)
+        {
+            hql = "from Tac_recruit c where  c.status=:stu2 order by c.displaytime desc ";
+            params.put("stu2", 0);
+        }
+        if(rstatus==1)
+        {
+            hql = "from Tac_recruit c where  c.status=:stu2 order by c.displaytime desc ";
+            params.put("stu2", 2);
+        }
 
+
+        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        return tac_applicantsLists;
+    }
 
 }

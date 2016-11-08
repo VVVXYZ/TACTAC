@@ -33,11 +33,12 @@ public class Tac_recruitController {
     @ResponseBody
     @RequestMapping(value = "/createRecruit", method = RequestMethod.POST)
     public MessageHelper createRecruit(Integer userid,String username,String title,String workplace ,
-                                       String deadline,String phone,String workInfo ,String displaytime)
+                                       String deadline,String phone,String workInfo ,String displaytime,
+                                       Integer   needpeopleNum)
     {
         MessageHelper messageHelper=new MessageHelper();
         try {
-            recruitService.createRecruit(userid,username,title,workplace,deadline,phone,workInfo,displaytime);
+            recruitService.createRecruit(userid,username,title,workplace,deadline,phone,workInfo,displaytime,needpeopleNum);
             messageHelper.setSuccess(true);
             messageHelper.setMessage("招聘提交成功");
         }catch (ServiceException e){
@@ -68,7 +69,7 @@ public class Tac_recruitController {
         return dataHelper;
     }
 
-    //查看正在进行的招聘消息 包括 待审核和进行中
+    //查看正在进行的招聘消息 包括 待审核和进行中  （rstatus=0）
     //2016-10-28 21  VV
     @ResponseBody
     @RequestMapping(value = "/getRecruiting", method = RequestMethod.POST)
@@ -88,7 +89,7 @@ public class Tac_recruitController {
         return dataHelper;
     }
 
-    //查看已失效的招聘信息，包括  审核未通过、已截止、取消招聘
+    //查看已失效的招聘信息，包括  审核未通过、已截止、取消招聘  （rstatus=1）
     //2016-10-28 21  VV
     @ResponseBody
     @RequestMapping(value = "/getRecruited", method = RequestMethod.POST)
@@ -100,6 +101,7 @@ public class Tac_recruitController {
             List<Tac_recruit> tac_recruitLists=recruitService.getRecruited(userid, page, rows);
             dataHelper.setData(tac_recruitLists);
             dataHelper.setSuccess(true);
+
             dataHelper.setMessage("查看已失效招聘成功");
         }catch (ServiceException e){
             dataHelper.setSuccess(false);
@@ -107,6 +109,37 @@ public class Tac_recruitController {
         }
         return dataHelper;
     }
+
+    //合并了   ********************
+    //查看正在进行的招聘消息
+    //包括待审核和进行中（rstatus=0）   包括审核未通过、已截止、取消招聘(rstatus=1)
+    //2016-11-7
+    @ResponseBody
+    @RequestMapping(value = "/getRecruitForRecruitor", method = RequestMethod.POST)
+    public DataHelper getRecruitForRecruitor(Integer userid,Integer page, Integer rows,Integer rstatus)
+    {
+        DataHelper dataHelper =new DataHelper();
+        try {
+
+            List<Tac_recruit> tac_recruitLists=recruitService.getRecruitForRecruitor(userid, page, rows, rstatus);
+            dataHelper.setData(tac_recruitLists);
+            dataHelper.setSuccess(true);
+            if(rstatus==0)
+            {
+                dataHelper.setMessage("查看进行中招聘成功（进行中）");
+            }
+            if(rstatus==1)
+            {
+                dataHelper.setMessage("查看已失效招聘成功（已失效）");
+            }
+
+        }catch (ServiceException e){
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+        }
+        return dataHelper;
+    }
+
 
     //取消招聘，   改变招聘的状态 Status-> 4  重新评分
     //2016-10-28 21  VV

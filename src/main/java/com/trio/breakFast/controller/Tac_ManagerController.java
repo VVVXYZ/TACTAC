@@ -37,6 +37,8 @@ public class Tac_ManagerController {
     //-------------
     //2016-10-31 20
     //查看招聘列表
+    //************不要这个了
+    //2016-11-7
     @ResponseBody
     @RequestMapping(value = "/getRecruitForManager", method = RequestMethod.POST)
     public DataHelper getRecruitForManager(Integer page, Integer rows)

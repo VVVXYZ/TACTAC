@@ -1,6 +1,7 @@
 package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.Tac_applicantsDao;
+import com.trio.breakFast.dao.Tac_recruitDao;
 import com.trio.breakFast.model.Tac_applicants;
 import com.trio.breakFast.model.Tac_recruit;
 import com.trio.breakFast.model.Tac_resume;
@@ -34,7 +35,8 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
     Tac_userService tac_userService;
     @Autowired
     Tac_recruitService tac_recruitService;
-
+    @Autowired
+    Tac_recruitDao tac_recruitDao;
 
 
     //查看报名列表 招聘者用查看应聘者信息   未测试  报名时创建
@@ -171,6 +173,8 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
        {
            throw new ServiceException("您已经申请过了" );
        }
+
+
         //获取个人简历  根据userid
         Tac_resume tac_resume=tac_resumeService.getResume(userid);
         if(tac_resume==null)
@@ -178,15 +182,20 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
 
         //获取个人信息  根据ownername 设置ownerid
         Tac_user tac_user=tac_userService.getUserByID(userid);
+
         if(tac_user==null)
             System.out.println("tac_user  为空。。。。");
         else
             System.out.println("tac_user  name"+tac_user.getName());
 
+        //获取招聘
         Tac_recruit tac_recruit=tac_recruitService.getRecruitByID(recruitid);
         if(tac_recruit==null)
             System.out.println("tac_recruit  为空。。。。");
-
+        //应聘人数加1
+         int num=tac_recruit.getApplypeopleNum();
+        tac_recruit.setApplypeopleNum(num+1);
+        ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
 
         Tac_applicants tac_applicants=new Tac_applicants();
         tac_applicants.setTac_user(tac_user);
@@ -205,6 +214,7 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         tac_applicants.setDeadline(tac_recruit.getDealdine());
         tac_applicants.setChoosen(0);//设置choosen  0
         ServiceHelper.create(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
 
     }
 

@@ -1,6 +1,8 @@
 package com.trio.breakFast.service.impl;
 
+import com.trio.breakFast.dao.Tac_resumeDao;
 import com.trio.breakFast.dao.Tac_userDao;
+import com.trio.breakFast.model.Tac_resume;
 import com.trio.breakFast.model.Tac_user;
 import com.trio.breakFast.pageModel.FilterGroup;
 import com.trio.breakFast.pageModel.FilterRule;
@@ -25,6 +27,12 @@ public class Tac_userServiceImpl implements Tac_userService {
 
     @Autowired
     Tac_userDao tac_userDao;
+    @Autowired
+    Tac_resumeServiceImpl tac_resumeService;
+    @Autowired
+    Tac_resumeDao tac_resumeDao;
+
+
     //发送验证码邮件，并返回验证码
     @Override
     public String checkEmail(String getterEmail)
@@ -75,6 +83,14 @@ public class Tac_userServiceImpl implements Tac_userService {
         tac_user.setPoint(60.0f);
         tac_user.setType(0);//0-普通用户
         ServiceHelper.create(tac_userDao,Tac_user.class,tac_user);
+        //创建简历
+        Tac_resume tac_resume=new Tac_resume();
+        tac_resume.setTac_user(tac_user);
+        tac_resume.setName(name);
+        tac_resume.setPhone(phone);
+        tac_resume.setEmail(email);
+        ServiceHelper.create(tac_resumeDao,Tac_resume.class,tac_resume);
+
     }
 
     //更新用户资料

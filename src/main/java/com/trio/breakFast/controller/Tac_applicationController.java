@@ -30,19 +30,28 @@ public class Tac_applicationController {
     @Autowired
     Tac_atoocommentService tac_atoocommentService;
     //-----------------
+    ///**
     //应聘的人查看招聘列表
     //2016-10-29 13  VV
     @ResponseBody
-    @RequestMapping(value = "/getRecruit", method = RequestMethod.POST)
-    public DataHelper getRecruit(Integer page, Integer rows)
+    @RequestMapping(value = "/getRecruitForManagerAndApplicator", method = RequestMethod.POST)
+    public DataHelper getRecruitForManagerAndApplicator(Integer page, Integer rows,Integer rstatus)
     {
         DataHelper dataHelper =new DataHelper();
         try {
 
-            List<Tac_recruit> tac_recruitLists=recruitService.getRecruit(page, rows);
+            List<Tac_recruit> tac_recruitLists=recruitService.getRecruitForManagerAndApplicator(page, rows,rstatus);
             dataHelper.setData(tac_recruitLists);
             dataHelper.setSuccess(true);
-            dataHelper.setMessage("查看招聘成功(应聘者)");
+            if(rstatus==0)
+            {
+                dataHelper.setMessage("查看招聘成功(管理员)");
+            }
+            if(rstatus==1)
+            {
+                dataHelper.setMessage("查看招聘成功(应聘者)");
+            }
+
         }catch (ServiceException e){
             dataHelper.setSuccess(false);
             dataHelper.setMessage(e.getMessage());
@@ -51,7 +60,7 @@ public class Tac_applicationController {
     }
 
 
-    //查看某条招聘
+    //查看某条招聘  //重复了
     //2016-10-29 16  VV
     //根据recruitid 查看招聘消息
     //2016-10-28 21  VV
