@@ -312,6 +312,47 @@ public class Tac_personalController {
         return dataHelper;
     }
 
+    //-----------
+    //2016-11-10 19
 
+    //根据用户名查询该用户
+    @ResponseBody
+    @RequestMapping(value = "/getUserByName", method = RequestMethod.POST)
+    public DataHelper  getUserByName(String username)
+    {
+        DataHelper dataHelper = new DataHelper();
+        try {
+            Tac_user tac_user=tac_userService.get(username);
+            dataHelper.setData(tac_user);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("用户信息获取成功");
+
+        } catch (ServiceException e) {
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+
+        }
+        return dataHelper;
+    }
+
+    //重置密码
+    @ResponseBody
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public MessageHelper updatePassword(String username,String password)
+    {
+        MessageHelper messageHelper = new MessageHelper();
+        try {
+            tac_userService.updatePassword(username,password);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("密码更改成功");
+
+        } catch (ServiceException e) {
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+
+        }
+
+        return messageHelper;
+    }
 
 }

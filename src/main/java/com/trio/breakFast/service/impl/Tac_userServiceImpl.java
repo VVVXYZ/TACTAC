@@ -148,5 +148,23 @@ public class Tac_userServiceImpl implements Tac_userService {
         return tac_user;
     }
 
+     //---------
+    //2016-11-10
 
+    //重置密码
+    @Override
+    public void updatePassword(String username,String password)
+    {
+        if(username==null)
+        {
+            throw new ServiceException("用户名不能为空！" );
+        }
+        if(password==null)
+        {
+            throw new ServiceException("密码不能为空！" );
+        }
+        Tac_user tac_user=get(username);
+        tac_user.setPasswd(password);
+        ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+    }
 }

@@ -7,6 +7,7 @@ import com.trio.breakFast.model.Tac_user;
  */
 public interface Tac_userService {
 
+    public void updatePassword(String username,String password);
     public String checkEmail(String getterEmail);
     public  void create(String name ,String password,String phone,String email);
     public Tac_user get(String username);
