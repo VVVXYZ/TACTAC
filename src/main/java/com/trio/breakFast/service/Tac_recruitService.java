@@ -8,6 +8,7 @@ import java.util.List;
  * Created by ienovo on 2016/10/26.
  */
 public interface Tac_recruitService {
+
     public void createRecruit(Integer userid,String username,String title,String workplace ,String deadline,String phone,String workInfo ,String displaytime,Integer   needpeopleNum);
     public List<Tac_recruit> getRecruiting(Integer userid,Integer page, Integer rows);
     public List<Tac_recruit> getRecruited(Integer userid,Integer page, Integer rows);

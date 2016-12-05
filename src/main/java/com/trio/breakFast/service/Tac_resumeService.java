@@ -13,4 +13,5 @@ public interface Tac_resumeService {
     public void  updateResume(Integer userid ,String name,String nickname,String phone,String email ,
                               String singleResume,String detailResume);
     public Tac_resume  getResume(Integer userid);
+    public Tac_resume  getResumeByName(String name);
 }

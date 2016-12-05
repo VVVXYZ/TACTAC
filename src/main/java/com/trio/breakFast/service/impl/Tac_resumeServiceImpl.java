@@ -93,4 +93,17 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
 
     }
 
+    //查询简历根据用户名
+    //2016-11-16 17
+    @Override
+    public Tac_resume  getResumeByName(String name)
+    {
+        String hql="from Tac_resume c where c.name=:name";
+        Map<String,Object> params=new HashMap<String,Object>();
+        params.put("name", name);
+
+        Tac_resume tac_resume=tac_resumeDao.get(hql, params);
+        return  tac_resume;
+
+    }
 }

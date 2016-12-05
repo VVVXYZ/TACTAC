@@ -32,6 +32,7 @@ public class BlackServiceImpl implements BlackService {
         black.setCode(code);
         ServiceHelper.create(blackDao, Black.class, black);
 
+
     }
 
     @Override

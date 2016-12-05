@@ -84,9 +84,42 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         Integer status=tac_applicants.getChoosen();
         if(status==2)
         {
-            throw new ServiceException("申请被取消，无法选择" );
+            throw new ServiceException("申请被应聘者取消，无法选择" );
         }
         tac_applicants.setChoosen(1);
+        ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
+
+    }
+
+    //招聘者取消选择某个应聘者
+    // 0-未选择 1-招聘者选择 2-应聘者取消 3-招聘者取消
+
+    //2016-11-15 19  VV
+    @Override
+    public void CancelChooseApplicant(Integer recruitid,Integer userid)
+    {
+        String hql = "from Tac_applicants c where c.tac_recruit.recruitid=:recruitid and c.tac_user.userid=:userid ";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("recruitid", recruitid);
+        params.put("userid", userid);
+
+        Tac_applicants tac_applicants=tac_applicantsDao.get(hql, params);
+        if(tac_applicants==null)
+        {
+            throw new ServiceException("该条申请不存在，无法取消选择" );
+        }
+        Integer status=tac_applicants.getChoosen();
+        if(status==0)
+        {
+            throw new ServiceException("申请尚未选择，无法取消选择" );
+        }
+
+        if(status==2)
+        {
+            throw new ServiceException("申请被应聘者取消，无法取消选择" );
+        }
+        tac_applicants.setChoosen(3);
         ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
 
 
@@ -116,10 +149,14 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
 
     ////查看申请列表 应聘者用查看招聘信息
     // 2016-10-29 15
+    //*****
     @Override
     public List<Tac_applicants> getApplicantForApplicant(Integer userid, Integer page, Integer rows)
     {
-        String hql = "from Tac_applicants c where c.tac_user.userid=:userid  order by c.applicanttime desc ";
+        //choosen
+        String hql = "from Tac_applicants c " +
+                "where c.tac_user.userid=:userid and (c.choosen=0 or c.choosen=1 or c.choosen=3 )  " +
+                " order by c.applicanttime desc ";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("userid", userid);
 
@@ -173,27 +210,40 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
        {
            throw new ServiceException("您已经申请过了" );
        }
-
-
         //获取个人简历  根据userid
         Tac_resume tac_resume=tac_resumeService.getResume(userid);
         if(tac_resume==null)
-            System.out.println("tac_resume  为空。。。。");
+        {
 
+            System.out.println("tac_resume  为空。。。。");
+            throw new ServiceException("简历不存在，不能申请" );
+        }
         //获取个人信息  根据ownername 设置ownerid
         Tac_user tac_user=tac_userService.getUserByID(userid);
 
         if(tac_user==null)
+        {
             System.out.println("tac_user  为空。。。。");
+            throw new ServiceException("用户不存在，不能申请" );
+        }
         else
             System.out.println("tac_user  name"+tac_user.getName());
 
         //获取招聘
         Tac_recruit tac_recruit=tac_recruitService.getRecruitByID(recruitid);
         if(tac_recruit==null)
+        {
             System.out.println("tac_recruit  为空。。。。");
+            throw new ServiceException("招聘不存在，不能申请" );
+        }
         //应聘人数加1
+        if(tac_recruit.getApplypeopleNum()==null)
+        {
+            throw new ServiceException("应聘人数为空" );
+        }
+
          int num=tac_recruit.getApplypeopleNum();
+        System.out.println("-------num="+num);
         tac_recruit.setApplypeopleNum(num+1);
         ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
 
@@ -218,16 +268,14 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
 
     }
 
-    //改变申请状态（用户取消申请 ） 0-申请未被选中  1-选中  2-取消申请
+    //改变申请状态（用户取消申请 ）
+    // 0-申请未被选中  1-选中  2-应聘者取消申请 3-招聘者取消选择
     //1. 选中后可以改为 取消申请   2. 取消申请后不可以被选中
     @Override
     public void changeApplicants(Integer applicantsid,Integer status)
     {
         Tac_applicants tac_applicants=getApplicantsByID(applicantsid);
-        if(tac_applicants.getChoosen()==2)
-        {
-            throw new ServiceException("应聘者申请已取消" );
-        }
+
         tac_applicants.setChoosen(status);
 
         ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);

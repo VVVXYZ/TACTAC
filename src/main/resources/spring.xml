@@ -15,6 +15,8 @@
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
+
     <!-- 引入项目配置文件 -->
      <context:property-placeholder location="classpath:config.properties" />
 
@@ -103,6 +105,13 @@
         <!-- <property name="mappingDirectoryLocations"> <list> <value>classpath:com/hbm</value> </list> </property> -->
     </bean>
 
+
+
+
+
+
+
+
     <!-- 配置事务管理器 -->
     <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -137,6 +146,8 @@
         <!--<property name="cacheSeconds" value="-1"/>-->
     <!--</bean>-->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+
+
 
     <import resource="classpath:spring-cache.xml"/>
     <import resource="classpath:spring-shiro.xml"/>

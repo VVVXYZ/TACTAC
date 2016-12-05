@@ -18,6 +18,7 @@ public interface Tac_applicantsService {
     public  void createApplicants(Integer recruitid,String ownername,String applicanttime,Integer userid);
     public  Tac_applicants getApplicantsByID(Integer applicantsid);
     public void changeApplicants(Integer applicantsid,Integer status);
+    public void CancelChooseApplicant(Integer recruitid,Integer userid);
 
 
 }

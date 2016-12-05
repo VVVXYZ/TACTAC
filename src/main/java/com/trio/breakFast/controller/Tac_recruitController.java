@@ -274,6 +274,24 @@ public class Tac_recruitController {
         return  messageHelper;
     }
 
+    //招聘者取消选择某个应聘者 0-未选择 1-招聘者选择 2-招聘者取消
+    //2016-11-15 19  VV
+    @ResponseBody
+    @RequestMapping(value = "/CancelChooseApplicant", method = RequestMethod.POST)
+    public MessageHelper CancelChooseApplicant(Integer recruitid,Integer userid)
+    {
+        MessageHelper messageHelper=new MessageHelper();
+        try {
+            tac_applicantsService.CancelChooseApplicant(recruitid, userid);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("应聘者选择取消成功（招聘者）");
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+
+        return  messageHelper;
+    }
 
 
 

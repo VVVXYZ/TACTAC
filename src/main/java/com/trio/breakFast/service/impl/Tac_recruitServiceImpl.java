@@ -1,6 +1,7 @@
 package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.Tac_recruitDao;
+import com.trio.breakFast.dao.impl.Tac_recruitDaoImpl;
 import com.trio.breakFast.model.Orderlist;
 import com.trio.breakFast.model.Tac_recruit;
 import com.trio.breakFast.model.Tac_user;
@@ -26,13 +27,18 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
     @Autowired
     Tac_userService tac_userService;
     @Autowired
+
     Tac_recruitDao tac_recruitDao;
+
+
      //写个函数刷新状态
     //2016-10-28 21  VV
     //
 
     //创建一条新的招聘信息  //注意加号
+
     @Override
+
     public void createRecruit(Integer userid,String username,
                               String title,String workplace ,String deadline,
                               String phone,String workInfo ,String displaytime,
@@ -84,6 +90,7 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         String hql="from Tac_recruit c where c.recruitid=:recruitid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("recruitid", recruitid);
+
 
         Tac_recruit tac_recruit=tac_recruitDao.get(hql, params);
         return tac_recruit;

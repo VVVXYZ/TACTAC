@@ -2,6 +2,8 @@ package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.Tac_resumeDao;
 import com.trio.breakFast.dao.Tac_userDao;
+import com.trio.breakFast.dao.impl.Tac_resumeDaoImpl;
+import com.trio.breakFast.dao.impl.Tac_userDaoImpl;
 import com.trio.breakFast.model.Tac_resume;
 import com.trio.breakFast.model.Tac_user;
 import com.trio.breakFast.pageModel.FilterGroup;
@@ -15,6 +17,8 @@ import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.HqlUtil;
 import com.trio.breakFast.util.SendmailUtil;
 import com.trio.breakFast.util.ServiceHelper;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +29,15 @@ import java.util.Map;
 @Service
 public class Tac_userServiceImpl implements Tac_userService {
 
+
+    //@Mock
     @Autowired
     Tac_userDao tac_userDao;
+
     @Autowired
     Tac_resumeServiceImpl tac_resumeService;
-    @Autowired
+
+     @Autowired
     Tac_resumeDao tac_resumeDao;
 
 
@@ -37,12 +45,17 @@ public class Tac_userServiceImpl implements Tac_userService {
     @Override
     public String checkEmail(String getterEmail)
     {
+        if(getterEmail==null)
+        {
+            throw new ServiceException("邮箱不能为空！" );
+        }
         String sendText=null;
         try {
              sendText=SendmailUtil.sendEmail(getterEmail);
         }catch (Exception e)
         {
             e.printStackTrace();
+            throw new ServiceException("邮箱发送失败！" );
         }
         return  sendText;
     }
@@ -64,6 +77,12 @@ public class Tac_userServiceImpl implements Tac_userService {
         params.put("userid", userid);
 
         Tac_user tac_user = tac_userDao.get(hql, params);
+
+        if(tac_user==null)
+        {
+            //System.out.println("*************tac_user==null**********");
+            throw new ServiceException("用户不存在！" );
+        }
         return  tac_user;
     }
 
@@ -82,14 +101,31 @@ public class Tac_userServiceImpl implements Tac_userService {
         tac_user.setEmail(email);
         tac_user.setPoint(60.0f);
         tac_user.setType(0);//0-普通用户
-        ServiceHelper.create(tac_userDao,Tac_user.class,tac_user);
+        try
+        {
+            ServiceHelper.create(tac_userDao,Tac_user.class,tac_user);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("添加用户失败" );
+        }
+
         //创建简历
         Tac_resume tac_resume=new Tac_resume();
         tac_resume.setTac_user(tac_user);
         tac_resume.setName(name);
         tac_resume.setPhone(phone);
         tac_resume.setEmail(email);
-        ServiceHelper.create(tac_resumeDao,Tac_resume.class,tac_resume);
+        try
+        {
+            ServiceHelper.create(tac_resumeDao,Tac_resume.class,tac_resume);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("添加简历失败" );
+        }
+
+
 
     }
 
@@ -107,7 +143,15 @@ public class Tac_userServiceImpl implements Tac_userService {
         tac_user.setPhone(phone);
         tac_user.setEmail(email);
 
-        ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+        try
+        {
+            ServiceHelper.update(tac_userDao, Tac_user.class, tac_user);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("更新用户资料失败" );
+        }
+        //ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
 
     }
 
@@ -128,9 +172,9 @@ public class Tac_userServiceImpl implements Tac_userService {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
 
+        System.out.println("name="+name);
         Tac_user tac_user = tac_userDao.get(hql, params);
 
-        //User user = userDao.get(hql);
 
         if(tac_user==null)
         {
@@ -165,6 +209,14 @@ public class Tac_userServiceImpl implements Tac_userService {
         }
         Tac_user tac_user=get(username);
         tac_user.setPasswd(password);
-        ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+
+        try
+        {
+            ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("重置密码失败" );
+        }
     }
 }

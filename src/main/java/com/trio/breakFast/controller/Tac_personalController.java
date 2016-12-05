@@ -355,4 +355,24 @@ public class Tac_personalController {
         return messageHelper;
     }
 
+    //查询简历根据用户名
+    //2016-11-16 17
+    @ResponseBody
+    @RequestMapping(value = "/getResumeByName", method = RequestMethod.POST)
+    public DataHelper  getResumeByName(String name)
+    {
+        DataHelper dataHelper = new DataHelper();
+        try {
+            Tac_resume tac_resume=tac_resumeService.getResumeByName(name);
+            dataHelper.setData(tac_resume);
+            dataHelper.setSuccess(true);
+            dataHelper.setMessage("用户简历获取成功");
+
+        } catch (ServiceException e) {
+            dataHelper.setSuccess(false);
+            dataHelper.setMessage(e.getMessage());
+
+        }
+        return dataHelper;
+    }
 }
