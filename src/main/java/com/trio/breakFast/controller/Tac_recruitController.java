@@ -160,6 +160,24 @@ public class Tac_recruitController {
         return  messageHelper;
     }
 
+    //审核招聘，改变招聘的状态 以及理由 Status-> 4  重新评分
+    //2016-12-6 21  VV
+    @ResponseBody
+    @RequestMapping(value = "/changeStatusOfRecruitAndReason", method = RequestMethod.POST)
+    public MessageHelper changeStatusOfRecruitAndReason(Integer recruitid,Integer status,String reason)
+    {
+        MessageHelper messageHelper=new MessageHelper();
+        try {
+            recruitService.changeStatusOfRecruitAndReason(recruitid, status, reason);
+            messageHelper.setSuccess(true);
+            messageHelper.setMessage("审核招聘成功");
+        }catch (ServiceException e){
+            messageHelper.setSuccess(false);
+            messageHelper.setMessage(e.getMessage());
+        }
+
+        return  messageHelper;
+    }
     //----------------------------
 
 

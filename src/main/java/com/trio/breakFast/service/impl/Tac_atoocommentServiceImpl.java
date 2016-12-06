@@ -39,12 +39,24 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
      public Tac_atoocomment getTac_atoocomment(Integer applicantsid)
      {
 
+         if(applicantsid==null)
+         {
+             throw new ServiceException("用户ID不能为空" );
+         }
          String hql="from Tac_atoocomment c " +
                  " where c.tac_applicants.applicantsid=:applicantsid";
          Map<String,Object> params=new HashMap<String,Object>();
          params.put("applicantsid", applicantsid);
+         Tac_atoocomment tac_atoocomment;
+         try
+         {
+              tac_atoocomment=tac_atoocommentDao.get(hql, params);
+         }
+         catch (Exception e)
+         {
+             throw new ServiceException("获取aTOo评价失败" );
+         }
 
-         Tac_atoocomment tac_atoocomment=tac_atoocommentDao.get(hql, params);
          return  tac_atoocomment;
      }
 
@@ -53,12 +65,25 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
     @Override
     public Tac_atoocomment getTac_atoocommentByID(Integer commentid)
     {
-
+        if(commentid==null)
+        {
+            throw new ServiceException("commentid不能为空" );
+        }
         String hql="from Tac_atoocomment c where c.commentid=:commentid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("commentid", commentid);
 
-        Tac_atoocomment tac_atoocomment=tac_atoocommentDao.get(hql, params);
+        Tac_atoocomment tac_atoocomment;
+
+        try
+        {
+            tac_atoocomment=tac_atoocommentDao.get(hql, params);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("获取aTOo评价失败" );
+        }
+
 
         return  tac_atoocomment;
     }
@@ -78,9 +103,22 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
 
         Tac_atoocomment tac_atoocomment=new Tac_atoocomment();
 
-        Tac_user tac_user=tac_userService.getUserByID(applicantid);
-        Tac_user ownertac_user=tac_userService.getUserByID(ownerid);
-        Tac_applicants tac_applicants=tac_applicantsService.getApplicantsByID(applicantsid);
+        Tac_user tac_user;
+        Tac_user ownertac_user;
+        Tac_applicants tac_applicants;
+
+        try
+        {
+            tac_user=tac_userService.getUserByID(applicantid);
+            ownertac_user=tac_userService.getUserByID(ownerid);
+            tac_applicants=tac_applicantsService.getApplicantsByID(applicantsid);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("评价失败" );
+        }
+
+
         if(tac_applicants.getChoosen()!=1)
         {
             throw new ServiceException("未被选择不能评价" );
@@ -98,13 +136,30 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
         tac_atoocomment.setATOoStatus(0);//0-可显示  1-被屏蔽
         tac_atoocomment.setATOoTipoff(0);//0-未被举报 1-被举报  2-举报已处理
 
-        ServiceHelper.create(tac_atoocommentDao, Tac_atoocomment.class, tac_atoocomment);
+        try
+        {
+            ServiceHelper.create(tac_atoocommentDao, Tac_atoocomment.class, tac_atoocomment);
+
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("评价失败" );
+        }
 
 
         float tmppoint=ownertac_user.getPoint();
         tmppoint=(point-tmppoint)/100+tmppoint;
         ownertac_user.setPoint(tmppoint);
-        ServiceHelper.update(tac_userDao,Tac_user.class,ownertac_user);
+        try
+        {
+
+            ServiceHelper.update(tac_userDao,Tac_user.class,ownertac_user);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("计算评分失败" );
+        }
+
 
 
     }
@@ -121,7 +176,19 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
         params.put("ownerid", ownerid);
         params.put("aTOoStatus", 0);
 
-        List<Tac_atoocomment> tac_atoocommentList = tac_atoocommentDao.find(hql, params, page, rows);
+        List<Tac_atoocomment> tac_atoocommentList ;
+
+        try
+        {
+
+            tac_atoocommentList = tac_atoocommentDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看应聘者对我的评价失败" );
+        }
+
+
         return tac_atoocommentList;
     }
 
@@ -136,7 +203,17 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
 
         params.put("aTOoTipoff", 1);
 
-        List<Tac_atoocomment> tac_atoocommentList = tac_atoocommentDao.find(hql, params, page, rows);
+        List<Tac_atoocomment> tac_atoocommentList ;
+        try
+        {
+
+            tac_atoocommentList=tac_atoocommentDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("管理员查询评价失败" );
+        }
+
         return tac_atoocommentList;
     }
 
@@ -146,8 +223,21 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
     {
 
         Tac_atoocomment tac_atoocomment=getTac_atoocommentByID(commentid);
+        if(tac_atoocomment==null)
+        {
+            throw new ServiceException("评价为空" );
+        }
         tac_atoocomment.setATOoTipoff(1);
-        ServiceHelper.update(tac_atoocommentDao,Tac_atoocomment.class,tac_atoocomment);
+        try
+        {
+
+            ServiceHelper.update(tac_atoocommentDao,Tac_atoocomment.class,tac_atoocomment);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("举报失败" );
+        }
+
 
     }
 
@@ -157,13 +247,26 @@ public class Tac_atoocommentServiceImpl implements Tac_atoocommentService {
     public void checkComment(Integer commentid,String checktime,Integer status)
     {
         Tac_atoocomment tac_atoocomment=getTac_atoocommentByID(commentid);
+        if(tac_atoocomment==null)
+        {
+            throw new ServiceException("评价为空" );
+        }
         if(status==1)
         {
             tac_atoocomment.setATOoStatus(1);
         }
         tac_atoocomment.setATOoTipoff(2);
         tac_atoocomment.setATOoChecktime(checktime);
-        ServiceHelper.update(tac_atoocommentDao,Tac_atoocomment.class,tac_atoocomment);
+        try
+        {
+
+            ServiceHelper.update(tac_atoocommentDao,Tac_atoocomment.class,tac_atoocomment);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("处理举报失败" );
+        }
+
     }
 
 

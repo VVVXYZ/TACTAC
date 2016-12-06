@@ -18,7 +18,7 @@ public interface Tac_recruitService {
     public  List<Tac_recruit> getRecruitForManager(Integer page, Integer rows);
     public  List<Tac_recruit> getRecruitForRecruitor(Integer userid,Integer page, Integer rows,Integer rstatus);
     public  List<Tac_recruit> getRecruitForManagerAndApplicator(Integer page, Integer rows,Integer rstatus);
-
+    public void changeStatusOfRecruitAndReason(Integer recruitid,Integer status,String reason);
 
 
 }

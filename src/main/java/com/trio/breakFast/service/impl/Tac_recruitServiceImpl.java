@@ -180,14 +180,36 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         tac_recruit.setStatus(status);
         ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
 
-        //重新评分
-        //2016-10-28 21  待完成
-        //?????????
 
-        //申请要改变
-        //？？？？？？
     }
 
+
+    //审核招聘，改变招聘的状态 以及理由 Status-> 4  重新评分
+    //2016-12-6 21  VV
+    @Override
+    public void changeStatusOfRecruitAndReason(Integer recruitid,Integer status,String reason)
+    {
+
+        Tac_recruit tac_recruit=ServiceHelper.get(tac_recruitDao,Tac_recruit.class,recruitid);
+        if(tac_recruit==null)
+        {
+            throw new ServiceException("招聘为空" );
+        }
+        Integer status1=tac_recruit.getStatus();
+        tac_recruit.setReason(reason);
+        tac_recruit.setStatus(status);
+        try
+        {
+            ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("审核招聘失败" );
+        }
+
+
+
+    }
     //---------------
 
 
