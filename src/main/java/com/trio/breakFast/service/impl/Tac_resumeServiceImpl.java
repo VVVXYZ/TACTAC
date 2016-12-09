@@ -9,6 +9,7 @@ import com.trio.breakFast.service.Tac_resumeService;
  * Created by ienovo on 2016/10/26.
  */
 import com.trio.breakFast.service.Tac_userService;
+import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         Tac_user tac_user=tac_userService.get(name);
         //User不存在
         //提示？？？？？
+        if(tac_user==null)
+        {
+            throw new ServiceException("用户不存在" );
+        }
 
         tac_resume.setTac_user(tac_user);
         tac_resume.setName(name);
@@ -45,8 +50,16 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         tac_resume.setDetailResume(detailResume);
         //判断是否创建成功
         //？？？？？？？？？
+        try
+        {
+            ServiceHelper.create(tac_resumeDao,Tac_resume.class,tac_resume);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("添加简历失败" );
+        }
 
-        ServiceHelper.create(tac_resumeDao,Tac_resume.class,tac_resume);
+
 
     }
 
@@ -59,6 +72,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         params.put("userid", userid);
 
         Tac_resume tac_resume=tac_resumeDao.get(hql, params);
+        if(tac_resume==null)
+        {
+            throw new ServiceException("获取简历失败" );
+        }
         return  tac_resume;
     }
 
@@ -71,7 +88,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
                               String singleResume,String detailResume)
     {
         Tac_resume tac_resume=getResumeBuID(userid);
-
+        if(tac_resume==null)
+        {
+            throw new ServiceException("获取简历失败" );
+        }
         tac_resume.setName(name);
         tac_resume.setNickname(nickname);
         tac_resume.setPhone(phone);
@@ -79,7 +99,15 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         tac_resume.setSingleResume(singleResume);
         tac_resume.setDetailResume(detailResume);
 
-        ServiceHelper.update(tac_resumeDao, Tac_resume.class, tac_resume);
+        try
+        {
+            ServiceHelper.update(tac_resumeDao, Tac_resume.class, tac_resume);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("更新简历失败" );
+        }
+
 
     }
 
@@ -89,6 +117,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
     public Tac_resume  getResume(Integer userid)
     {
         Tac_resume tac_resume=getResumeBuID(userid);
+        if(tac_resume==null)
+        {
+            throw new ServiceException("获取简历失败" );
+        }
         return  tac_resume;
 
     }
@@ -103,6 +135,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         params.put("name", name);
 
         Tac_resume tac_resume=tac_resumeDao.get(hql, params);
+        if(tac_resume==null)
+        {
+            throw new ServiceException("获取简历失败" );
+        }
         return  tac_resume;
 
     }
