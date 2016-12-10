@@ -49,6 +49,10 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("recruitid", recruitid);
 
         List<Tac_applicants> tac_applicantsLists = tac_applicantsDao.find(hql, params, page, rows);
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("申请获取失败" );
+        }
         return tac_applicantsLists;
     }
 
@@ -63,6 +67,10 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("choosen", 1);
 
         List<Tac_applicants> tac_applicantsLists = tac_applicantsDao.find(hql, params, page, rows);
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("申请获取失败" );
+        }
         return tac_applicantsLists;
     }
 
@@ -87,7 +95,16 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
             throw new ServiceException("申请被应聘者取消，无法选择" );
         }
         tac_applicants.setChoosen(1);
-        ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
+        try
+        {
+            ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("选择应聘者失败" );
+        }
+
 
 
     }
@@ -120,7 +137,16 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
             throw new ServiceException("申请被应聘者取消，无法取消选择" );
         }
         tac_applicants.setChoosen(3);
-        ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
+        try
+        {
+            ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("取消选择应聘者失败" );
+        }
+
 
 
     }
@@ -135,6 +161,10 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("applicantsid", applicantsid);
 
         Tac_applicants tac_applicants=tac_applicantsDao.get(hql, params);
+        if(tac_applicants==null)
+        {
+            throw new ServiceException("申请不存在" );
+        }
         if(tac_applicants.getChoosen()==0)
         {
             throw new ServiceException("未被选择" );
@@ -161,6 +191,10 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("userid", userid);
 
         List<Tac_applicants> tac_applicantsLists = tac_applicantsDao.find(hql, params, page, rows);
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("申请获取失败" );
+        }
         return tac_applicantsLists;
     }
 
@@ -173,6 +207,10 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("applicantsid", applicantsid);
 
         Tac_applicants tac_applicants = tac_applicantsDao.get(hql, params);
+        if(tac_applicants==null)
+        {
+            throw new ServiceException("申请获取失败" );
+        }
         return tac_applicants;
     }
 
@@ -187,17 +225,12 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         params.put("recruitid", recruitid);
 
         Tac_applicants tac_applicants = tac_applicantsDao.get(hql, params);
-        System.out.println("---------------");
-        if(tac_applicants!=null)
-        {
-            System.out.println(tac_applicants.getOwnername());
 
-        }
-        else
+        if(tac_applicants==null)
         {
-            System.out.println("为空。。。。");
+            throw new ServiceException("申请获取失败" );
         }
-        System.out.println("---------------");
+
         return tac_applicants;
     }
 
@@ -215,7 +248,6 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         if(tac_resume==null)
         {
 
-            System.out.println("tac_resume  为空。。。。");
             throw new ServiceException("简历不存在，不能申请" );
         }
         //获取个人信息  根据ownername 设置ownerid
@@ -223,17 +255,14 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
 
         if(tac_user==null)
         {
-            System.out.println("tac_user  为空。。。。");
             throw new ServiceException("用户不存在，不能申请" );
         }
-        else
-            System.out.println("tac_user  name"+tac_user.getName());
+
 
         //获取招聘
         Tac_recruit tac_recruit=tac_recruitService.getRecruitByID(recruitid);
         if(tac_recruit==null)
         {
-            System.out.println("tac_recruit  为空。。。。");
             throw new ServiceException("招聘不存在，不能申请" );
         }
         //应聘人数加1
@@ -243,9 +272,18 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         }
 
          int num=tac_recruit.getApplypeopleNum();
-        System.out.println("-------num="+num);
+       // System.out.println("-------num="+num);
         tac_recruit.setApplypeopleNum(num+1);
-        ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
+
+        try
+        {
+            ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("申请时跟新招聘的应聘人数失败" );
+        }
+
 
         Tac_applicants tac_applicants=new Tac_applicants();
         tac_applicants.setTac_user(tac_user);
@@ -260,10 +298,19 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         tac_applicants.setOwnername(ownername);
         tac_applicants.setTitle(tac_recruit.getTitle());
         tac_applicants.setSingleInfo(tac_recruit.getSingleInfo());
-        System.out.println("tac_recruit.getSingleInfo() ===== "+tac_recruit.getSingleInfo());
+        //System.out.println("tac_recruit.getSingleInfo() ===== "+tac_recruit.getSingleInfo());
         tac_applicants.setDeadline(tac_recruit.getDealdine());
         tac_applicants.setChoosen(0);//设置choosen  0
-        ServiceHelper.create(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
+        try
+        {
+            ServiceHelper.create(tac_applicantsDao, Tac_applicants.class, tac_applicants);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("创建申请失败" );
+        }
+
 
 
     }
@@ -277,8 +324,17 @@ public class Tac_applicantsServiceImpl implements Tac_applicantsService{
         Tac_applicants tac_applicants=getApplicantsByID(applicantsid);
 
         tac_applicants.setChoosen(status);
+        try
+        {
+            ServiceHelper.update(tac_applicantsDao, Tac_applicants.class, tac_applicants);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("更改申请状态申请失败" );
+        }
 
-        ServiceHelper.update(tac_applicantsDao,Tac_applicants.class,tac_applicants);
+
+
     }
 
 
