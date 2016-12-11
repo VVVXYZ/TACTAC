@@ -83,10 +83,7 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
             throw new ServiceException("不能重复评价" );
         }
         Tac_otoacomment tac_otoacomment=new Tac_otoacomment();
-        if(tac_otoacomment==null)
-        {
-            throw new ServiceException("评价不存在" );
-        }
+
         Tac_user tac_user=tac_userService.getUserByID(applicantid);
         if(tac_user==null)
         {
