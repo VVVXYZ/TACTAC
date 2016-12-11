@@ -3,6 +3,7 @@ package com.trio.breakFast.service.impl;
 import com.trio.breakFast.dao.Tac_otoacommentDao;
 import com.trio.breakFast.dao.Tac_userDao;
 import com.trio.breakFast.model.Tac_applicants;
+import com.trio.breakFast.model.Tac_atoocomment;
 import com.trio.breakFast.model.Tac_otoacomment;
 import com.trio.breakFast.model.Tac_user;
 import com.trio.breakFast.service.Tac_applicantsService;
@@ -45,6 +46,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("applicantsid", applicantsid);
 
         Tac_otoacomment tac_otoacomment=tac_otoacommentDao.get(hql, params);
+        if(tac_otoacomment==null)
+        {
+            throw new ServiceException("评价不存在" );
+        }
         return  tac_otoacomment;
     }
 
@@ -58,6 +63,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("commentid", commentid);
 
         Tac_otoacomment tac_otoacomment=tac_otoacommentDao.get(hql, params);
+        if(tac_otoacomment==null)
+        {
+            throw new ServiceException("评价不存在" );
+        }
 
         return  tac_otoacomment;
     }
@@ -74,8 +83,20 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
             throw new ServiceException("不能重复评价" );
         }
         Tac_otoacomment tac_otoacomment=new Tac_otoacomment();
+        if(tac_otoacomment==null)
+        {
+            throw new ServiceException("评价不存在" );
+        }
         Tac_user tac_user=tac_userService.getUserByID(applicantid);
+        if(tac_user==null)
+        {
+            throw new ServiceException("用户不存在" );
+        }
         Tac_applicants tac_applicants=tac_applicantsService.getApplicantsByID(applicantsid);
+        if(tac_applicants==null)
+        {
+            throw new ServiceException("尚未申请" );
+        }
         tac_otoacomment.setTac_applicants(tac_applicants);
         tac_otoacomment.setOwnerid(ownerid);
         tac_otoacomment.setOwnername(ownername);
@@ -88,13 +109,32 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         tac_otoacomment.setOTOaStatus(0);//0-可显示  1-被屏蔽
         tac_otoacomment.setOTOaTipoff(0);//0-未被举报 1-被举报  2-举报已处理
 
-        ServiceHelper.create(tac_otoacommentDao,Tac_otoacomment.class,tac_otoacomment);
+        try
+        {
+
+            ServiceHelper.create(tac_otoacommentDao, Tac_otoacomment.class, tac_otoacomment);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("评论失败" );
+        }
+
+
 
         float tmppoint=tac_user.getPoint();
 
         tmppoint=(point-tmppoint)/100+tmppoint;
         tac_user.setPoint(tmppoint);
-        ServiceHelper.update(tac_userDao,Tac_user.class,tac_user);
+        try
+        {
+
+            ServiceHelper.update(tac_userDao, Tac_user.class, tac_user);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("更新评分失败" );
+        }
+
 
 
     }
@@ -113,6 +153,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("oTOaStatus", 0);
 
         List<Tac_otoacomment> tac_otoacommentList = tac_otoacommentDao.find(hql, params, page, rows);
+        if(tac_otoacommentList==null)
+        {
+            throw new ServiceException("查询申请失败" );
+        }
         return tac_otoacommentList;
     }
 
@@ -129,6 +173,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("oTOaTipoff", 1);
 
         List<Tac_otoacomment> tac_otoacommentList = tac_otoacommentDao.find(hql, params, page, rows);
+        if(tac_otoacommentList==null)
+        {
+            throw new ServiceException("查询申请失败" );
+        }
         return tac_otoacommentList;
     }
 
@@ -140,7 +188,16 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
 
         Tac_otoacomment tac_otoacomment=getTac_otoacommentByID(commentid);
         tac_otoacomment.setOTOaTipoff(1);
-        ServiceHelper.update(tac_otoacommentDao,Tac_otoacomment.class,tac_otoacomment);
+        try
+        {
+
+            ServiceHelper.update(tac_otoacommentDao,Tac_otoacomment.class,tac_otoacomment);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("举报评价失败" );
+        }
+
 
     }
 
@@ -158,7 +215,16 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
 
         tac_otoacomment.setOTOaTipoff(2);
         tac_otoacomment.setOTOaChecktime(checktime);
-        ServiceHelper.update(tac_otoacommentDao,Tac_otoacomment.class,tac_otoacomment);
+        try
+        {
+
+            ServiceHelper.update(tac_otoacommentDao,Tac_otoacomment.class,tac_otoacomment);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("处理举报评价失败" );
+        }
+
     }
 
 
