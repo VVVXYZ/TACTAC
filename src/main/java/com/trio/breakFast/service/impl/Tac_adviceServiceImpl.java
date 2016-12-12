@@ -2,12 +2,14 @@ package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.Tac_adviceDao;
 import com.trio.breakFast.model.Tac_advice;
+import com.trio.breakFast.model.Tac_applicants;
 import com.trio.breakFast.service.Tac_adviceService;
 
 /**
  * Created by ienovo on 2016/10/26.
  */
 
+import com.trio.breakFast.sys.exception.ServiceException;
 import com.trio.breakFast.util.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,16 @@ public class Tac_adviceServiceImpl implements Tac_adviceService{
         tac_advice.setPhone(phone);
         tac_advice.setAdvice(advice);
 
-        ServiceHelper.create(tac_adviceDao,Tac_advice.class,tac_advice);
+        try
+        {
+            ServiceHelper.create(tac_adviceDao, Tac_advice.class, tac_advice);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("建议提交失败" );
+        }
+
+
     }
 
     //查看建议
@@ -46,6 +57,10 @@ public class Tac_adviceServiceImpl implements Tac_adviceService{
 
 
         List<Tac_advice> tac_adviceList = tac_adviceDao.find(hql, params, page, rows);
+        if(tac_adviceList==null)
+        {
+            throw new ServiceException("查看建议失败" );
+        }
         return tac_adviceList;
     }
 
