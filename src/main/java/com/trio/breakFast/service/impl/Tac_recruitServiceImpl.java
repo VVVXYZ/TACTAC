@@ -3,6 +3,7 @@ package com.trio.breakFast.service.impl;
 import com.trio.breakFast.dao.Tac_recruitDao;
 import com.trio.breakFast.dao.impl.Tac_recruitDaoImpl;
 import com.trio.breakFast.model.Orderlist;
+import com.trio.breakFast.model.Tac_advice;
 import com.trio.breakFast.model.Tac_recruit;
 import com.trio.breakFast.model.Tac_user;
 import com.trio.breakFast.service.Tac_recruitService;
@@ -64,7 +65,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         System.out.println("***********");*/
 
         Tac_recruit tac_recruit=new Tac_recruit();
-        Tac_user tac_user=tac_userService.get(username);
+        Tac_user tac_user;
+        try
+        {
+            tac_user=tac_userService.get(username);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("创建一条新的招聘失败" );
+        }
+        if(tac_user==null)
+        {
+            throw new ServiceException("创建一条新的招聘失败" );
+        }
+
         tac_recruit.setTac_user(tac_user);
         tac_recruit.setOwner(username);
         tac_recruit.setTitle(title);
@@ -78,7 +92,15 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         tac_recruit.setNeedpeopleNum(needpeopleNum);
         tac_recruit.setApplypeopleNum(0);
 
-        ServiceHelper.create(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        try
+        {
+            ServiceHelper.create(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("创建一条新的招聘失败" );
+        }
+
 
     }
 
@@ -90,9 +112,21 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         String hql="from Tac_recruit c where c.recruitid=:recruitid";
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("recruitid", recruitid);
+        Tac_recruit tac_recruit ;
 
+        try
+        {
+            tac_recruit=tac_recruitDao.get(hql, params);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看招聘消息失败" );
 
-        Tac_recruit tac_recruit=tac_recruitDao.get(hql, params);
+        }
+        if(tac_recruit==null)
+        {
+            throw new ServiceException("查看招聘消息为空" );
+        }
         return tac_recruit;
     }
 
@@ -108,8 +142,23 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         params.put("stu1", 0);
         params.put("stu2", 2);
 
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
-        return tac_applicantsLists;
+        List<Tac_recruit> tac_applicantsLists ;
+
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看正在进行的招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("在进行的招聘消息为空" );
+        }
+
+            return tac_applicantsLists;
     }
 
     //查看已经截止的招聘信息，包括  审核未通过、已截止、取消招聘
@@ -126,7 +175,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         params.put("stu2", 3);
         params.put("stu3", 4);
 
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        List<Tac_recruit> tac_applicantsLists ;
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看已经截止的招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("已经截止的招聘消息为空" );
+        }
         return tac_applicantsLists;
 
     }
@@ -162,7 +224,21 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
             params.put("stu2", 3);
             params.put("stu3", 4);
         }
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        List<Tac_recruit> tac_applicantsLists;
+
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("招聘消息为空" );
+        }
         return tac_applicantsLists;
     }
 
@@ -178,7 +254,16 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
 
 
         tac_recruit.setStatus(status);
-        ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        try
+        {
+            ServiceHelper.update(tac_recruitDao,Tac_recruit.class,tac_recruit);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("取消招聘失败" );
+
+        }
+
 
 
     }
@@ -225,7 +310,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("stu2", 2);
 
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        List<Tac_recruit> tac_applicantsLists ;
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("招聘消息为空" );
+        }
         return tac_applicantsLists;
     }
 
@@ -238,7 +336,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("stu2", 0);
 
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        List<Tac_recruit> tac_applicantsLists ;
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("招聘消息为空" );
+        }
         return tac_applicantsLists;
     }
 
@@ -262,7 +373,20 @@ public class Tac_recruitServiceImpl implements Tac_recruitService{
         }
 
 
-        List<Tac_recruit> tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        List<Tac_recruit> tac_applicantsLists ;
+        try
+        {
+            tac_applicantsLists = tac_recruitDao.find(hql, params, page, rows);
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("查看招聘失败" );
+
+        }
+        if(tac_applicantsLists==null)
+        {
+            throw new ServiceException("招聘消息为空" );
+        }
         return tac_applicantsLists;
     }
 
