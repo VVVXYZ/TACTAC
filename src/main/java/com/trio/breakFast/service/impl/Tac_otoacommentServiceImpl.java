@@ -46,10 +46,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("applicantsid", applicantsid);
 
         Tac_otoacomment tac_otoacomment=tac_otoacommentDao.get(hql, params);
-        if(tac_otoacomment==null)
+       /* if(tac_otoacomment==null)
         {
             throw new ServiceException("评价不存在" );
-        }
+        }*/
         return  tac_otoacomment;
     }
 
@@ -63,10 +63,10 @@ public class Tac_otoacommentServiceImpl implements Tac_otoacommentService {
         params.put("commentid", commentid);
 
         Tac_otoacomment tac_otoacomment=tac_otoacommentDao.get(hql, params);
-        if(tac_otoacomment==null)
+        /*if(tac_otoacomment==null)
         {
             throw new ServiceException("评价不存在" );
-        }
+        }*/
 
         return  tac_otoacomment;
     }

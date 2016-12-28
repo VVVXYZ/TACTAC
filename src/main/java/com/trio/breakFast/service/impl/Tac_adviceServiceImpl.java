@@ -57,10 +57,10 @@ public class Tac_adviceServiceImpl implements Tac_adviceService{
 
 
         List<Tac_advice> tac_adviceList = tac_adviceDao.find(hql, params, page, rows);
-        if(tac_adviceList==null)
+        /*if(tac_adviceList==null)
         {
             throw new ServiceException("查看建议失败" );
-        }
+        }*/
         return tac_adviceList;
     }
 

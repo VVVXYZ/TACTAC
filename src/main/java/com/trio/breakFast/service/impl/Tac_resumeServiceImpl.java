@@ -73,10 +73,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
         params.put("userid", userid);
 
         Tac_resume tac_resume=tac_resumeDao.get(hql, params);
-        if(tac_resume==null)
+       /* if(tac_resume==null)
         {
             throw new ServiceException("获取简历失败" );
-        }
+        }*/
         return  tac_resume;
     }
 
@@ -118,10 +118,10 @@ public class Tac_resumeServiceImpl implements Tac_resumeService{
     public Tac_resume  getResume(Integer userid)
     {
         Tac_resume tac_resume=getResumeBuID(userid);
-        if(tac_resume==null)
+       /* if(tac_resume==null)
         {
             throw new ServiceException("获取简历失败" );
-        }
+        }*/
         return  tac_resume;
 
     }

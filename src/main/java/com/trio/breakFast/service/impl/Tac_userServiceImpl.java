@@ -172,7 +172,7 @@ public class Tac_userServiceImpl implements Tac_userService {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
 
-        System.out.println("name="+name);
+        //System.out.println("name="+name);
         Tac_user tac_user = tac_userDao.get(hql, params);
 
 
@@ -184,9 +184,9 @@ public class Tac_userServiceImpl implements Tac_userService {
         //System.out.println(user.getPassword());
 
 
-        if (tac_user.getPasswd().equals(psw)) {
+        if (!tac_user.getPasswd().equals(psw))
+        {
 
-        } else {
             throw new ServiceException("密码错误！" );
         }
         return tac_user;

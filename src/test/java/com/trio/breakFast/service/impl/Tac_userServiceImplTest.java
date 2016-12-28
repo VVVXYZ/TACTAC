@@ -2,40 +2,26 @@ package com.trio.breakFast.service.impl;
 
 import com.trio.breakFast.dao.Tac_resumeDao;
 import com.trio.breakFast.dao.Tac_userDao;
+import com.trio.breakFast.model.Tac_resume;
 import com.trio.breakFast.model.Tac_user;
 import com.trio.breakFast.service.Tac_userService;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:F:/Work/TAC/TACTAC/src/main/resources/spring.xml",
-        "file:F:/Work/TAC/TACTAC/src/main/resources/spring-cache.xml",
-        "file:F:/Work/TAC/TACTAC/src/main/resources/spring-druid.xml",
-        "file:F:/Work/TAC/TACTAC/src/main/resources/spring-mvc.xml",
-        "file:F:/Work/TAC/TACTAC/src/main/resources/spring-mvc-shiro.xml",
-        "file:F:/Work/TAC/TACTAC/src/main/resources/spring-shiro.xml"
 
-})//启动Spring容器
 
 
 //@RunWith(PowerMockRunner.class)
@@ -86,7 +72,7 @@ public class Tac_userServiceImplTest {
 
         try
         {
-            tac_userService.getUserByID(1);
+            tac_userService.getUserByID(anyInt());
 
         }
         catch (Exception e)
@@ -123,23 +109,7 @@ public class Tac_userServiceImplTest {
         }
     }
 
-    @Test
-    public void testJudgeLogin() throws Exception {
 
-        try
-        {
-            when(tac_userDao.get(anyString(),anyMap())).thenReturn(new Tac_user());
-            //assertEquals(true, tac_userService.judgeLogin(anyString(), anyString()));
-            assertThat(tac_userService.judgeLogin(anyString(), anyString()),is(new Tac_user()) );
-            verify(tac_userDao.get(anyString(),anyMap()));
-        }
-        catch (Exception e)
-        {
-
-        }
-
-
-    }
 
     @Test
     public void testUpdatePassword() throws Exception {
